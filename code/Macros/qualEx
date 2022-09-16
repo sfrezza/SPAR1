@@ -1,0 +1,28 @@
+#
+echo "producing routing quality statistics in file examples.qual"
+
+##rm -f qual_stats
+(echo " 		name			flags		|| Horz Congestion Density   Vert Congestion Density  Overall Congestion Density   Congestion|  Horz Crossover Density  Vert Crossover Density  Overall Crossover Density   Crossover\n") > qual_stats
+
+(echo " 							|| 	Ave.	  Std Dev		Ave.	Std Dev		Ave.	Std Dev		Max  |	Ave.	Std Dev		Ave.	Std Dev		Ave.	Std Dev	  Max |") > qual_stats
+
+#{ex:TTL}
+../spar   -q -c100 /home/vlsi/frezza/pnr/vhdl/7474.ivf > grok
+#{ex:fullRCAdder}
+../spar  -p1 -s8  -q /home/vlsi/frezza/pnr/vhdl/4bit-adder0.ivf > grok
+#{ex:ComplexString}
+../spar  -p1 -s24  -q /home/vlsi/frezza/pnr/vhdl/cmplx.ivf > grok
+#{ex:fullMux}
+../spar   -p3 -c100 -q /home/vlsi/frezza/pnr/vhdl/SN54S151.ivf > grok
+#{ex:fullDeMux}
+../spar   -p3 -q /home/vlsi/frezza/pnr/vhdl/SN54155.ivf > grok
+#{ex:dFF}
+../spar   -p1 -s4 -q /home/vlsi/frezza/pnr/vhdl/d_ff.ivf > grok
+#{ex:shitRegister}
+../spar   -m0 -p3 -q /home/vlsi/frezza/pnr/vhdl/SN5491A.ivf > grok
+#{ex:8inputOr}
+../spar   -c100 -p3 -q /home/vlsi/frezza/pnr/vhdl/big-or.ivf > grok
+#{ex:fnGenPlacement}
+../spar   -c1000 -p1 -s5 -w -q /home/vlsi/frezza/pnr/vhdl/fnGen.ivf > grok
+#
+mv qual_stats examples.qual

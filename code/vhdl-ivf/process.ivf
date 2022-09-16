@@ -1,0 +1,25 @@
+
+MX sam.dataflow{
+MP{clock IN;in1 IN;in2 IN;out1 OUT;out2 OUT;out3 OUT;out4 OUT;}
+MH{
+HS{}
+HP _5{
+PN{clock;}
+PD{a;b;}
+PV{a:=((in1))}
+PV{b:=((a AND in2))}
+PS{out3<=((a))}
+PS{out4<=((b))}}
+HB _1{
+HS{guard;}
+HA{guard<=((clock))}
+HA{out1<=((in1))}
+HA{out2<=(GUARDED (in2))}}}}
+
+MF{
+FS{clock in1 in2 out1 out2 out3 out4 a b}
+FP function_1{BLOCK 1 clock 3 clock in1 in2 2 out3 out4 }
+FS{_1/guard }
+FG NULL_GATE.1{NL_GATE 0 I 1 clock 1 _1/guard }
+FG NULL_GATE.2{NL_GATE 0 I 1 in1 1 out1 }
+FG NULL_GATE.5{SELECT 0 I 5 in2 _DUMMY_SIGNAL_ _1/guard _DUMMY_SIGNAL_ $1 1 out2 }}

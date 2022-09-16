@@ -1,0 +1,50 @@
+
+MX fngen.try1{
+MP{g2a IN;g2b IN;enable IN;disable IN;clear IN;clock IN;a IN;b IN;c IN;d IN;y OUT;w OUT;}}
+
+MF{
+FS{a b c d clear clock count d disable enable g2a g2b load w y }
+FS{aa bb cc dd ee ff gg hh 
+d1_0 d1_1 d1_2 d1_3 d1_4 d1_5 d1_6 d1_7 d1_8 d1_9 d1_10 
+ ndisable nenable q_4 q_5 q_6 q_7 
+oct_0 oct_1 oct_2 oct_3 oct_4 oct_5 oct_6 oct_7 
+q_0 q_1 q_2 q_3 rco t_1 t_2 t_3 t_4 t_5 t_6 t_7 t_8}
+
+FG NOT.1{NOT 0 I 1 disable 1 ndisable }
+FG NOT.2{NOT 0 I 1 enable 1 nenable }
+
+FP 54S151{BLOCK 0 12 clock a b c q_0 q_1 q_2 q_3 q_4 q_5 q_6 q_7 2 t_7 t_8 FPIS{10 24} 
+FPPP{12 clock 4 24 a 3 0  b 5 0  c 7 0 q_0 0 1 q_1 0 4 q_2 0 7 q_3 0 10 q_4 0 13 q_5 0 16 q_6 0 19 q_7 0 22}}
+
+FP Y{BLOCK 0 4 t_2 t_4 t_5 nenable 1 y}
+FP W{BLOCK 0 4 t_1 t_3 t_5 ndisable 1 w}
+
+FG NOR.1{NOR 0 I 3 d1_3 d1_4 ndisable 1 t_1}
+FG NOR.2{NOR 0 I 3 d1_7 d1_8 nenable 1 t_2}
+FG NOR.3{NOR 0 I 3 d1_5 d1_6 ndisable 1 t_3}
+FG NOR.4{NOR 0 I 3 d1_9 d1_10 nenable 1 t_4}
+
+FP B{BLOCK 0 7 disable g2a g2b a b c d 8 q_0 oct_1 q_2 oct_3 q_4 oct_5 q_6 oct_7 
+FPIS{10 24}
+FPPP{15 g2a 0 22 g2b 0 18 disable 5 24 a 0 14 b 0 10 c 0 6 d 0 2
+q_0 10 22 oct_1 10 19 q_2 10 16 oct_3 10 13 q_4 10 10 oct_5 10 7 q_6 10 4 oct_7 10 1}}
+
+FP 7474_a{BLOCK 0 4 oct_0 clear clock enable 2 d1_3 aa FPIS{8 10}}
+FP 7474_b{BLOCK 0 4 oct_1 clear clock enable 2 d1_4 bb FPIS{8 10}}
+FP 7474_c{BLOCK 0 4 oct_2 clear clock enable 2 d1_5 cc FPIS{8 10}}
+FP 7474_d{BLOCK 0 4 oct_3 clear clock enable 2 d1_6 dd FPIS{8 10}}
+FP 7474_e{BLOCK 0 4 oct_4 clear clock enable 2 d1_7 ee FPIS{8 10}}
+FP 7474_f{BLOCK 0 4 oct_5 clear clock enable 2 d1_8 ff FPIS{8 10}}
+FP 7474_g{BLOCK 0 4 oct_6 clear clock enable 2 d1_9 gg FPIS{8 10}}
+FP 7474_h{BLOCK 0 4 oct_7 clear clock enable 2 d1_10 hh FPIS{8 10}}
+
+FG OR.1{OR 0 I 4 aa bb cc dd 1 t_5}
+FG OR.2{OR 0 I 4 ee ff gg hh 1 t_6}
+
+FP 54155{BLOCK 0 6 clock nenable ndisable g2a g2b clock 8 oct_0 q_1 oct_2 q_3 oct_4 q_5 oct_6 q_7 FPIS{10 24} FPPP{2 clock 4 24 clock 7 24}}
+
+
+
+}
+
+

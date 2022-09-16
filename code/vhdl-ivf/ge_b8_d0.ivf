@@ -1,0 +1,92 @@
+
+MX ge_b8_d0.ge_b8_d0_struct{
+MP{oe IN;a[7:0] IN;b[7:0] IN;y OUT;}
+MH{
+HS{eq[7:0];yy;}
+HA{eq[0:0]<=(NOT(((a[0:0] XOR b[0:0]))))}
+HA{eq[1:1]<=(NOT(((a[1:1] XOR b[1:1]))))}
+HA{eq[2:2]<=(NOT(((a[2:2] XOR b[2:2]))))}
+HA{eq[3:3]<=(NOT(((a[3:3] XOR b[3:3]))))}
+HA{eq[4:4]<=(NOT(((a[4:4] XOR b[4:4]))))}
+HA{eq[5:5]<=(NOT(((a[5:5] XOR b[5:5]))))}
+HA{eq[6:6]<=(NOT(((a[6:6] XOR b[6:6]))))}
+HA{eq[7:7]<=(NOT(((a[7:7] XOR b[7:7]))))}
+HA{yy<=((((a[7:7] AND (NOT(b[7:7])))) OR ((eq[7:7] AND a[6:6] AND (NOT(b[6:6])))) OR ((eq[7:7] AND eq[6:6] AND a[5:5] AND (NOT(b[5:5])))) OR ((eq[7:7] AND eq[6:6] AND eq[5:5] AND a[4:4] AND (NOT(b[4:4])))) OR ((eq[7:7] AND eq[6:6] AND eq[5:5] AND eq[4:4] AND a[3:3] AND (NOT(b[3:3])))) OR ((eq[7:7] AND eq[6:6] AND eq[5:5] AND eq[4:4] AND eq[3:3] AND a[2:2] AND (NOT(b[2:2])))) OR ((eq[7:7] AND eq[6:6] AND eq[5:5] AND eq[4:4] AND eq[3:3] AND eq[2:2] AND a[1:1] AND (NOT(b[1:1])))) OR ((eq[7:7] AND eq[6:6] AND eq[5:5] AND eq[4:4] AND eq[3:3] AND eq[2:2] AND eq[1:1] AND a[0:0] AND (NOT(b[0:0])))) OR ((eq[7:7] AND eq[6:6] AND eq[5:5] AND eq[4:4] AND eq[3:3] AND eq[2:2] AND eq[1:1] AND eq[0:0]))))}
+HC tb_b1_d0_0{tb_b1_d0.tb_b1_d0_struct oe;yy;y;}}}
+
+M_ tb_b1_d0.tb_b1_d0_struct{
+MP{enable IN;d IN;y OUT;}
+MH{
+HS{}
+HB _1{
+HS{guard;}
+HA{guard<=((enable EQ "1"[0:0]))}
+HA{y<=(GUARDED (d))}}}}
+
+MF{
+FS{a_0 a_1 a_2 a_3 a_4 a_5 a_6 a_7 b_0 b_1 b_2 b_3 b_4 b_5 b_6 b_7 oe y }
+FS{_10_0 _13_0 _16_0 _19_0 _22_0 _25_0 _28 _29 _30 _31 _32 _33 _34 _35 _36 _37 _38 _39 _4_0 _40 _41 _42 _43 _44 _7_0 eq_0 eq_1 eq_2 eq_3 eq_4 eq_5 eq_6 eq_7 yy }
+FG XOR.1_0{XOR 0 I 2 a_0 b_0 1 _4_0 }
+FG NOT.1_0{NOT 0 I 1 _4_0 1 
+eq_0 }
+FG XOR.2_0{XOR 0 I 2 a_1 b_1 1 _7_0 }
+FG NOT.2_0{NOT 0 I 1 _7_0 1 
+eq_1 }
+FG XOR.3_0{XOR 0 I 2 a_2 b_2 1 _10_0 }
+FG NOT.3_0{NOT 0 I 1 _10_0 1 
+eq_2 }
+FG XOR.4_0{XOR 0 I 2 a_3 b_3 1 _13_0 }
+FG NOT.4_0{NOT 0 I 1 _13_0 1 
+eq_3 }
+FG XOR.5_0{XOR 0 I 2 a_4 b_4 1 _16_0 }
+FG NOT.5_0{NOT 0 I 1 _16_0 1 
+eq_4 }
+FG XOR.6_0{XOR 0 I 2 a_5 b_5 1 _19_0 }
+FG NOT.6_0{NOT 0 I 1 _19_0 1 
+eq_5 }
+FG XOR.7_0{XOR 0 I 2 a_6 b_6 1 _22_0 }
+FG NOT.7_0{NOT 0 I 1 _22_0 1 
+eq_6 }
+FG XOR.8_0{XOR 0 I 2 a_7 b_7 1 _25_0 }
+FG NOT.8_0{NOT 0 I 1 _25_0 1 
+eq_7 }
+FG NOT.9{NOT 0 I 1 b_7 1 _28 }
+FG AND.1{AND 0 I 2 a_7 _28 1 
+_29 }
+FG NOT.10{NOT 0 I 1 b_6 1 _30 }
+FG AND.2{AND 0 I 3 eq_7 a_6 
+_30 1 _31 }
+FG NOT.11{NOT 0 I 1 b_5 1 _32 }
+FG AND.3{AND 0 I 4 eq_7 
+eq_6 a_5 _32 1 _33 }
+FG NOT.12{NOT 0 I 1 b_4 1 
+_34 }
+FG AND.4{AND 0 I 5 eq_7 eq_6 eq_5 a_4 
+_34 1 _35 }
+FG NOT.13{NOT 0 I 1 b_3 1 _36 }
+FG AND.5{AND 0 I 6 eq_7 
+eq_6 eq_5 eq_4 a_3 _36 1 
+_37 }
+FG NOT.14{NOT 0 I 1 b_2 1 _38 }
+FG AND.6{AND 0 I 7 eq_7 eq_6 
+eq_5 eq_4 eq_3 a_2 _38 1 
+_39 }
+FG NOT.15{NOT 0 I 1 b_1 1 _40 }
+FG AND.7{AND 0 I 8 eq_7 eq_6 
+eq_5 eq_4 eq_3 eq_2 a_1 
+_40 1 _41 }
+FG NOT.16{NOT 0 I 1 b_0 1 _42 }
+FG AND.8{AND 0 I 9 eq_7 
+eq_6 eq_5 eq_4 eq_3 eq_2 
+eq_1 a_0 _42 1 _43 }
+FG AND.9{AND 0 I 8 eq_7 
+eq_6 eq_5 eq_4 eq_3 eq_2 
+eq_1 eq_0 1 _44 }
+FG OR.1{OR 0 I 9 _29 _31 
+_33 _35 _37 _39 _41 
+_43 _44 1 yy }
+FS{tb_b1_d0_0/_1/guard }
+FG tb_b1_d0_0/_1/EQ.1{EQ 0 I 2 oe $1 1 
+tb_b1_d0_0/_1/guard }
+FG tb_b1_d0_0/_1/NL_GATE.3{SELECT 0 I 5 yy _DUMMY_SIGNAL_ tb_b1_d0_0/_1/guard _DUMMY_SIGNAL_ 
+$1 1 y }}

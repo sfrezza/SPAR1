@@ -1,0 +1,47 @@
+
+MX sn54155.str{
+MP{strobe1g IN;strobe2g IN;selecta IN;selectb IN;data1c IN;data2c IN;out1y[3:0] OUT;out2y[3:0] OUT;}
+MH{
+HS{d1c_bar;sa_bar;sa_bar_bar;sb_bar;sb_bar_bar;t1;t2;}
+HA{d1c_bar<=(NOT(data1c))}
+HA{sa_bar<=(NOT(selecta))}
+HA{sb_bar<=(NOT(selectb))}
+HA{sa_bar_bar<=(NOT(sa_bar))}
+HA{sb_bar_bar<=(NOT(sb_bar))}
+HA{t1<=((strobe1g NOR d1c_bar))}
+HA{t2<=((strobe2g NOR data2c))}
+HA{out1y[0:0]<=(NOT(((t1 AND sb_bar AND sa_bar))))}
+HA{out1y[1:1]<=(NOT(((t1 AND sb_bar AND sa_bar_bar))))}
+HA{out1y[2:2]<=(NOT(((t1 AND sb_bar_bar AND sa_bar))))}
+HA{out1y[3:3]<=(NOT(((t1 AND sb_bar_bar AND sa_bar_bar))))}
+HA{out2y[0:0]<=(NOT(((t2 AND sb_bar AND sa_bar))))}
+HA{out2y[1:1]<=(NOT(((t2 AND sb_bar AND sa_bar_bar))))}
+HA{out2y[2:2]<=(NOT(((t2 AND sb_bar_bar AND sa_bar))))}
+HA{out2y[3:3]<=(NOT(((t2 AND sb_bar_bar AND sa_bar_bar))))}}}
+
+MF{
+FS{data1c data2c out1y_0 out1y_1 out1y_2 out1y_3 out2y_0 out2y_1 out2y_2 out2y_3 selecta selectb strobe1g strobe2g }
+FS{_15_0 _18_0 _21_0 _24_0 _27_0 _30_0 _33_0 _36_0 d1c_bar sa_bar sa_bar_bar sb_bar sb_bar_bar t1 t2 }
+FG NOT.1{NOT 0 I 1 data1c 1 d1c_bar }
+FG NOT.2{NOT 0 I 1 selecta 1 sa_bar }
+FG NOT.3{NOT 0 I 1 selectb 1 sb_bar }
+FG NOT.4{NOT 0 I 1 sa_bar 1 sa_bar_bar }
+FG NOT.5{NOT 0 I 1 sb_bar 1 sb_bar_bar }
+FG NOR.1{NOR 0 I 2 strobe1g d1c_bar 1 t1 }
+FG NOR.2{NOR 0 I 2 strobe2g data2c 1 t2 }
+FG AND.1_0{AND 0 I 3 t1 sb_bar sa_bar 1 _15_0 }
+FG NOT.6_0{NOT 0 I 1 _15_0 1 out1y_0 }
+FG AND.2_0{AND 0 I 3 t1 sb_bar sa_bar_bar 1 _18_0 }
+FG NOT.7_0{NOT 0 I 1 _18_0 1 out1y_1 }
+FG AND.3_0{AND 0 I 3 t1 sb_bar_bar sa_bar 1 _21_0 }
+FG NOT.8_0{NOT 0 I 1 _21_0 1 out1y_2 }
+FG AND.4_0{AND 0 I 3 t1 sb_bar_bar sa_bar_bar 1 _24_0 }
+FG NOT.9_0{NOT 0 I 1 _24_0 1 out1y_3 }
+FG AND.5_0{AND 0 I 3 t2 sb_bar sa_bar 1 _27_0 }
+FG NOT.10_0{NOT 0 I 1 _27_0 1 out2y_0 }
+FG AND.6_0{AND 0 I 3 t2 sb_bar sa_bar_bar 1 _30_0 }
+FG NOT.11_0{NOT 0 I 1 _30_0 1 out2y_1 }
+FG AND.7_0{AND 0 I 3 t2 sb_bar_bar sa_bar 1 _33_0 }
+FG NOT.12_0{NOT 0 I 1 _33_0 1 out2y_2 }
+FG AND.8_0{AND 0 I 3 t2 sb_bar_bar sa_bar_bar 1 _36_0 }
+FG NOT.13_0{NOT 0 I 1 _36_0 1 out2y_3 }}

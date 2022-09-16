@@ -1,0 +1,29 @@
+
+MX fig9.27{
+MP{}
+MH{
+HS{cache1;bus_adapt1;main_mem1;cpu1;
+iobus_in;iobus_out1;iobus_out2;iobus_out3;
+disk1;disk2;graphics1;net1;}}}
+
+MF{
+FS{ cache1 bus_adapt1 main_mem1 cpu1 iobus_in iobus_out1 iobus_out2 iobus_out3 }
+FS{ disk1 disk2 graphics1 net1 }
+FP CPU-Mem-Bus{CPU-Mem-Bus 0 0 3 cache1 bus_adapt1 main_mem1 
+FPIS{4 200} 
+FPPP{3 bus_adapt1 5 100 main_mem1 5 185 cache1 5 25}}
+FP Cache{Cache 0 1 cache1 1 cpu1}
+FP CPU{CPU 0 1 cpu1 0}
+FP MainMem{MainMemory 0 1 main_mem1 0}
+FP BusAdapt{BusAdapter 0 1 bus_adapt1 1 iobus_in}
+FP IOBus{IO_Bus 0 1 iobus_in 3 iobus_out1 iobus_out2 iobus_out3 
+FPIS{4 100}
+FPPP {3 iobus_out1 5 15 iobus_out2 5 50 iobus_out3 5 85}}
+FP IOControl1{IOController 0 1 iobus_out1 2 disk1 disk2 FPIS{10 24}}
+FP IOControl2{IOController 0 1 iobus_out2 1 graphics1 FPIS{10 24}}
+FP IOControl3{IOController 0 1 iobus_out3 1 net1 FPIS{10 24}}
+FP Disk1{Disk 0 1 disk1 0}
+FP Disk2{Disk 0 1 disk2 0}
+
+FP GrapicsOut{GraphicsDisplay 0 1 graphics1 0}
+FP Net1{Network 0 1 net1 0}}

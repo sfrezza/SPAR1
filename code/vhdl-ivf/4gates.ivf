@@ -1,0 +1,15 @@
+
+MX g_4.g4_struct{
+MP{rbar IN;sbar IN;tbar IN;ubar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HA{q<=((((sbar OR tbar)) NAND qbar))}
+HA{qbar<=((((rbar OR ubar)) NAND q))}}}
+
+MF{
+FS{q qbar rbar sbar tbar ubar }
+FS{_6 _9 }
+FG OR.2{OR 0 I 2 sbar tbar 1 _6 }
+FG NAND.3{NAND 0 I 2 _6 qbar 1 q }
+FG OR.3{OR 0 I 2 rbar ubar 1 _9 }
+FG NAND.4{NAND 0 I 2 _9 q 1 qbar }}

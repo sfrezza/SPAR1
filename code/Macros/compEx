@@ -1,0 +1,26 @@
+#
+echo "producing placement statistics in file examples.stats"
+##rm -f draft_stats
+(echo " 		name			flags		||     xfouls  yfouls   sum  X x Y = Total Area") > draft_stats
+
+
+#{ex:TTL}
+../spar -n  -c100 /home/vlsi/frezza/pnr/vhdl/7474.ivf > grok
+#{ex:fullRCAdder}
+../spar -p1 -s8 -n  /home/vlsi/frezza/pnr/vhdl/4bit-adder0.ivf > grok
+#{ex:ComplexString}
+../spar -p1 -s24 -n  /home/vlsi/frezza/pnr/vhdl/cmplx.ivf > grok
+#{ex:fullMux}
+../spar -n -p3 -c100  /home/vlsi/frezza/pnr/vhdl/SN54S151.ivf > grok
+#{ex:fullDeMux}
+../spar -n -p3  /home/vlsi/frezza/pnr/vhdl/SN54155.ivf > grok
+#{ex:dFF}
+../spar -n -p1 -s4  /home/vlsi/frezza/pnr/vhdl/d_ff.ivf > grok
+#{ex:shitRegister}
+../spar -n -m0 -p3  /home/vlsi/frezza/pnr/vhdl/SN5491A.ivf > grok
+#{ex:8inputOr}
+../spar -n -c100 -p3  /home/vlsi/frezza/pnr/vhdl/big-or.ivf > grok
+#{ex:fnGenPlacement}
+../spar -n -c1000 -p1 -s5 -w /home/vlsi/frezza/pnr/vhdl/fnGen.ivf > grok
+#
+mv draft_stats examples.stats

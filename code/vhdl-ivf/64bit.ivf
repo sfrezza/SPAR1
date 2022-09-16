@@ -1,0 +1,167 @@
+
+M_ decoder4to16.decoder_beh{
+MP{sin[3:0] IN;sout[15:0] OUT;}
+MH{
+HS{}
+HP _32{
+PN{sin[3:0];sout[15:0];}
+PD{}
+PS{sout[0:0]<=(NOT(((sin[3:3] OR sin[2:2] OR sin[1:1] OR sin[0:0]))))}
+PS{sout[1:1]<=(((NOT((NOT(sin[0:0])))) AND (NOT(((sin[3:3] OR sin[2:2] OR sin[1:1]))))))}
+PS{sout[2:2]<=(((NOT((NOT(sin[1:1])))) AND (NOT(((sin[3:3] OR sin[2:2] OR sin[0:0]))))))}
+PS{sout[3:3]<=((((sin[1:1] AND sin[0:0])) AND (NOT(((sin[3:3] OR sin[2:2]))))))}
+PS{sout[4:4]<=(((NOT((NOT(sin[2:2])))) AND (NOT(((sin[3:3] OR sin[1:1] OR sin[0:0]))))))}
+PS{sout[5:5]<=((((sin[2:2] AND sin[0:0])) AND (NOT(((sin[3:3] OR sin[1:1]))))))}
+PS{sout[6:6]<=((((sin[2:2] AND sin[1:1])) AND (NOT(((sin[3:3] OR sin[0:0]))))))}
+PS{sout[7:7]<=((((sin[2:2] AND sin[1:1] AND sin[0:0])) AND (NOT(sin[3:3]))))}
+PS{sout[8:8]<=(((NOT((NOT(sin[3:3])))) AND (NOT(((sin[2:2] OR sin[1:1] OR sin[0:0]))))))}
+PS{sout[9:9]<=((((sin[3:3] AND sin[0:0])) AND (NOT(((sin[2:2] OR sin[1:1]))))))}
+PS{sout[10:10]<=((((sin[3:3] AND sin[1:1])) AND (NOT(((sin[2:2] OR sin[0:0]))))))}
+PS{sout[11:11]<=((((sin[3:3] AND sin[1:1] AND sin[0:0])) AND (NOT(sin[2:2]))))}
+PS{sout[12:12]<=((((sin[3:3] AND sin[2:2])) AND (NOT(((sin[1:1] OR sin[0:0]))))))}
+PS{sout[13:13]<=((((sin[3:3] AND sin[2:2] AND sin[0:0])) AND (NOT(sin[1:1]))))}
+PS{sout[14:14]<=((((sin[3:3] AND sin[2:2] AND sin[1:1])) AND (NOT(sin[0:0]))))}
+PS{sout[15:15]<=(((NOT((NOT(sin[3:3])))) AND sin[2:2] AND sin[1:1] AND sin[0:0]))}}}}
+
+M_ mux16to1.mux_beh{
+MP{ce IN;rw IN;din[15:0] IN;sel[15:0] IN;dout OUT;}
+MH{
+HS{}
+HP _178{
+PN{ce;rw;}
+PD{hiimp;temp1;temp2;temp3;
+temp4;tout[15:0];}
+PV{hiimp:=(((NOT(rw)) OR ce))}
+PV{tout[0:0]:=((din[0:0] AND sel[0:0]))}
+PV{tout[1:1]:=((din[1:1] AND sel[1:1]))}
+PV{tout[2:2]:=((din[2:2] AND sel[2:2]))}
+PV{tout[3:3]:=((din[3:3] AND sel[3:3]))}
+PV{tout[4:4]:=((din[4:4] AND sel[4:4]))}
+PV{tout[5:5]:=((din[5:5] AND sel[5:5]))}
+PV{tout[6:6]:=((din[6:6] AND sel[6:6]))}
+PV{tout[7:7]:=((din[7:7] AND sel[7:7]))}
+PV{tout[8:8]:=((din[8:8] AND sel[8:8]))}
+PV{tout[9:9]:=((din[9:9] AND sel[9:9]))}
+PV{tout[10:10]:=((din[10:10] AND sel[10:10]))}
+PV{tout[11:11]:=((din[11:11] AND sel[11:11]))}
+PV{tout[12:12]:=((din[12:12] AND sel[12:12]))}
+PV{tout[13:13]:=((din[13:13] AND sel[13:13]))}
+PV{tout[14:14]:=((din[14:14] AND sel[14:14]))}
+PV{tout[15:15]:=((din[15:15] AND sel[15:15]))}
+PV{temp1:=((((tout[0:0] OR tout[1:1])) OR ((tout[2:2] OR tout[3:3]))))}
+PV{temp2:=((((tout[4:4] OR tout[5:5])) OR ((tout[6:6] OR tout[7:7]))))}
+PV{temp3:=((((tout[8:8] OR tout[9:9])) OR ((tout[10:10] OR tout[11:11]))))}
+PV{temp4:=((((tout[12:12] OR tout[13:13])) OR ((tout[14:14] OR tout[15:15]))))}
+PS{dout<=((((((temp1 OR temp2)) OR ((temp3 OR temp4)))) OR hiimp))}}}}
+
+M_ reg.reg_beh{
+MP{din IN;ce IN;rw IN;enable[15:0] IN;q[15:0] OUT;qbar[15:0] OUT;}
+MH{
+HS{}
+HP _271{
+PN{ce;rw;}
+PD{en[15:0];write;}
+PV{write:=(((NOT(rw)) AND (NOT(ce))))}
+PV{en[0:0]:=((enable[0:0] NAND write))}
+PV{en[1:1]:=((enable[1:1] NAND write))}
+PV{en[2:2]:=((enable[2:2] NAND write))}
+PV{en[3:3]:=((enable[3:3] NAND write))}
+PV{en[4:4]:=((enable[4:4] NAND write))}
+PV{en[5:5]:=((enable[5:5] NAND write))}
+PV{en[6:6]:=((enable[6:6] NAND write))}
+PV{en[7:7]:=((enable[7:7] NAND write))}
+PV{en[8:8]:=((enable[8:8] NAND write))}
+PV{en[9:9]:=((enable[9:9] NAND write))}
+PV{en[10:10]:=((enable[10:10] NAND write))}
+PV{en[11:11]:=((enable[11:11] NAND write))}
+PV{en[12:12]:=((enable[12:12] NAND write))}
+PV{en[13:13]:=((enable[13:13] NAND write))}
+PV{en[14:14]:=((enable[14:14] NAND write))}
+PV{en[15:15]:=((enable[15:15] NAND write))}}}}
+
+MX sn74189.ram_h{
+MP{read_write IN;ce IN;sel[3:0] IN;d[3:0] IN;y[3:0] OUT;}
+MH{
+HS{dqbar0[15:0];dqbar1[15:0];dqbar2[15:0];dqbar3[15:0];
+en[15:0];data0[15:0];data1[15:0];data2[15:0];data3[15:0];}
+HC mux3{mux16to1.mux_beh ce;read_write;data3[15:0];en[15:0];y[3:3];}
+HC mux2{mux16to1.mux_beh ce;read_write;data2[15:0];en[15:0];y[2:2];}
+HC mux1{mux16to1.mux_beh ce;read_write;data1[15:0];en[15:0];y[1:1];}
+HC mux0{mux16to1.mux_beh ce;read_write;data0[15:0];en[15:0];y[0:0];}
+HC reg3{reg.reg_beh d[3:3];ce;read_write;en[15:0];dqbar3[15:0];data3[15:0];}
+HC reg2{reg.reg_beh d[2:2];ce;read_write;en[15:0];dqbar2[15:0];data2[15:0];}
+HC reg1{reg.reg_beh d[1:1];ce;read_write;en[15:0];dqbar1[15:0];data1[15:0];}
+HC reg0{reg.reg_beh d[0:0];ce;read_write;en[15:0];dqbar0[15:0];data0[15:0];}
+HC decoder0{decoder4to16.decoder_beh sel[3:0];en[15:0];}}}
+
+MF{
+FS{ce d_0 d_1 d_2 d_3 read_write sel_0 sel_1 sel_2 sel_3 y_0 y_1 y_2 y_3 }
+FS{ en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15}
+FS{ data0_0 data0_1 data0_2 data0_3 data0_4 data0_5 data0_6 data0_7 data0_8 data0_9 data0_10 data0_11 data0_12 data0_13 data0_14 data0_15}
+FS{data1_0 data1_1 data1_2 data1_3 data1_4 data1_5 data1_6 data1_7 data1_8 data1_9 data1_10 data1_11 data1_12 data1_13 data1_14 data1_15}
+FS{data2_0 data2_1 data2_2 data2_3 data2_4 data2_5 data2_6 data2_7 data2_8 data2_9 data2_10 data2_11 data2_12 data2_13 data2_14 data2_15}
+FS{data3_0 data3_1 data3_2 data3_3 data3_4 data3_5 data3_6 data3_7 data3_8 data3_9 data3_10 data3_11 data3_12 data3_13 data3_14 data3_15 }
+
+FP 16to1_mux3{BLOCK 2 read_write ce
+34 ce data3_0 data3_1 data3_2 data3_3 data3_4 data3_5 data3_6 data3_7 
+data3_8 data3_9 data3_10 data3_11 data3_12 data3_13 data3_14 data3_15 
+read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+1 y_3}
+
+FP 16to1_mux2{BLOCK 2 read_write ce
+34 ce data2_0 data2_1 data2_2 data2_3 data2_4 data2_5 data2_6 data2_7
+data2_8 data2_9 data2_10 data2_11 data2_12 data2_13 data2_14 data2_15 
+read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+1 y_2}
+
+FP 16to1_mux1{BLOCK 2 read_write ce
+34 ce data1_0 data1_1 data1_2 data1_3 data1_4 data1_5 data1_6 data1_7 
+data1_8 data1_9 data1_10 data1_11 data1_12 data1_13 data1_14 data1_15 
+read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+1 y_1}
+
+FP 16to1_mux0{BLOCK 2 read_write ce
+34 ce data0_0 data0_1 data0_2 data0_3 data0_4 data0_5 data0_6 data0_7
+data0_8 data0_9 data0_10 data0_11 data0_12 data0_13 data0_14 data0_15 
+read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+1 y_0}
+
+FP register3{4bit_register_3
+18 read_write ce en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15
+19 d_3 read_write ce en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+16 data3_0 data3_1 data3_2 data3_3 data3_4 data3_5 data3_6 data3_7 
+data3_8 data3_9 data3_10 data3_11 data3_12 data3_13 data3_14 data3_15}
+
+FP register2{4bit_register_2
+18 read_write ce en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15
+19 d_2 ce read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+16 data2_0 data2_1 data2_2 data2_3 data2_4 data2_5 data2_6 data2_7 
+data2_8 data2_9 data2_10 data2_11 data2_12 data2_13 data2_14 data2_15}
+
+FP register1{4bit_register_1
+18 read_write ce en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15
+19 d_1 ce read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15 
+16 data1_0 data1_1 data1_2 data1_3 data1_4 data1_5 data1_6 data1_7 
+data1_8 data1_9 data1_10 data1_11 data1_12 data1_13 data1_14 data1_15}
+
+FP register0{4bit_register_0
+18 read_write ce en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15
+19 d_0 ce read_write en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 
+en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15
+16 data0_0 data0_1 data0_2 data0_3 data0_4 data0_5 data0_6 data0_7 
+data0_8 data0_9 data0_10 data0_11 data0_12 data0_13 data0_14 data0_15}
+
+FP decoder0{BLOCK 0 
+4 sel_0 sel_1 sel_2 sel_3 
+16 en_0 en_1 en_2 en_3 en_4 en_5 en_6 en_7 en_8 en_9 en_10 en_11 en_12 en_13 en_14 en_15}}

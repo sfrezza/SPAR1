@@ -1,0 +1,27 @@
+
+MX sam.x{
+MP{clock IN;input[7:0] IN;output[7:0] OUT;done OUT;}
+MH{
+HS{}
+HA{output[0:0]<=((input[0:0] AND clock))}
+HA{output[1:1]<=((input[1:1] AND clock))}
+HA{output[2:2]<=((input[2:2] AND clock))}
+HA{output[3:3]<=((input[3:3] AND clock))}
+HA{output[4:4]<=((input[4:4] AND clock))}
+HA{output[5:5]<=((input[5:5] AND clock))}
+HA{output[6:6]<=((input[6:6] AND clock))}
+HA{output[7:7]<=((input[7:7] AND clock))}
+HA{done<=((output[0:0] OR output[1:1] OR output[2:2] OR output[3:3] OR output[4:4] OR output[5:5] OR output[6:6] OR output[7:7]))}}}
+
+MF{
+FS{clock done input_0 input_1 input_2 input_3 input_4 input_5 input_6 input_7 output_0 output_1 output_2 output_3 output_4 output_5 output_6 output_7 }
+FG AND.1_0{AND 0 I 2 input_0 clock 1 output_0 }
+FG AND.2_0{AND 0 I 2 input_1 clock 1 output_1 }
+FG AND.3_0{AND 0 I 2 input_2 clock 1 output_2 }
+FG AND.4_0{AND 0 I 2 input_3 clock 1 output_3 }
+FG AND.5_0{AND 0 I 2 input_4 clock 1 output_4 }
+FG AND.6_0{AND 0 I 2 input_5 clock 1 output_5 }
+FG AND.7_0{AND 0 I 2 input_6 clock 1 output_6 }
+FG AND.8_0{AND 0 I 2 input_7 clock 1 output_7 }
+FG OR.1{OR 0 I 8 output_0 output_1 output_2 output_3 
+output_4 output_5 output_6 output_7 1 done }}

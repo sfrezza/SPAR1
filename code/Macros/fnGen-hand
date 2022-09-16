@@ -1,0 +1,63 @@
+# Module NOT.1
+n
+94 161
+# Module NOT.2
+n
+21 109
+# Module AND.1
+n
+60 155
+# Module NAND.2
+n
+60 146
+# Module OR.1
+n
+60 138
+# Module NOR.2
+n
+60 129
+# Module OR.3
+n
+54 118
+# Module AND.3
+n
+64 87
+# Module AND.4
+n
+80 60
+# Module NAND.5
+n
+80 50
+# Module OR.4
+n
+80 40
+# Module NOR.5
+n
+80 30
+# Module NOT.7
+n
+57 35
+# Module NOT.8
+n
+53 27
+# Module NOT.9
+n
+49 19
+# Module NOT.10
+n
+45 11
+# Module AS163
+y
+12 34
+19 15
+# Module ALS138
+y
+11 30
+20 128
+# Module AS850
+y 
+16 76
+116 46
+
+
+

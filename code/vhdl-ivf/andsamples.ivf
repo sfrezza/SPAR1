@@ -1,0 +1,15 @@
+
+MX g_4.g4_struct{
+MP{rbar IN;sbar IN;tbar IN;ubar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HA{q<=((((sbar OR tbar)) NAND qbar))}
+HA{qbar<=((((rbar OR ubar)) NAND q))}}}
+
+MF{
+FS{q qbar rbar sbar tbar ubar }
+FS{s_bar_buff r }
+FG BUFFER{BUFFER 0 I 1 sbar 1 s_bar_buff }
+FG NAND.3{NAND 0 I 2 r ubar 1 q }
+FG NOT{NOT 0 I 1 rbar 1 r }
+FG AND.4{AND 0 I 3 s_bar_buff tbar q 1 qbar }}

@@ -1,0 +1,307 @@
+
+
+SPAR - Schematics Place and Route
+	S. T. Frezza (Gannon University)
+	S. P. Levitan (University of Pittsburgh) 
+
+A system for the incremental placement and routing of logic
+schematics. This is the source code to accompany the work described in
+"SPAR: A Schematic Place and Route System", _IEEE Transactions on
+Computer-Aided Design of Integrated Circuits and Systems_ (12:7),
+July, 1993, pp 956-973.. A Detailed description of the routing
+algorithms appeared in "Congestion Router for Schematic Diagrams",
+Department of Electrical Engineering, University of Pittsburgh,
+Pittsburgh A. Technical Report TR-CE-94-03. For information on these
+and other related papers, please visit URL
+
+		http://www.ee.gannon.edu/~frezza
+
+
+
+LEGAL NOTICES, ETC.
+----- -------  ---
+
+         COPYRIGHT (C) 1996 GANNON UNIVERSITY
+         COPYRIGHT (C) 1993 UNIVERSITY OF PITTSBURGH
+                    ALL RIGHTS RESERVED
+
+This software is distributed on an as-is basis with no warranty
+implied or intended.  No author or distributor takes responsibility to
+anyone regarding its use, suitability, or update.
+
+The software may be distributed and modified freely for academic and
+other non-commercial use but may NOT be utilized or included in whole
+or part within any commercial product.
+
+This copyright notice must remain on all copies and modified versions
+of this software.
+
+
+
+                        NO WARRANTY LICENSE
+   
+Because SPAR tools are licensed free of charge, we provide absolutely
+no warranty, to the extent permitted by applicable state law.  Gannon
+University, the University of Pittsburgh, and the authors of the tools
+provide them "as is" without warranty of any kind, either expressed or
+implied, including, but not limited to, the implied warranties of
+merchantability and fitness for a particular purpose.  The entire risk
+as to the quality and performance of the program is with you.  Should
+the SPAR tools prove defective, you assume the cost of all necessary
+servicing, repair or correction.  In no event, unless required by
+applicable law, will Gannon University, the University of Pittsburgh,
+or any of the authors of the code be liable to you for damages,
+including any lost profits, lost monies, or other special, incidental
+or consequential damages arising out of the use or inability to use
+(including but not limited to loss of data or data being rendered
+inaccurate or losses sustained by third parties or a failure of the
+program to operate with other programs) the program, even if you have
+been advised of the possibility of such damages, or for any claim by
+any other party.
+
+
+
+                        RELEASE NOTICE
+
+This software is in a PRE-RELEASE (0.X) state. We are currently
+debugging it on a day-to-day basis. We appreciate your help in this
+enterprise. WE ASK THAT YOU DO NOT REDISTRIBUTE THIS EARLY VERSION OF
+THE SOFTWARE. Since the software is in such a state of flux, we need
+to be able to give new versions/fixes to everyone who has a copy.
+
+Inquiries, comments, suggestions, etc. can be addressed to:   
+
+	Prof. Stephen T. Frezza
+	Department of Electrical Engineering
+	Gannon University
+	University Square
+	Erie, PA 16541
+
+	Telephone: (814) 871-7563
+	email: frezza@ee.gannon.edu
+
+
+
+
+
+
+INSTALLATION:
+------------
+Untar the source distribution.  Make sure your path includes "gcc".
+Go to the SPAR directory and type "make".
+
+
+USE:
+---
+
+spar is a unix executeable that parses and IVF (Intermediate VHDL
+Format) netlist and generates a PostScript schematic for the netlist.
+There are numerous variants to the partitioning, placement and routing
+algorithms defined by the command line.  They are:
+
+spar [-a][-b][-c#][-d#][-g][-m#][-n][-o<filename>][-p#][-r#][-s#][-t#][-u][-v][-w][-x][-y] <ivffile> 
+where:
+         a => Compute aspect ratios for block icons.
+         b => Use Xcanvas scaling factors.
+         c# => max # Connections out of a partition (p=1)
+         d# is Debug level
+         f => First cut at global route (no rip-up & reroute)
+         g# => ConGestion Style to use:
+                 1 => Only count corner density.
+                 2 => Count corner density and max crossover. [default]
+         h => Hand place all modules in the diagram.
+         i => do not Include system terminals
+         k => do not Kollapse NL_GATEs
+         l# => max level to identify cross-coupled modules
+         m# => type of connections considered (-1, 0, 1)
+         o <filename>  => open <filename> as the output file.
+         n  => No routing is to be performed
+         p# => Partitioning style (rule) to be employed, where:
+                 1 => partition OK if <= s && <= c(size)
+                 2 => partition OK if c/s > r (ratio)
+                 3 => partition OK if c(n) > c(n-1) (find local maxima) [default]
+                 4 => experimental (combines -p2 & -p3 notions)
+         q => produce datafile with quality statistics.
+         r# => partitioning ratio used in rule (p=2)
+         s# => max size of each partition (p=1)
+         t# => -1 = Global route only (broken! use -d1 instead)
+         u => Use block clues in .ivf file for partitioning
+         v => ignore sliVering corrections in the local route
+         w => use Weighted averaging to merge strings & partitions
+         x => produce lateX compatible PostScript output
+         y => produce datafile with runtime info.
+
+
+
+EXAMPLE CODE:
+------- ----  
+Numerous netlist examples and the accompanying VHDL source code are in the 
+"spar/vhdl-ivf" directory.  
+
+
+TERMINOLOGY: 
+-----------
+Please see the file "NOTES.place.c".
+
+
+PLACE AND ROUTE ALGORITHM OVERVIEW:
+----- --- ----- --------- --------
+
+ I Read Netlist:
+     A) Identify the modules to be placed 
+	Both flattened or heirarchechal images are to be supported.  e.g. ,
+	a D-latch may be seen as a collection of gates, or as the connections
+	among flip-flops.  (Command-line option)
+	
+     B) Lookup/Invent module characteristics 
+	The relative module sizes, position of, numbers and names of terminals,
+	module location and other such configuring information needs to be 
+	accessed.  Much of this depends on the port specifications for the 
+	modules encountered in step A.
+	This information (or traceable references) needs to be stored 
+	in the netlist itself.  Currently, the namespace is used, and all 
+	icons/terminal locations, etc. are built internally.  
+	As each module has preset characteristics, placement information
+	such as that from a schematic capture tool can be used.
+	
+     C) Develop module/net/terminal abstraction
+	The connectivity of the modules is recorded by creating a linked set
+	of data structures;  Modules contain size information, and lists of 
+	terminals.  Nets group connected terminals.  These structures are
+	used in the partitioning, placement & routing efforts.
+
+
+II Partition Modules into interesting groups:
+     A) Identify the partitioning scheme
+	Based on a series of command-line options.  Currently, there are two
+	clustering algorithms, one which is size-limited, and another which is
+	slope-based.
+
+     B) Build connectivity matrix 
+	Query the net structures for the connections among the initial 
+	clusters.  Typically, the initial clusters are each an individual
+	(non-port) module.  Input & Output modules are handled seperately.
+
+     C) Develop module clusters (bottom-up clustering)
+	Apply the clustering algorithm to develop groups of modules that should
+	logically be placed near each other.
+
+     D) Place each partition onto a virtual page: (develop the placement 
+	pattern	to be followed)
+	     i) Break partitions into strings
+		As there is an expected pattern for groups of connected
+		modules, use it;  These typically are that sequences of modules
+		are 'strung' in order of occurance. (Input->output)
+
+	    ii) Place string contents, recording allowable margins for
+		later use.  As these strings may be complex (Cross-coupled 
+		gates, ring structures, etc., each gate has limits to how 
+		it may be placed with respect to its neighboring gates.  Record
+		where this is fixed (Such as the alignment of cross-coupled 
+		gates) and where it is not.
+
+	   iii) Place strings on page, recording appropriate margins
+		As there are typically groups of strings to a partition,
+		these strings need to be placed with repect to each other.
+		Much like modules, there are certain limits and a certain
+		flexibility as to how these are placed.
+
+
+III Mix the Placement and Global Routing:
+     A) Develop Global Route for central page:
+	     i) Choose 'central' page
+		This is typically the page that is most highly connected to the
+		other pages that have been developed.  
+
+	    ii) Find all nets with more than two terminals & route these.
+		The global route is a Kern-like algorithm, that is, it is 
+		prioritized Lee Router, such that the next expansion is based 
+		on a cost estimate.  The more routing information that is 
+		fixed, the better these estimates get.
+		If supported in an interactive environment, the ability to
+		route on a changing page would enable automatic routing of 
+		partially-built diagrams to occur (ie: integrated capture/
+		generation environment).
+		At the global routing stage is where bus-structures would be
+		managed.
+
+     B) Merge Remaining pages:
+	     i) Choose next most central page (Same as above)
+	    ii) Move modules from merge page to central page
+		     a) Use available margin to avoid routed areas
+			Wherever the placement calls for a location that
+			interferes with an important route, the placement
+			margins can be limited.
+		     b) Routing structures designed to maintain positioning
+			as new items are inserted to central page
+			This is a central feature to the system;  As the 
+			routing information is recorded in the virtual page 
+			format (Tile Space), each addition to the space
+			spawns changes to the routes already made;  In this
+			way, the net structures can simply be queried to 
+			see if the previous global route is still the best one.
+
+	   iii) Re-route central page:
+		     a) Determine new nets/terminals to be routed
+		     b) Route new terminals
+			This is relatively easy, as the original global routes
+			have been massaged into the new space
+		     c) check old route for validity, possibly extending 
+			the existing route
+
+	    iv) Continue until all pages (parititions) have been added, and 
+		the global routes completed
+		This process of merger, cleanup and completion could easily be 
+		checked for overall page size, so that physical page limits
+		would be observed, and the logical groupings maintained.
+
+IV Complete the local route:
+     A) Develop range structures from global route information
+	The local route is aimed at resolving all of the crossovers and
+	corners in an aesthetically manner.  As routing congestion is an
+	area phenomena, it is important to evaluate the route in localized
+	areas.  Also, as one area is fixed, it affects how the resolution
+	process progresses for connected areas.  This is managed by linking
+	the range structures, such that when one range is limited, the
+	effect is noted wherever appropriate.
+	This is a reasonably straightforward trace of the best global routes.
+
+     B) Fix remaining module and terminal positions to minimize jogs
+	As some of the module placement information was delayed in its 
+	evaluation, the local route requires that it be fixed before the route
+	is completed.
+
+     C) Resolve overlap among ranges in the same location
+	Here is where overlapping routes are pulled apart, and some placed
+	above or below other routes.  This process is heuristic in nature,
+	and greatly affects where corners and connections get placed.  
+	Non-fixed terminals would be swapped at this stage.  Here again, this
+	process could be guided were it in an interactive environment.
+
+     D) Resolve unfixed corner positions to minimize routing congestion
+	This spaces wires to best use the available areas, for those ranges
+	that have not been resolved to a single point.  All unresolved points
+	(corners, terminals, and modules) are then fixed.
+
+V Produce Output:
+     A) PostScript, SCED (Obsolete) or XWindows (Never Implemented)
+     B) Record placement for posterity  (Reuse)
+
+
+
+
+A simplified form of this algorithm is provided in NOTES.place.c, and
+a very detailed form of the algorithm appeared in "SPAR: A Schematic
+Place and Route System", _IEEE Transactions on Computer-Aided Design
+of Integrated Circuits and Systems_ (12:7), July, 1993, pp 956-973..
+
+
+
+
+
+
+
+
+
+
+

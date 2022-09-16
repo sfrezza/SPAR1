@@ -1,0 +1,64 @@
+
+MX adder4.test2b4{
+MP{arg1[3:0] IN;arg2[3:0] IN;carry_in IN;result[3:0] OUT;carry_out OUT;}
+MH{
+HS{ci[3:0];g[3:0];p[3:0];}
+HA{g[3:0]<=((arg1[3:0] AND arg2[3:0]))}
+HA{p[3:0]<=((arg1[3:0] OR arg2[3:0]))}
+HA{ci[0:0]<=((carry_in))}
+HA{ci[1:1]<=((g[0:0] OR ((carry_in AND p[0:0]))))}
+HA{ci[2:2]<=((g[1:1] OR ((g[0:0] AND p[1:1])) OR ((carry_in AND p[0:0] AND p[1:1]))))}
+HA{ci[3:3]<=((g[2:2] OR ((g[1:1] AND p[2:2])) OR ((g[0:0] AND p[1:1] AND p[2:2])) OR ((carry_in AND p[0:0] AND p[1:1] AND p[2:2]))))}
+HA{carry_out<=((g[3:3] OR ((g[2:2] AND p[3:3])) OR ((g[1:1] AND p[2:2] AND p[3:3])) OR ((g[0:0] AND p[1:1] AND p[2:2] AND p[3:3])) OR ((carry_in AND p[0:0] AND p[1:1] AND p[2:2] AND p[3:3]))))}
+HA{result[3:0]<=((arg1[3:0] XOR arg2[3:0] XOR ci[3:0]))}}}
+
+MF{
+FS{arg1_0 arg1_1 arg1_2 arg1_3 arg2_0 arg2_1 arg2_2 arg2_3 carry_in carry_out result_0 result_1 result_2 result_3 }
+FS{_129_0 _132_0 _133_0 _136_0 _137_0 _138_0 _141 _142 _143 _144 ci_0 ci_1 ci_2 ci_3 g_0 g_1 g_2 g_3 p_0 p_1 p_2 p_3 }
+FG AND.56_0{AND 0 I 2 arg1_0 arg2_0 1 g_0 }
+FG AND.56_1{AND 0 I 2 arg1_1 
+arg2_1 1 g_1 }
+FG AND.56_2{AND 0 I 2 arg1_2 arg2_2 1 g_2 }
+FG AND.56_3{AND 0 I 2 
+arg1_3 arg2_3 1 g_3 }
+FG OR.20_0{OR 0 I 2 arg1_0 arg2_0 1 
+p_0 }
+FG OR.20_1{OR 0 I 2 arg1_1 arg2_1 1 p_1 }
+FG OR.20_2{OR 0 I 2 arg1_2 
+arg2_2 1 p_2 }
+FG OR.20_3{OR 0 I 2 arg1_3 arg2_3 1 p_3 }
+FG NL_GATE.77_0{NL_GATE 0 I 1 
+carry_in 1 ci_0 }
+FG AND.57_0{AND 0 I 2 carry_in p_0 1 _129_0 }
+FG OR.21_0{OR 0 I 2 
+g_0 _129_0 1 ci_1 }
+FG AND.58_0{AND 0 I 2 g_0 p_1 1 
+_132_0 }
+FG AND.59_0{AND 0 I 3 carry_in p_0 p_1 1 _133_0 }
+FG OR.22_0{OR 0 I 3 
+g_1 _132_0 _133_0 1 ci_2 }
+FG AND.60_0{AND 0 I 2 g_1 
+p_2 1 _136_0 }
+FG AND.61_0{AND 0 I 3 g_0 p_1 p_2 1 
+_137_0 }
+FG AND.62_0{AND 0 I 4 carry_in p_0 p_1 p_2 1 
+_138_0 }
+FG OR.23_0{OR 0 I 4 g_2 _136_0 _137_0 _138_0 1 
+ci_3 }
+FG AND.63{AND 0 I 2 g_2 p_3 1 _141 }
+FG AND.64{AND 0 I 3 g_1 
+p_2 p_3 1 _142 }
+FG AND.65{AND 0 I 4 g_0 p_1 
+p_2 p_3 1 _143 }
+FG AND.66{AND 0 I 5 carry_in p_0 
+p_1 p_2 p_3 1 _144 }
+FG OR.24{OR 0 I 5 g_3 
+_141 _142 _143 _144 1 carry_out }
+FG XOR.4_0{XOR 0 I 3 
+arg1_0 arg2_0 ci_0 1 result_0 }
+FG XOR.4_1{XOR 0 I 3 arg1_1 
+arg2_1 ci_1 1 result_1 }
+FG XOR.4_2{XOR 0 I 3 arg1_2 arg2_2 
+ci_2 1 result_2 }
+FG XOR.4_3{XOR 0 I 3 arg1_3 arg2_3 ci_3 1 
+result_3 }}

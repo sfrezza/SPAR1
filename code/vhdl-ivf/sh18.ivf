@@ -1,0 +1,28 @@
+MX g_4.g4_struct{
+MP{}
+MP{a1 IN; a2 IN; a3 IN; a4 IN; }
+MP{e1 IN; e2 IN; e3 IN; e4 IN; }
+MP{i1 IN; i2 IN; i3 IN;}
+MP{d1 OUT; d2 OUT; }
+MP{h1 OUT; h2 OUT; h3 OUT; h4 OUT; h5 OUT; h6 OUT; }
+MP{l1 OUT; l2 OUT; l3 OUT; l4 OUT; }
+MH{
+HS{}
+HA{}}}
+
+MF{
+FS{a1 a2 a3 a4 e1 e2 e3 e4 i1 i2 i3 d1 d2 h1 h2 h3 h4 h5 h6 l1 l2 l3 l4}
+FS {a b c d e f g h i j k l m n o p q r s t u v ff kk}
+FG A { BLOCK 0 I 4 a1 a2 a3 a4 4 a b b c }
+FG E { BLOCK 0 I 4 e1 e2 e3 e4 4 b d e f }
+FG I { BLOCK 0 I 3 i1 i2 i3 3 f g d }
+FG B { BLOCK 0 I 3 j c a 3 i h h }
+FG F { BLOCK 0 I 4 c b d e 4 k j l ff }
+FG M { BLOCK 0 I 1 ff 3 n m l }
+FG C { BLOCK 0 I 5 h i j kk k 4 o p q r }
+FG G { BLOCK 0 I 3 l i kk 3 t s q }
+FG N { BLOCK 0 I 3 n m l 3 v s u }
+FG D { BLOCK 0 I 2 p o 2 d1 d2 }
+FG H { BLOCK 0 I 6 r p q t q s 6 h1 h2 h3 h4 h5 h6 }
+FG L { BLOCK 0 I 4 t g u v 4 l1 l2 l3 l4 }}
+

@@ -1,0 +1,54 @@
+
+MX adder4.test0b4{
+MP{arg1[3:0] IN;arg2[3:0] IN;carry_in IN;result[3:0] OUT;carry_out OUT;}
+MH{
+HS{cw[3:0];cx[3:0];}
+HA{cw[0:0]<=((carry_in))}
+HA{cw[3:1]<=((cx[2:0]))}
+HA{cx[3:0]<=((((arg1[3:0] AND arg2[3:0])) OR ((arg1[3:0] AND cw[3:0])) OR ((arg2[3:0] AND cw[3:0]))))}
+HA{result[3:0]<=((arg1[3:0] XOR arg2[3:0] XOR cw[3:0]))}
+HA{carry_out<=((cx[3:3]))}}}
+
+MF{
+FS{arg1_0 arg1_1 arg1_2 arg1_3 arg2_0 arg2_1 arg2_2 arg2_3 carry_in carry_out result_0 result_1 result_2 result_3 }
+FS{_13_0 _13_1 _13_2 _13_3 _14_0 _14_1 _14_2 _14_3 _15_0 _15_1 _15_2 _15_3 cw_0 cw_1 cw_2 cw_3 cx_0 cx_1 cx_2 cx_3 }
+FG NL_GATE.11_0{NL_GATE 0 I 1 carry_in 1 cw_0 }
+FG NL_GATE.13_0{NL_GATE 0 I 1 cx_0 1 cw_1 }
+FG NL_GATE.13_1{NL_GATE 0 I 1 
+cx_1 1 cw_2 }
+FG NL_GATE.13_2{NL_GATE 0 I 1 cx_2 1 cw_3 }
+FG AND.4_0{AND 0 I 2 arg1_0 
+arg2_0 1 _13_0 }
+FG AND.4_1{AND 0 I 2 arg1_1 arg2_1 1 _13_1 }
+FG AND.4_2{AND 0 I 2 
+arg1_2 arg2_2 1 _13_2 }
+FG AND.4_3{AND 0 I 2 arg1_3 arg2_3 1 
+_13_3 }
+FG AND.5_0{AND 0 I 2 arg1_0 cw_0 1 _14_0 }
+FG AND.5_1{AND 0 I 2 arg1_1 
+cw_1 1 _14_1 }
+FG AND.5_2{AND 0 I 2 arg1_2 cw_2 1 _14_2 }
+FG AND.5_3{AND 0 I 2 
+arg1_3 cw_3 1 _14_3 }
+FG AND.6_0{AND 0 I 2 arg2_0 cw_0 1 
+_15_0 }
+FG AND.6_1{AND 0 I 2 arg2_1 cw_1 1 _15_1 }
+FG AND.6_2{AND 0 I 2 arg2_2 
+cw_2 1 _15_2 }
+FG AND.6_3{AND 0 I 2 arg2_3 cw_3 1 _15_3 }
+FG OR.2_0{OR 0 I 3 
+_13_0 _14_0 _15_0 1 cx_0 }
+FG OR.2_1{OR 0 I 3 _13_1 
+_14_1 _15_1 1 cx_1 }
+FG OR.2_2{OR 0 I 3 _13_2 _14_2 
+_15_2 1 cx_2 }
+FG OR.2_3{OR 0 I 3 _13_3 _14_3 _15_3 1 
+cx_3 }
+FG XOR.2_0{XOR 0 I 3 arg1_0 arg2_0 cw_0 1 result_0 }
+FG XOR.2_1{XOR 0 I 3 
+arg1_1 arg2_1 cw_1 1 result_1 }
+FG XOR.2_2{XOR 0 I 3 arg1_2 
+arg2_2 cw_2 1 result_2 }
+FG XOR.2_3{XOR 0 I 3 arg1_3 arg2_3 
+cw_3 1 result_3 }
+FG NL_GATE.19{NL_GATE 0 I 1 cx_3 1 carry_out }}

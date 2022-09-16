@@ -1,0 +1,17 @@
+
+MX g_4o.g4_fan_out{
+MP{q1 IN;q2 IN;rbar OUT;sbar OUT;tbar OUT;}
+MH{
+HS{t;}
+HA{t<=((q1 XOR q2))}
+HA{rbar<=((q2 NAND t))}
+HA{sbar<=((q1 AND t))}
+HA{tbar<=(NOT(t))}}}
+
+MF{
+FS{q1 q2 rbar sbar tbar }
+FS{t }
+FG XOR.2{XOR 0 I 2 q1 q2 1 t }
+FG OR.5{OR 0 I 2 q2 t 1 rbar }
+FG XNOR.2{XNOR 0 I 2 q1 $0 1 sbar }
+FG NOR.1{NOR 0 I 2 t tbar 1 tbar }}

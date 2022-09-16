@@ -1,0 +1,39 @@
+echo "14 drafts for "$1.ivf " are in progress"
+cd /home/vlsi/frezza/pnr/kona
+
+rm -f draft_stats
+(echo " 		name			flags		||     xfouls  yfouls   sum  X x Y = Total Area		MnahattanPWS	ln(mhtn)	Euclidian PWS	ln(ecld)") > draft_stats
+
+rm -f qual_stats
+(echo " 							|| 	Average	  	Std Dev		Max  | 		Average		Std Dev		Max|") > qual_stats
+
+eval ../spar -q -m0 -p1 -s2 $2 $3 ../vhdl/$1.ivf > $1-p1-s2$2$3.ps
+eval ../spar -q -m0 -p1 -s4 $2 $3 ../vhdl/$1.ivf > $1-p1-s4$2$3.ps
+eval ../spar -q -m0 -p1 -s6 $2 $3 ../vhdl/$1.ivf > $1-p1-s6$2$3.ps
+#rsh europa "cd pnr/kona; lpr $1-p1-s2$2$3.ps $1-p1-s4$2$3.ps $1-p1-s6$2$3.ps"
+
+eval ../spar -q -m0 -p1 -s8 $2 $3 ../vhdl/$1.ivf > $1-p1-s8$2$3.ps
+eval ../spar -q -f -p1 -s12 $2 $3 ../vhdl/$1.ivf > $1-p1-s12$2$3-f.ps
+eval ../spar -q -m0 -p1 -s15 $2 $3 ../vhdl/$1.ivf > $1-p1-s15$2$3.ps
+#rsh europa "cd pnr/kona; lpr $1-p1-s8$2$3.ps $1-p1-s12$2$3.ps $1-p1-s15$2$3.ps"
+
+eval ../spar -q -m0 -p1 -s20 $2 $3 ../vhdl/$1.ivf > $1-p1-s20$2$3.ps
+eval ../spar -q -m0 -p1 -s30 $2 $3 ../vhdl/$1.ivf > $1-p1-s30$2$3.ps
+eval ../spar -q -m0 -r1.5 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r1.5$2$3.ps
+#rsh europa "cd pnr/kona; lpr $1-p1-s20$2$3.ps $1-p1-s30$2$3.ps $1-p2-r1.5$2$3.ps"
+
+eval ../spar -q -m0 -r2.0 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r2.0$2$3.ps
+eval ../spar -q -m0 -r2.5 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r2.5$2$3.ps
+eval ../spar -q -m0 -r3.0 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r3.0$2$3.ps
+#rsh europa "cd pnr/kona; lpr $1-p2-r2.0$2$3.ps" $1-p2-r2.5$2$3.ps $1-p2-r3.0$2$3.ps 
+
+eval ../spar -q -m0 -r3.5 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r3.5$2$3.ps
+eval ../spar -q -m0 -p3 $2 $3 ../vhdl/$1.ivf > $1-p3$2$3.ps
+#rsh europa "cd pnr/kona; lpr $1-p2-r3.5$2$3.ps $1-p3$2$3.ps"
+
+cat draft_stats qual_stats > $1.stats
+rm -f dist_stats
+rm -f draft_stats
+rm -f qual_stats
+
+

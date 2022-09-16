@@ -1,0 +1,45 @@
+
+MX sn7474.gates{
+MP{nclr IN;nset IN;clock IN;d IN;q OUT;qbar OUT;}
+MH{
+HS{t0;t1;t10;t11;t2;t3;t4;t5;t6;t7;t8;t9;w;x;y;z;}
+HA{t1<=((d NAND nclr) AFTER 30)}
+HA{t0<=(NOT(t1) AFTER 30)}
+HA{x<=((t0 NAND y) AFTER 30)}
+HA{t3<=((clock NAND x) AFTER 30)}
+HA{t2<=(NOT(t3) AFTER 30)}
+HA{y<=((t2 NAND z) AFTER 30)}
+HA{t5<=((clock NAND nclr) AFTER 30)}
+HA{t4<=(NOT(t5) AFTER 30)}
+HA{z<=((t4 NAND w) AFTER 30)}
+HA{t7<=((z NAND x) AFTER 30)}
+HA{t6<=(NOT(t7) AFTER 30)}
+HA{w<=((t6 NAND nset) AFTER 30)}
+HA{t9<=((nset NAND z) AFTER 30)}
+HA{t8<=(NOT(t9) AFTER 30)}
+HA{q<=((t8 NAND qbar) AFTER 30)}
+HA{t11<=((y NAND nclr) AFTER 30)}
+HA{t10<=(NOT(t11) AFTER 30)}
+HA{qbar<=((t10 NAND q) AFTER 30)}}}
+
+MF{
+FS{clock d nclr nset q qbar }
+FS{t0 t1 t10 t11 t2 t3 t4 t5 t6 t7 t8 t9 w x y z }
+FG NAND.1{NAND 30 I 2 d nclr 1 t1 }
+FG NOT.1{NOT 30 I 1 t1 1 t0 }
+FG NAND.2{NAND 30 I 2 t0 y 1 x }
+FG NAND.3{NAND 30 I 2 clock x 1 t3 }
+FG NOT.2{NOT 30 I 1 t3 1 t2 }
+FG NAND.4{NAND 30 I 2 t2 z 1 y }
+FG NAND.5{NAND 30 I 2 clock nclr 1 t5 }
+FG NOT.3{NOT 30 I 1 t5 1 t4 }
+FG NAND.6{NAND 30 I 2 t4 w 1 z }
+FG NAND.7{NAND 30 I 2 z x 1 t7 }
+FG NOT.4{NOT 30 I 1 t7 1 t6 }
+FG NAND.8{NAND 30 I 2 t6 nset 1 w }
+FG NAND.9{NAND 30 I 2 nset z 1 t9 }
+FG NOT.5{NOT 30 I 1 t9 1 t8 }
+FG NAND.10{NAND 30 I 2 t8 qbar 1 q }
+FG NAND.11{NAND 30 I 2 y nclr 1 t11 }
+FG NOT.6{NOT 30 I 1 t11 1 t10 }
+FG NAND.12{NAND 30 I 2 t10 q 1 qbar }}

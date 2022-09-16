@@ -1,0 +1,99 @@
+
+M_ als138.beh{
+MP{g1 IN;g2a IN;g2b IN;a IN;b IN;c IN;dout[7:0] OUT;}
+MH{
+HS{}
+HP _4{
+PN{}
+PD{}}}}
+
+M_ as163.beh{
+MP{clr IN;m1 IN;m2 IN;g3 IN;g4 IN;clock IN;a IN;b IN;c IN;d IN;rc0 OUT;q[3:0] OUT;}
+MH{
+HS{}
+HP _6{
+PN{}
+PD{}}}}
+
+M_ as850.beh{
+MP{d[15:0] IN;s[3:0] IN;g IN;gy IN;gw IN;clock IN;y OUT;w OUT;}
+MH{
+HS{}
+HP _2{
+PN{}
+PD{}}}}
+
+MX fngen.try1{
+MP{g2a IN;g2b IN;enable IN;disable IN;clear IN;load IN;count IN;clock IN;a IN;b IN;c IN;d IN;y OUT;w OUT;}
+MH{
+HS{aa;bb;cc;d1[15:0];
+dd;g;gw;gy;ndisable;
+nenable;oct[7:0];q[3:0];rco;}
+HA{ndisable<=(NOT(disable))}
+HA{nenable<=(NOT(enable))}
+HA{d1[0:0]<=((oct[0:0] AND oct[2:2] AND oct[5:5]))}
+HA{d1[1:1]<=(NOT(((oct[1:1] AND oct[6:6] AND oct[3:3]))))}
+HA{d1[2:2]<=((oct[3:3] OR oct[4:4] OR oct[5:5]))}
+HA{d1[3:3]<=(NOT(((oct[6:6] OR oct[7:7] OR rco))))}
+HA{d1[4:4]<=((oct[7:7] OR q[2:2] OR q[3:3]))}
+HA{d1[5:5]<=((d1[1:1]))}
+HA{d1[6:6]<=((d1[0:0]))}
+HA{d1[7:7]<=((d1[11:11]))}
+HA{d1[8:8]<=((oct[7:7]))}
+HA{d1[9:9]<=((d1[6:6] AND d1[5:5] AND rco))}
+HA{d1[10:10]<=((q[2:2]))}
+HA{d1[11:11]<=((q[0:0] AND q[1:1] AND q[3:3] AND cc))}
+HA{d1[12:12]<=(NOT(((aa AND q[1:1] AND cc AND dd))))}
+HA{d1[13:13]<=((q[0:0] OR q[1:1] OR q[2:2] OR q[3:3]))}
+HA{d1[14:14]<=(NOT(((aa OR bb OR q[2:2] OR dd))))}
+HA{d1[15:15]<=((rco))}
+HA{aa<=(NOT(q[0:0]))}
+HA{bb<=(NOT(q[1:1]))}
+HA{cc<=(NOT(q[2:2]))}
+HA{dd<=(NOT(q[3:3]))}
+HC l3{as163.beh clear;load;load;count;disable;clock;a;b;c;d;rco;q[3:0];}
+HC l2{als138.beh disable;g2a;g2b;q[0:0];q[1:1];q[2:2];oct[7:0];}
+HC l1{as850.beh d1[15:0];q[3:0];ndisable;enable;nenable;clock;y;w;}}}
+
+MF{
+FS{a b c d clear clock count d disable enable g2a g2b load w y }
+FS{_13_0 _18_0 _32_0 _37_0 aa bb cc dd
+d1_0 d1_1 d1_2 d1_3 d1_4 d1_5 d1_6 d1_7 d1_8 d1_9 d1_10 d1_11 d1_12 d1_13 d1_14 d1_15 
+g gw gy ndisable nenable 
+oct_0 oct_1 oct_2 oct_3 oct_4 oct_5 oct_6 oct_7 
+q_0 q_1 q_2 q_3 rco }
+FG NOT.1{NOT 0 I 1 disable 1 ndisable }
+FG NOT.2{NOT 0 I 1 enable 1 nenable }
+FG AND.1_0{AND 0 I 3 oct_5 oct_2 oct_0 1 d1_0 }
+FG NAND.2_0{NAND 0 I 3 oct_1 oct_6 oct_3 1 d1_1 }
+FG OR.1_0{OR 0 I 3 oct_5 oct_4 oct_3 1 d1_2 }
+FG NOR.2_0{NOR 0 I 3 oct_6 oct_7 rco 1 d1_3 }
+FG OR.3_0{OR 0 I 3 oct_7 q_2 q_3 1 d1_4 }
+FG AND.3_0{AND 0 I 3 d1_0 d1_1 rco 1 d1_9 }
+FG AND.4_0{AND 0 I 4 q_0 q_1 cc q_3 1 d1_11 }
+FG NAND.5_0{NAND 0 I 4 aa q_1 cc dd 1 d1_12 }
+FG OR.4_0{OR 0 I 4 q_0 q_1 q_2 q_3 1 d1_13 }
+FG NOR.5_0{NOR 0 I 4 aa bb q_2 dd 1 d1_14 }
+FP AS163{fun_as163 0 10 clear load load count disable clock a b c d 5 rco q_0 q_1 q_2 q_3 
+FPIS{10 36}
+FPPP{15 clear 0 32 load 0 29 load 0 26 count 0 23 disable 0 20 clock 0 17 a 0 12 b 0 9 c 0 6  d 0 3
+rco 10 26 q_0 10 15 q_1 10 11 q_2 10 7 q_3 10 3}}
+
+FP ALS138{fun_als138 0 6 disable g2a g2b q_0 q_1 q_2 8 oct_0 oct_1 oct_2 oct_3 oct_4 oct_5 oct_6 oct_7 
+FPIS{10 24}
+FPPP{14 disable 0 22 g2a 0 18 g2b 0 14 q_0 0 10 q_1 0 6 q_2 0 2
+oct_0 10 22 oct_1 10 19 oct_2 10 16 oct_3 10 13 oct_4 10 10 oct_5 10 7 oct_6 10 4 oct_7 10 1}}
+
+FG NOT.7{NOT 0 I 1 q_0 1 aa }
+FG NOT.8{NOT 0 I 1 q_1 1 bb }
+FG NOT.9{NOT 0 I 1 q_2 1 cc }
+FG NOT.10{NOT 0 I 1 q_3 1 dd }
+
+
+FP AS850{fun_as850 0 24 ndisable enable nenable clock q_0 q_1 q_2 q_3
+d1_0 d1_1 d1_2 d1_3 d1_4 d1_1 d1_0 d1_11 oct_7 d1_9 q_2 d1_11 d1_12 d1_13 d1_14 rco  
+2 y w 
+FPIS{14 72}
+FPPP{26 y 14 40 w 14 32 rco 0 3
+ndisable 0 70 enable 0 67 nenable 0 64 clock 0 61 q_0 0 58 q_1 0 55 q_2 0 52 q_3 0 49
+d1_0 0 46 d1_1 0 43 d1_2 0 40 d1_3 0 37 d1_4 0 34 d1_1 0 31 d1_0 0 28 d1_11 0 25 oct_7 0 22 d1_9 0 19 q_2 0 16 d1_11 0 13 d1_12 0 10 d1_13 0 7 d1_14 0 5}}}

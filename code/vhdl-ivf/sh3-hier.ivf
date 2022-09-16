@@ -1,0 +1,121 @@
+
+MX example3.hierarchical{
+MP{ainp IN;binp IN;cinp IN;dinp IN;einp IN;finp IN;ginp IN;hinp IN;iinp IN;aout OUT;bout OUT;}
+MH{
+HS{aa;bb;cc;dd;
+ee;ff;gg;hh;w;
+w1;x;x1;y;y1;}
+HA{aa<=((w AND y AND x))}
+HA{bb<=((y AND y1 AND x1))}
+HA{cc<=((y AND w1 AND x1))}
+HA{dd<=((w1 AND y1 AND x))}
+HA{ee<=((w1 AND y1 AND x1))}
+HA{ff<=((w1 AND y AND x))}
+HA{gg<=((y AND w1 AND x))}
+HA{hh<=((w AND y AND x1))}
+HA{aout<=((aa OR bb OR cc OR dd))}
+HA{bout<=((ee OR ff OR gg OR hh))}
+HC i3{iblock.gates ainp;binp;cinp;y;y1;}
+HC i2{iblock.gates dinp;einp;finp;x;x1;}
+HC i1{iblock.gates ainp;binp;cinp;w;w1;}}}
+
+M_ iblock.gates{
+MP{ainp IN;binp IN;cinp IN;w OUT;w1 OUT;}
+MH{
+HS{a;a1;b;b1;
+c;c1;k;l;m;
+n;}
+HA{a<=(NOT(ainp))}
+HA{b<=(NOT(binp))}
+HA{c<=(NOT(cinp))}
+HA{a1<=(NOT(a))}
+HA{b1<=(NOT(b))}
+HA{c1<=(NOT(c))}
+HA{k<=((a1 AND b1 AND c1))}
+HA{l<=((a1 AND b AND c))}
+HA{m<=((a AND b1 AND c))}
+HA{n<=((a AND b AND c1))}
+HA{w<=((k OR l OR m OR n))}
+HA{w1<=(NOT(w))}}}
+
+MF{
+FS{ainp aout binp bout cinp dinp einp finp ginp hinp iinp }
+FS{aa bb cc dd ee ff gg hh w w1 x x1 y y1 }
+FG AND.5{AND 0 I 3 w y x 1 aa }
+FG AND.6{AND 0 I 3 
+y y1 x1 1 bb }
+FG AND.7{AND 0 I 3 y 
+w1 x1 1 cc }
+FG AND.8{AND 0 I 3 w1 y1 
+x 1 dd }
+FG AND.9{AND 0 I 3 w1 y1 x1 1 
+ee }
+FG AND.10{AND 0 I 3 w1 y x 1 ff }
+FG AND.11{AND 0 I 3 
+y w1 x 1 gg }
+FG AND.12{AND 0 I 3 w 
+y x1 1 hh }
+FG OR.2{OR 0 I 4 aa bb 
+cc dd 1 aout }
+FG OR.3{OR 0 I 4 ee ff 
+gg hh 1 bout }
+FS{i3/a i3/a1 i3/b i3/b1 i3/c i3/c1 i3/k i3/l i3/m i3/n }
+FG i3/NOT.1{NOT 0 I 1 ainp 1 i3/a }
+FG i3/NOT.2{NOT 0 I 1 
+binp 1 i3/b }
+FG i3/NOT.3{NOT 0 I 1 cinp 1 i3/c }
+FG i3/NOT.4{NOT 0 I 1 i3/a 1 
+i3/a1 }
+FG i3/NOT.5{NOT 0 I 1 i3/b 1 i3/b1 }
+FG i3/NOT.6{NOT 0 I 1 i3/c 1 i3/c1 }
+FG i3/AND.1{AND 0 I 3 
+i3/a1 i3/b1 i3/c1 1 i3/k }
+FG i3/AND.2{AND 0 I 3 i3/a1 
+i3/b i3/c 1 i3/l }
+FG i3/AND.3{AND 0 I 3 i3/a i3/b1 
+i3/c 1 i3/m }
+FG i3/AND.4{AND 0 I 3 i3/a i3/b i3/c1 1 
+i3/n }
+FG i3/OR.1{OR 0 I 4 i3/k i3/l i3/m i3/n 1 
+y }
+FG i3/NOT.7{NOT 0 I 1 y 1 y1 }
+FS{i2/a i2/a1 i2/b i2/b1 i2/c i2/c1 i2/k i2/l i2/m i2/n }
+FG i2/NOT.1{NOT 0 I 1 dinp 1 i2/a }
+FG i2/NOT.2{NOT 0 I 1 
+einp 1 i2/b }
+FG i2/NOT.3{NOT 0 I 1 finp 1 i2/c }
+FG i2/NOT.4{NOT 0 I 1 i2/a 1 
+i2/a1 }
+FG i2/NOT.5{NOT 0 I 1 i2/b 1 i2/b1 }
+FG i2/NOT.6{NOT 0 I 1 i2/c 1 i2/c1 }
+FG i2/AND.1{AND 0 I 3 
+i2/a1 i2/b1 i2/c1 1 i2/k }
+FG i2/AND.2{AND 0 I 3 i2/a1 
+i2/b i2/c 1 i2/l }
+FG i2/AND.3{AND 0 I 3 i2/a i2/b1 
+i2/c 1 i2/m }
+FG i2/AND.4{AND 0 I 3 i2/a i2/b i2/c1 1 
+i2/n }
+FG i2/OR.1{OR 0 I 4 i2/k i2/l i2/m i2/n 1 
+x }
+FG i2/NOT.7{NOT 0 I 1 x 1 x1 }
+FS{i1/a i1/a1 i1/b i1/b1 i1/c i1/c1 i1/k i1/l i1/m i1/n }
+FG i1/NOT.1{NOT 0 I 1 ainp 1 i1/a }
+FG i1/NOT.2{NOT 0 I 1 
+binp 1 i1/b }
+FG i1/NOT.3{NOT 0 I 1 cinp 1 i1/c }
+FG i1/NOT.4{NOT 0 I 1 i1/a 1 
+i1/a1 }
+FG i1/NOT.5{NOT 0 I 1 i1/b 1 i1/b1 }
+FG i1/NOT.6{NOT 0 I 1 i1/c 1 i1/c1 }
+FG i1/AND.1{AND 0 I 3 
+i1/a1 i1/b1 i1/c1 1 i1/k }
+FG i1/AND.2{AND 0 I 3 i1/a1 
+i1/b i1/c 1 i1/l }
+FG i1/AND.3{AND 0 I 3 i1/a i1/b1 
+i1/c 1 i1/m }
+FG i1/AND.4{AND 0 I 3 i1/a i1/b i1/c1 1 
+i1/n }
+FG i1/OR.1{OR 0 I 4 i1/k i1/l i1/m i1/n 1 
+w }
+FG i1/NOT.7{NOT 0 I 1 w 1 w1 }}

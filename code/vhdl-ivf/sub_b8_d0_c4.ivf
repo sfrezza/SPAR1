@@ -1,0 +1,174 @@
+
+M_ clh_b4_d0.clh_b4_d0_struct{
+MP{a[3:0] IN;b[3:0] IN;c_in IN;sum[3:0] OUT;c_out OUT;}
+MH{
+HS{c[3:0];g[3:0];p[3:0];}
+HA{g[0:0]<=((a[0:0] AND b[0:0]))}
+HA{g[1:1]<=((a[1:1] AND b[1:1]))}
+HA{g[2:2]<=((a[2:2] AND b[2:2]))}
+HA{g[3:3]<=((a[3:3] AND b[3:3]))}
+HA{p[0:0]<=((a[0:0] OR b[0:0]))}
+HA{p[1:1]<=((a[1:1] OR b[1:1]))}
+HA{p[2:2]<=((a[2:2] OR b[2:2]))}
+HA{p[3:3]<=((a[3:3] OR b[3:3]))}
+HA{c[0:0]<=((g[0:0] OR ((p[0:0] AND c_in))))}
+HA{c[1:1]<=((g[1:1] OR ((p[1:1] AND g[0:0])) OR ((p[1:1] AND p[0:0] AND c_in))))}
+HA{c[2:2]<=((g[2:2] OR ((p[2:2] AND g[1:1])) OR ((p[2:2] AND p[1:1] AND g[0:0])) OR ((p[2:2] AND p[1:1] AND p[0:0] AND c_in))))}
+HA{c[3:3]<=((g[3:3] OR ((p[3:3] AND g[2:2])) OR ((p[3:3] AND p[2:2] AND g[1:1])) OR ((p[3:3] AND p[2:2] AND p[1:1] AND g[0:0])) OR ((p[3:3] AND p[2:2] AND p[1:1] AND p[0:0] AND c_in))))}
+HA{sum[0:0]<=((c_in XOR a[0:0] XOR b[0:0]))}
+HA{sum[1:1]<=((c[0:0] XOR a[1:1] XOR b[1:1]))}
+HA{sum[2:2]<=((c[1:1] XOR a[2:2] XOR b[2:2]))}
+HA{sum[3:3]<=((c[2:2] XOR a[3:3] XOR b[3:3]))}
+HA{c_out<=((c[3:3]))}}}
+
+MX sub_b8_d0_c4.sub_b8_d0_c4_struct{
+MP{oe IN;a[7:0] IN;b[7:0] IN;sum[7:0] OUT;}
+MH{
+HS{c[4:0];nb[7:0];s[7:0];ss[7:0];}
+HA{c[0:0]<=(("1"[0:0]))}
+HA{nb[7:0]<=(NOT(b[7:0]))}
+HA{ss[7:0]<=((s[7:0]))}
+HC tb_b8_d0_0{tb_b8_d0.tb_b8_d0_struct oe;ss[7:0];sum[7:0];}
+HC clh_b4_d0_1{clh_b4_d0.clh_b4_d0_struct a[7:4];nb[7:4];c[1:1];s[7:4];c[2:2];}
+HC clh_b4_d0_0{clh_b4_d0.clh_b4_d0_struct a[3:0];nb[3:0];c[0:0];s[3:0];c[1:1];}}}
+
+M_ tb_b8_d0.tb_b8_d0_struct{
+MP{enable IN;d[7:0] IN;y[7:0] OUT;}
+MH{
+HS{}
+HB _1{
+HS{guard;}
+HA{guard<=((enable EQ "1"[0:0]))}
+HA{y[7:0]<=(GUARDED (d[7:0]))}}}}
+
+MF{
+FS{a_0 a_1 a_2 a_3 a_4 a_5 a_6 a_7 b_0 b_1 b_2 b_3 b_4 b_5 b_6 b_7 oe sum_0 sum_1 sum_2 sum_3 sum_4 sum_5 sum_6 sum_7 }
+FS{c_0 c_1 c_2 c_3 c_4 nb_0 nb_1 nb_2 nb_3 nb_4 nb_5 nb_6 nb_7 s_0 s_1 s_2 s_3 s_4 s_5 s_6 s_7 ss_0 ss_1 ss_2 ss_3 ss_4 ss_5 ss_6 ss_7 }
+FG NL_GATE.38_0{NL_GATE 0 I 1 $1 1 c_0 }
+FG NOT.1_0{NOT 0 I 1 b_0 1 nb_0 }
+FG NOT.1_1{NOT 0 I 1 
+b_1 1 nb_1 }
+FG NOT.1_2{NOT 0 I 1 b_2 1 nb_2 }
+FG NOT.1_3{NOT 0 I 1 b_3 1 
+nb_3 }
+FG NOT.1_4{NOT 0 I 1 b_4 1 nb_4 }
+FG NOT.1_5{NOT 0 I 1 b_5 1 nb_5 }
+FG NOT.1_6{NOT 0 I 1 
+b_6 1 nb_6 }
+FG NOT.1_7{NOT 0 I 1 b_7 1 nb_7 }
+FG NL_GATE.42_0{NL_GATE 0 I 1 s_0 1 
+ss_0 }
+FG NL_GATE.42_1{NL_GATE 0 I 1 s_1 1 ss_1 }
+FG NL_GATE.42_2{NL_GATE 0 I 1 s_2 1 ss_2 }
+FG NL_GATE.42_3{NL_GATE 0 I 1 
+s_3 1 ss_3 }
+FG NL_GATE.42_4{NL_GATE 0 I 1 s_4 1 ss_4 }
+FG NL_GATE.42_5{NL_GATE 0 I 1 s_5 1 
+ss_5 }
+FG NL_GATE.42_6{NL_GATE 0 I 1 s_6 1 ss_6 }
+FG NL_GATE.42_7{NL_GATE 0 I 1 s_7 1 ss_7 }
+FS{tb_b8_d0_0/_1/guard }
+FG tb_b8_d0_0/_1/EQ.1{EQ 0 I 2 
+oe $1 1 tb_b8_d0_0/_1/guard }
+FG tb_b8_d0_0/_1/NL_GATE.3{SELECT 0 I 19 ss_0 ss_1 
+ss_2 ss_3 ss_4 ss_5 ss_6 
+ss_7 _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ 
+_DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ tb_b8_d0_0/_1/guard 
+_DUMMY_SIGNAL_ $1 8 sum_0 sum_1 sum_2 
+sum_3 sum_4 sum_5 sum_6 sum_7 }
+FS{clh_b4_d0_1/_20_0 clh_b4_d0_1/_23_0 clh_b4_d0_1/_24_0 clh_b4_d0_1/_27_0 clh_b4_d0_1/_28_0 clh_b4_d0_1/_29_0 clh_b4_d0_1/_32_0 clh_b4_d0_1/_33_0 clh_b4_d0_1/_34_0 clh_b4_d0_1/_35_0 clh_b4_d0_1/c_0 clh_b4_d0_1/c_1 clh_b4_d0_1/c_2 clh_b4_d0_1/c_3 clh_b4_d0_1/g_0 clh_b4_d0_1/g_1 clh_b4_d0_1/g_2 clh_b4_d0_1/g_3 clh_b4_d0_1/p_0 clh_b4_d0_1/p_1 clh_b4_d0_1/p_2 clh_b4_d0_1/p_3 }
+FG clh_b4_d0_1/AND.1_0{AND 0 I 2 
+a_4 nb_4 1 clh_b4_d0_1/g_0 }
+FG clh_b4_d0_1/AND.2_0{AND 0 I 2 a_5 nb_5 1 
+clh_b4_d0_1/g_1 }
+FG clh_b4_d0_1/AND.3_0{AND 0 I 2 a_6 nb_6 1 clh_b4_d0_1/g_2 }
+FG clh_b4_d0_1/AND.4_0{AND 0 I 2 a_7 
+nb_7 1 clh_b4_d0_1/g_3 }
+FG clh_b4_d0_1/OR.1_0{OR 0 I 2 a_4 nb_4 1 clh_b4_d0_1/p_0 }
+FG clh_b4_d0_1/OR.2_0{OR 0 I 2 
+a_5 nb_5 1 clh_b4_d0_1/p_1 }
+FG clh_b4_d0_1/OR.3_0{OR 0 I 2 a_6 nb_6 1 
+clh_b4_d0_1/p_2 }
+FG clh_b4_d0_1/OR.4_0{OR 0 I 2 a_7 nb_7 1 clh_b4_d0_1/p_3 }
+FG clh_b4_d0_1/AND.5_0{AND 0 I 2 clh_b4_d0_1/p_0 
+c_1 1 clh_b4_d0_1/_20_0 }
+FG clh_b4_d0_1/OR.5_0{OR 0 I 2 clh_b4_d0_1/g_0 clh_b4_d0_1/_20_0 1 clh_b4_d0_1/c_0 }
+FG clh_b4_d0_1/AND.6_0{AND 0 I 2 
+clh_b4_d0_1/p_1 clh_b4_d0_1/g_0 1 clh_b4_d0_1/_23_0 }
+FG clh_b4_d0_1/AND.7_0{AND 0 I 3 clh_b4_d0_1/p_1 clh_b4_d0_1/p_0 
+c_1 1 clh_b4_d0_1/_24_0 }
+FG clh_b4_d0_1/OR.6_0{OR 0 I 3 clh_b4_d0_1/g_1 clh_b4_d0_1/_23_0 clh_b4_d0_1/_24_0 1 
+clh_b4_d0_1/c_1 }
+FG clh_b4_d0_1/AND.8_0{AND 0 I 2 clh_b4_d0_1/p_2 clh_b4_d0_1/g_1 1 clh_b4_d0_1/_27_0 }
+FG clh_b4_d0_1/AND.9_0{AND 0 I 3 clh_b4_d0_1/p_2 
+clh_b4_d0_1/p_1 clh_b4_d0_1/g_0 1 clh_b4_d0_1/_28_0 }
+FG clh_b4_d0_1/AND.10_0{AND 0 I 4 clh_b4_d0_1/p_2 clh_b4_d0_1/p_1 
+clh_b4_d0_1/p_0 c_1 1 clh_b4_d0_1/_29_0 }
+FG clh_b4_d0_1/OR.7_0{OR 0 I 4 clh_b4_d0_1/g_2 clh_b4_d0_1/_27_0 
+clh_b4_d0_1/_28_0 clh_b4_d0_1/_29_0 1 clh_b4_d0_1/c_2 }
+FG clh_b4_d0_1/AND.11_0{AND 0 I 2 clh_b4_d0_1/p_3 clh_b4_d0_1/g_2 1 
+clh_b4_d0_1/_32_0 }
+FG clh_b4_d0_1/AND.12_0{AND 0 I 3 clh_b4_d0_1/p_3 clh_b4_d0_1/p_2 clh_b4_d0_1/g_1 1 clh_b4_d0_1/_33_0 }
+FG clh_b4_d0_1/AND.13_0{AND 0 I 4 
+clh_b4_d0_1/p_3 clh_b4_d0_1/p_2 clh_b4_d0_1/p_1 clh_b4_d0_1/g_0 1 clh_b4_d0_1/_34_0 }
+FG clh_b4_d0_1/AND.14_0{AND 0 I 5 
+clh_b4_d0_1/p_3 clh_b4_d0_1/p_2 clh_b4_d0_1/p_1 clh_b4_d0_1/p_0 c_1 1 
+clh_b4_d0_1/_35_0 }
+FG clh_b4_d0_1/OR.8_0{OR 0 I 5 clh_b4_d0_1/g_3 clh_b4_d0_1/_32_0 clh_b4_d0_1/_33_0 clh_b4_d0_1/_34_0 
+clh_b4_d0_1/_35_0 1 clh_b4_d0_1/c_3 }
+FG clh_b4_d0_1/XOR.1_0{XOR 0 I 3 c_1 a_4 nb_4 1 
+s_4 }
+FG clh_b4_d0_1/XOR.2_0{XOR 0 I 3 clh_b4_d0_1/c_0 a_5 nb_5 1 s_5 }
+FG clh_b4_d0_1/XOR.3_0{XOR 0 I 3 
+clh_b4_d0_1/c_1 a_6 nb_6 1 s_6 }
+FG clh_b4_d0_1/XOR.4_0{XOR 0 I 3 clh_b4_d0_1/c_2 
+a_7 nb_7 1 s_7 }
+FG clh_b4_d0_1/NL_GATE.36{NL_GATE 0 I 1 clh_b4_d0_1/c_3 1 c_2 }
+FS{clh_b4_d0_0/_20_0 clh_b4_d0_0/_23_0 clh_b4_d0_0/_24_0 clh_b4_d0_0/_27_0 clh_b4_d0_0/_28_0 clh_b4_d0_0/_29_0 clh_b4_d0_0/_32_0 clh_b4_d0_0/_33_0 clh_b4_d0_0/_34_0 clh_b4_d0_0/_35_0 clh_b4_d0_0/c_0 clh_b4_d0_0/c_1 clh_b4_d0_0/c_2 clh_b4_d0_0/c_3 clh_b4_d0_0/g_0 clh_b4_d0_0/g_1 clh_b4_d0_0/g_2 clh_b4_d0_0/g_3 clh_b4_d0_0/p_0 clh_b4_d0_0/p_1 clh_b4_d0_0/p_2 clh_b4_d0_0/p_3 }
+FG clh_b4_d0_0/AND.1_0{AND 0 I 2 
+a_0 nb_0 1 clh_b4_d0_0/g_0 }
+FG clh_b4_d0_0/AND.2_0{AND 0 I 2 a_1 nb_1 1 
+clh_b4_d0_0/g_1 }
+FG clh_b4_d0_0/AND.3_0{AND 0 I 2 a_2 nb_2 1 clh_b4_d0_0/g_2 }
+FG clh_b4_d0_0/AND.4_0{AND 0 I 2 a_3 
+nb_3 1 clh_b4_d0_0/g_3 }
+FG clh_b4_d0_0/OR.1_0{OR 0 I 2 a_0 nb_0 1 clh_b4_d0_0/p_0 }
+FG clh_b4_d0_0/OR.2_0{OR 0 I 2 
+a_1 nb_1 1 clh_b4_d0_0/p_1 }
+FG clh_b4_d0_0/OR.3_0{OR 0 I 2 a_2 nb_2 1 
+clh_b4_d0_0/p_2 }
+FG clh_b4_d0_0/OR.4_0{OR 0 I 2 a_3 nb_3 1 clh_b4_d0_0/p_3 }
+FG clh_b4_d0_0/AND.5_0{AND 0 I 2 clh_b4_d0_0/p_0 
+c_0 1 clh_b4_d0_0/_20_0 }
+FG clh_b4_d0_0/OR.5_0{OR 0 I 2 clh_b4_d0_0/g_0 clh_b4_d0_0/_20_0 1 clh_b4_d0_0/c_0 }
+FG clh_b4_d0_0/AND.6_0{AND 0 I 2 
+clh_b4_d0_0/p_1 clh_b4_d0_0/g_0 1 clh_b4_d0_0/_23_0 }
+FG clh_b4_d0_0/AND.7_0{AND 0 I 3 clh_b4_d0_0/p_1 clh_b4_d0_0/p_0 
+c_0 1 clh_b4_d0_0/_24_0 }
+FG clh_b4_d0_0/OR.6_0{OR 0 I 3 clh_b4_d0_0/g_1 clh_b4_d0_0/_23_0 clh_b4_d0_0/_24_0 1 
+clh_b4_d0_0/c_1 }
+FG clh_b4_d0_0/AND.8_0{AND 0 I 2 clh_b4_d0_0/p_2 clh_b4_d0_0/g_1 1 clh_b4_d0_0/_27_0 }
+FG clh_b4_d0_0/AND.9_0{AND 0 I 3 clh_b4_d0_0/p_2 
+clh_b4_d0_0/p_1 clh_b4_d0_0/g_0 1 clh_b4_d0_0/_28_0 }
+FG clh_b4_d0_0/AND.10_0{AND 0 I 4 clh_b4_d0_0/p_2 clh_b4_d0_0/p_1 
+clh_b4_d0_0/p_0 c_0 1 clh_b4_d0_0/_29_0 }
+FG clh_b4_d0_0/OR.7_0{OR 0 I 4 clh_b4_d0_0/g_2 clh_b4_d0_0/_27_0 
+clh_b4_d0_0/_28_0 clh_b4_d0_0/_29_0 1 clh_b4_d0_0/c_2 }
+FG clh_b4_d0_0/AND.11_0{AND 0 I 2 clh_b4_d0_0/p_3 clh_b4_d0_0/g_2 1 
+clh_b4_d0_0/_32_0 }
+FG clh_b4_d0_0/AND.12_0{AND 0 I 3 clh_b4_d0_0/p_3 clh_b4_d0_0/p_2 clh_b4_d0_0/g_1 1 clh_b4_d0_0/_33_0 }
+FG clh_b4_d0_0/AND.13_0{AND 0 I 4 
+clh_b4_d0_0/p_3 clh_b4_d0_0/p_2 clh_b4_d0_0/p_1 clh_b4_d0_0/g_0 1 clh_b4_d0_0/_34_0 }
+FG clh_b4_d0_0/AND.14_0{AND 0 I 5 
+clh_b4_d0_0/p_3 clh_b4_d0_0/p_2 clh_b4_d0_0/p_1 clh_b4_d0_0/p_0 c_0 1 
+clh_b4_d0_0/_35_0 }
+FG clh_b4_d0_0/OR.8_0{OR 0 I 5 clh_b4_d0_0/g_3 clh_b4_d0_0/_32_0 clh_b4_d0_0/_33_0 clh_b4_d0_0/_34_0 
+clh_b4_d0_0/_35_0 1 clh_b4_d0_0/c_3 }
+FG clh_b4_d0_0/XOR.1_0{XOR 0 I 3 c_0 a_0 nb_0 1 
+s_0 }
+FG clh_b4_d0_0/XOR.2_0{XOR 0 I 3 clh_b4_d0_0/c_0 a_1 nb_1 1 s_1 }
+FG clh_b4_d0_0/XOR.3_0{XOR 0 I 3 
+clh_b4_d0_0/c_1 a_2 nb_2 1 s_2 }
+FG clh_b4_d0_0/XOR.4_0{XOR 0 I 3 clh_b4_d0_0/c_2 
+a_3 nb_3 1 s_3 }
+FG clh_b4_d0_0/NL_GATE.36{NL_GATE 0 I 1 clh_b4_d0_0/c_3 1 c_1 }}

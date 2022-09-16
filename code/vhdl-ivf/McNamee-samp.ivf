@@ -1,0 +1,21 @@
+
+MX samp.str{
+MP{k1 IN;k2 IN;k4 IN;f OUT;}
+MH{
+HS{dev1;dev2;dev3;dev4;}
+HA{dev1<=(NOT(k1))}
+HA{dev2<=(NOT(k4))}
+HA{dev3<=((dev1 AND k2 AND k4))}
+HA{dev4<=((dev2 AND k1))}
+HA{f<=((dev3 AND dev4))}}}
+
+MF{
+FS{f k1 k2 k4 }
+FS{dev1 dev2 dev3 dev4 }
+FG NOT.5{NOT 0 I 1 k1 1 dev1 }
+FG NOT.6{NOT 0 I 1 k4 1 dev2 }
+FG AND.10{AND 0 I 3 
+dev1 k2 k4 1 dev3 }
+FG AND.11{AND 0 I 2 dev2 
+k1 1 dev4 }
+FG AND.12{AND 0 I 2 dev3 dev4 1 f }}

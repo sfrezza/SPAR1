@@ -1,0 +1,15 @@
+
+MX random.str{
+MP{inp[2:0] IN;outp[1:0] OUT;}
+MH{
+HS{and1;}
+HA{outp[0:0]<=((and1 OR inp[0:0]))}
+HA{outp[1:1]<=((inp[2:2] OR and1))}
+HA{and1<=((outp[0:0] AND inp[1:1]))}}}
+
+MF{
+FS{inp_0 inp_1 inp_2 inp_3 outp_0 outp_1 }
+FS{and1 }
+FG OR.1_0{OR 0 I 2 and1 inp_0 1 outp_0 }
+FG OR.2_0{OR 0 I 3 inp_3 inp_2 and1 1 outp_1 }
+FG AND.1{AND 0 I 4 inp_3 outp_0 inp_3 inp_1 1 and1 }}

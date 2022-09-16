@@ -1,0 +1,33 @@
+
+MX jk_ms_ff.jk_struct{
+MP{j IN;k IN;c IN;q OUT;qbar OUT;}
+MH{
+HS{cbar;int0;int1;int2;
+int3;int4;int5;}
+HA{cbar<=(NOT(c))}
+HA{int0<=(NOT(((qbar AND j AND c))))}
+HA{int3<=(NOT(((q AND k AND c))))}
+HA{int2<=((int1 NAND cbar))}
+HA{int5<=((int4 NAND cbar))}
+HC rs_1{rs_ff.rs_struct int2;int5;q;qbar;}
+HC rs_0{rs_ff.rs_struct int0;int3;int1;int4;}}}
+
+M_ rs_ff.rs_struct{
+MP{rbar IN;sbar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HA{q<=((sbar NAND qbar))}
+HA{qbar<=((rbar NAND q))}}}
+
+MF{
+FS{c j k q qbar }
+FS{cbar int0 int1 int2 int3 int4 int5 }
+FG NOT.3{NOT 0 I 1 c 1 cbar }
+FG NAND.1{NAND 0 I 3 qbar j c 1 int0 }
+FG NAND.2{NAND 0 I 3 q k c 1 int3 }
+FG NAND.5{NAND 0 I 2 int1 cbar 1 int2 }
+FG NAND.6{NAND 0 I 2 int4 cbar 1 int5 }
+FG NAND.7{NAND 0 I 2 int5 qbar 1 q }
+FG NAND.8{NAND 0 I 2 int2 q 1 qbar }
+FG NAND.3{NAND 0 I 2 int3 int4 1 int1 }
+FG NAND.4{NAND 0 I 2 int0 int1 1 int4 }}

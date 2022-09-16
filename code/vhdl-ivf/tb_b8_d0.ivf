@@ -1,0 +1,21 @@
+
+MX tb_b8_d0.tb_b8_d0_struct{
+MP{enable IN;d[7:0] IN;y[7:0] OUT;}
+MH{
+HS{}
+HB _1{
+HS{guard;}
+HA{guard<=((enable EQ "1"[0:0]))}
+HA{y[7:0]<=(GUARDED (d[7:0]))}}}}
+
+MF{
+FS{d_0 d_1 d_2 d_3 d_4 d_5 d_6 d_7 enable y_0 y_1 y_2 y_3 y_4 y_5 y_6 y_7 }
+FS{_1/guard }
+FG _1/EQ.1{EQ 0 I 2 enable $1 1 _1/guard }
+FG _1/NL_GATE.3{SELECT 0 I 19 d_0 
+d_1 d_2 d_3 d_4 d_5 
+d_6 d_7 _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ 
+_DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ _DUMMY_SIGNAL_ 
+_1/guard _DUMMY_SIGNAL_ $1 8 y_0 y_1 
+y_2 y_3 y_4 y_5 y_6 
+y_7 }}

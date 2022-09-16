@@ -1,0 +1,16 @@
+
+MX random.str{
+MP{inp[1:0] IN;outp[3:1] OUT;}
+MH{
+HS{s;r;rbar;}}}
+
+
+MF{
+FS{inp_0 inp_1 outp_1 outp_2 outp_3}
+FS{s r rbar}
+FG NOR.1_0{NOR 0 I 2 inp_0 s 1 r }
+FG NOR.2_0{NOR 0 I 2 inp_1 r 1 s }
+FG NOT.1{NOT 0 I 1 r 1 rbar}
+FG NOT.2{NOT 0 I 1 s 1 outp_3}
+FG NAND.1{NAND 0 I 2 outp_2 rbar 1 outp_1 }
+FG NAND.2{NAND 0 I 2 outp_1 r 1 outp_2 }}

@@ -1,0 +1,13 @@
+
+MX g_4i.g4_fan_in{
+MP{rbar IN;sbar IN;tbar IN;ubar IN;q OUT;}
+MH{
+HS{t;}
+HA{t<=((sbar AND rbar AND tbar))}
+HA{q<=((t XOR ubar))}}}
+
+MF{
+FS{q rbar sbar tbar ubar }
+FS{t }
+FG AND.1{AND 0 I 3 sbar rbar tbar 1 t }
+FG XOR.1{XOR 0 I 2 t ubar 1 q }}

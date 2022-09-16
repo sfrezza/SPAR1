@@ -1,0 +1,22 @@
+echo "12 drafts for "$1.ivf " are in progress"
+rm -f draft_stats
+(echo " 		name			flags		||     xfouls  yfouls   sum  X x Y = Total Area		MnahattanPWS	Euclidian PWS") > draft_stats
+eval ../spar -q -p1 -s2 $2 $3 ../vhdl/../vhdl/$1.ivf > $1-p1-s2$2$3.ps
+eval ../spar -q -p1 -s4 $2 $3 ../vhdl/$1.ivf > $1-p1-s4$2$3.ps
+eval ../spar -q -p1 -s6 $2 $3 ../vhdl/$1.ivf > $1-p1-s6$2$3.ps
+eval ../spar -q -p1 -s8 $2 $3 ../vhdl/$1.ivf > $1-p1-s8$2$3.ps
+eval ../spar -q -p1 -s12 $2 $3 ../vhdl/$1.ivf > $1-p1-s12$2$3.ps
+eval ../spar -q -p1 -s15 $2 $3 ../vhdl/$1.ivf > $1-p1-s15$2$3.ps
+eval ../spar -q -p1 -s20 $2 $3 ../vhdl/$1.ivf > $1-p1-s20$2$3.ps
+eval ../spar -q -p1 -s30 $2 $3 ../vhdl/$1.ivf > $1-p1-s30$2$3.ps
+eval ../spar -q -r2.0 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r2.0$2$3.ps
+eval ../spar -q -r2.5 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r2.5$2$3.ps
+eval ../spar -q -r3.0 -p2 $2 $3 ../vhdl/$1.ivf > $1-p2-r3.0$2$3.ps
+eval ../spar -q -p3 $2 $3 ../vhdl/$1.ivf > $1-p3$2$3.ps
+mv draft_stats $1.stats
+lpr $1-p1-s2$2$3.ps $1-p1-s4$2$3.ps $1-p1-s6$2$3.ps"
+lpr $1-p1-s8$2$3.ps $1-p1-s12$2$3.ps $1-p1-s15$2$3.ps"
+lpr $1-p1-s20$2$3.ps $1-p1-s30$2$3.ps $1-p2-r2.0$2$3.ps"
+lpr $1-p2-r2.5$2$3.ps $1-p2-r3.0$2$3.ps $1-p3$2$3.ps"
+
+

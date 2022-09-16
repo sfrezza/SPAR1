@@ -1,0 +1,44 @@
+
+MX sn54s151.str{
+MP{strobe IN;a IN;b IN;c IN;d[7:0] IN;outy OUT;outw OUT;}
+MH{
+HS{a_bar;a_bar_bar;b_bar;b_bar_bar;c_bar;c_bar_bar;strobe_bar;t[7:0];}
+HA{strobe_bar<=(NOT(strobe))}
+HA{a_bar<=(NOT(a))}
+HA{b_bar<=(NOT(b))}
+HA{c_bar<=(NOT(c))}
+HA{a_bar_bar<=(NOT(a_bar))}
+HA{b_bar_bar<=(NOT(b_bar))}
+HA{c_bar_bar<=(NOT(c_bar))}
+HA{t[0:0]<=((d[0:0] AND a_bar AND b_bar AND c_bar AND strobe_bar))}
+HA{t[1:1]<=((d[1:1] AND a_bar_bar AND b_bar AND c_bar AND strobe_bar))}
+HA{t[2:2]<=((d[2:2] AND a_bar AND b_bar_bar AND c_bar AND strobe_bar))}
+HA{t[3:3]<=((d[3:3] AND a_bar_bar AND b_bar_bar AND c_bar AND strobe_bar))}
+HA{t[4:4]<=((d[4:4] AND a_bar AND b_bar AND c_bar_bar AND strobe_bar))}
+HA{t[5:5]<=((d[5:5] AND a_bar_bar AND b_bar AND c_bar_bar AND strobe_bar))}
+HA{t[6:6]<=((d[6:6] AND a_bar AND b_bar_bar AND c_bar_bar AND strobe_bar))}
+HA{t[7:7]<=((d[7:7] AND a_bar_bar AND b_bar_bar AND c_bar_bar AND strobe_bar))}
+HA{outy<=(NOT(((t[0:0] OR t[1:1] OR t[2:2] OR t[3:3] OR t[4:4] OR t[5:5] OR t[6:6] OR t[7:7]))))}
+HA{outw<=(NOT(outy))}}}
+
+MF{
+FS{a b c d_0 d_1 d_2 d_3 d_4 d_5 d_6 d_7 outw outy strobe }
+FS{result a_bar a_bar_bar b_bar b_bar_bar c_bar c_bar_bar strobe_bar t_0 t_1 t_2 t_3 t_4 t_5 t_6 t_7 }
+FG NOT.1{NOT 0 I 1 strobe 1 strobe_bar }
+FG NOT.2{NOT 0 I 1 a 1 a_bar }
+FG NOT.3{NOT 0 I 1 b 1 b_bar }
+FG NOT.4{NOT 0 I 1 c 1 c_bar }
+FG NOT.5{NOT 0 I 1 a_bar 1 a_bar_bar }
+FG NOT.6{NOT 0 I 1 b_bar 1 b_bar_bar }
+FG NOT.7{NOT 0 I 1 c_bar 1 c_bar_bar }
+FG AND.1_0{AND 0 I 5 d_0 a_bar b_bar c_bar strobe_bar 1 t_0 }
+FG AND.3_0{AND 0 I 5 d_2 a_bar b_bar_bar c_bar strobe_bar 1 t_2 }
+FG AND.2_0{AND 0 I 5 d_1 a_bar_bar b_bar c_bar strobe_bar 1 t_1 }
+FG AND.4_0{AND 0 I 5 d_3 a_bar_bar b_bar_bar c_bar strobe_bar 1 t_3 }
+FG AND.5_0{AND 0 I 5 d_4 a_bar b_bar c_bar_bar strobe_bar 1 t_4 }
+FG AND.6_0{AND 0 I 5 d_5 a_bar_bar b_bar c_bar_bar strobe_bar 1 t_5 }
+FG AND.7_0{AND 0 I 5 d_6 a_bar b_bar_bar c_bar_bar strobe_bar 1 t_6 }
+FG AND.8_0{AND 0 I 5 d_7 a_bar_bar b_bar_bar c_bar_bar strobe_bar 1 t_7 }
+FG OR.1{OR 0 I 8 t_0 t_1 t_2 t_3 t_4 t_5 t_6 t_7 1 result }
+FG NOT.8{NOT 0 I 1 result 1 outy }
+FG NOT.9{NOT 0 I 1 outy 1 outw }}

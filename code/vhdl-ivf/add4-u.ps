@@ -1,0 +1,513 @@
+%!							    	
+%  head.ps									
+%    prologue file for ploting of schematics editor drawings			
+%										
+%  routines:									
+%    init    -- sets up the graphics state for the proper scaling		
+%										
+%  some constants that can be changed:						
+/swidth        .1 def			% width of lines			
+/fwidth	      1.6 def			% scale factor for labels		
+/hwidth        12 def			% type size of header			
+/hmargin        6 def			% header margin				
+/init {		 	 	%  (optional_header) xlo ylo xhi yhi -> -	
+	/yhi exch def /xhi exch def						
+	/ylo exch def /xlo exch def						
+	/lwunit 72 def			% LaserWriter units per inch		
+	/marginx 0.27 lwunit mul def    % x-margin				
+	/marginy 0.25 lwunit mul def    % y-margin				
+	/pagex 8.5 lwunit mul		% usable x-space on page		
+             2 marginx mul sub def						
+	/pagey 11.0 lwunit mul 		% usable y-space on page		
+	     2 marginy mul sub def						
+%										
+	count 1 ge {			% header left on stack?			
+	     /Helvetica-Bold findfont   % set header font			
+		 hwidth scalefont setfont					
+	     marginx marginy pagey add hwidth sub				
+		 moveto			% position to place text		
+	     show			% print header string			
+	     /pagey pagey hwidth hmargin add sub				
+		 def			% adjust page size for header		
+	} if									
+%										
+	count 1 ge {			% 2nd header left on stack?		
+	     marginx marginy pagey add hwidth sub				
+		 moveto			% position to place text		
+	     show			% print header string			
+	     /pagey pagey hwidth hmargin add sub				
+		 def			% adjust page size for header		
+	} if									
+%										
+%										
+	/Courier findfont               % set the drawing font			
+	    fwidth scalefont setfont				       		
+%								    		
+	xhi xlo sub yhi ylo sub div     % push delta x / delta y		
+	pagex pagey div			% push pagex / pagey			
+	gt {									
+	   90 rotate			% rotate page and set origin		
+	   marginy pagex marginx add neg translate				
+	   pagey xhi xlo sub div	% push x and y scales			
+	   pagex yhi ylo sub div						
+        }{							      		
+	   marginx marginy translate	% set origin				
+	   pagex xhi xlo sub div	% push x and y scales			
+	   pagey yhi ylo sub div						
+	} ifelse								
+%										
+	2 copy 				% dup the scales			
+	gt 									
+	   {dup scale pop}		% xscale > yscale: use yscale		
+	   {pop dup scale}              % yscale > xscale: use xscale		
+	ifelse									
+%								 		
+	xlo neg ylo neg translate		% move origin to proper place	
+	swidth setlinewidth		% set line width for strokes		
+} def										
+
+
+(frezza: Module Placement for ../../vhdl/add4.ivf) 0 0 287 150 init
+newpath 259 141 moveto 3 0 rlineto -2 1 rlineto  stroke
+262 141 moveto -2 -1 rlineto  stroke
+261.600000 142.100000 moveto (s_3) show
+newpath 259 141 moveto 1 0 rlineto closepath  stroke
+ 256.000000 141.000000 moveto (s_3) show
+newpath 259 131 moveto 3 0 rlineto -2 1 rlineto  stroke
+262 131 moveto -2 -1 rlineto  stroke
+261.600000 132.100000 moveto (s_2) show
+newpath 259 131 moveto 1 0 rlineto closepath  stroke
+ 256.000000 131.000000 moveto (s_2) show
+newpath 259 121 moveto 3 0 rlineto -2 1 rlineto  stroke
+262 121 moveto -2 -1 rlineto  stroke
+261.600000 122.100000 moveto (s_1) show
+newpath 259 121 moveto 1 0 rlineto closepath  stroke
+ 256.000000 121.000000 moveto (s_1) show
+newpath 259 111 moveto 3 0 rlineto -2 1 rlineto  stroke
+262 111 moveto -2 -1 rlineto  stroke
+261.600000 112.100000 moveto (s_0) show
+newpath 259 111 moveto 1 0 rlineto closepath  stroke
+ 256.000000 111.000000 moveto (s_0) show
+newpath 259 9 moveto 3 0 rlineto -2 1 rlineto  stroke
+262 9 moveto -2 -1 rlineto  stroke
+262.100000 10.100000 moveto (c4) show
+newpath 259 9 moveto 1 0 rlineto closepath  stroke
+ 257.000000 9.000000 moveto (c4) show
+newpath 44 11 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 11 moveto -4 -1 rlineto  stroke
+35.300000 13.100000 moveto (b_3) show
+newpath 44 53 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 53 moveto -4 -1 rlineto  stroke
+35.300000 55.100000 moveto (b_2) show
+newpath 44 85 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 85 moveto -4 -1 rlineto  stroke
+35.300000 87.100000 moveto (b_1) show
+newpath 44 137 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 137 moveto -4 -1 rlineto  stroke
+35.300000 139.100000 moveto (b_0) show
+newpath 44 40 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 40 moveto -4 -1 rlineto  stroke
+35.300000 42.100000 moveto (a_3) show
+newpath 44 76 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 76 moveto -4 -1 rlineto  stroke
+35.300000 78.100000 moveto (a_2) show
+newpath 44 101 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 101 moveto -4 -1 rlineto  stroke
+35.300000 103.100000 moveto (a_1) show
+newpath 44 127 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 127 moveto -4 -1 rlineto  stroke
+35.300000 129.100000 moveto (a_0) show
+newpath 44 109 moveto -3 0 rlineto -4 1 rlineto  stroke
+41 109 moveto -4 -1 rlineto  stroke
+35.800000 111.100000 moveto (c0) show
+
+%% OR Gate centered at 120.599998 111.000000... 
+newpath 119.349998 108.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 119.349998 113.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 113.349998 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 117.524998 113.500000 moveto 119.849998 113.500000 lineto stroke
+ newpath 117.524998 108.500000 moveto 119.849998 108.500000 lineto  stroke
+newpath 123.849998 111.000000 moveto 126 111.000000 lineto stroke
+117.300000 112.100000 moveto (b1/OR.1) show
+126.000000 112.000000 moveto (c1) show
+newpath 116 110 moveto 2 0 rlineto closepath  stroke
+ 111.000000 110.000000 moveto (b1/_5) show
+newpath 116 112 moveto 2 0 rlineto closepath  stroke
+ 114.000000 112.000000 moveto (g0) show
+
+%% AND Gate centered at 104.000000 110.000000... 
+newpath 104.500000 110.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 104.500000 112.500000 moveto 100.750000 112.500000 lineto 100.750000 107.500000 lineto 104.500000 107.500000 lineto stroke
+ newpath 107.000000 110.000000 moveto 109 110.000000 lineto stroke 
+99.800000 111.100000 moveto (b1/AND.2) show
+109.000000 111.000000 moveto (b1/_5) show
+newpath 99 109 moveto 100.500000 109 lineto closepath  stroke
+ 97.000000 109.000000 moveto (c0) show
+newpath 99 111 moveto 100.500000 111 lineto closepath  stroke
+ 97.000000 111.000000 moveto (p0) show
+
+%% XOR Gate centered at 87.000000 111.000000... 
+newpath 85.875000 108.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 85.875000 113.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 79.875000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 79.125000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 84.050000 113.500000 moveto 86.375000 113.500000 lineto stroke
+ newpath 84.050000 108.500000 moveto 86.375000 108.500000 lineto  stroke
+newpath 90.500000 111.000000 moveto 92 111.000000 lineto stroke 
+82.800000 112.100000 moveto (b1/XOR.1) show
+92.000000 112.000000 moveto (p0) show
+newpath 82 110 moveto 2 0 rlineto closepath  stroke
+ 79.000000 110.000000 moveto (b_0) show
+newpath 82 112 moveto 2 0 rlineto closepath  stroke
+ 79.000000 112.000000 moveto (a_0) show
+
+%% AND Gate centered at 80.000000 126.000000... 
+newpath 80.500000 126.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 80.500000 128.500000 moveto 76.750000 128.500000 lineto 76.750000 123.500000 lineto 80.500000 123.500000 lineto stroke
+ newpath 83.000000 126.000000 moveto 85 126.000000 lineto stroke 
+75.800000 127.100000 moveto (b1/AND.1) show
+85.000000 127.000000 moveto (g0) show
+newpath 75 125 moveto 76.500000 125 lineto closepath  stroke
+ 72.000000 125.000000 moveto (b_0) show
+newpath 75 127 moveto 76.500000 127 lineto closepath  stroke
+ 72.000000 127.000000 moveto (a_0) show
+
+%% XOR Gate centered at 157.000000 111.000000... 
+newpath 155.875000 108.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 155.875000 113.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 149.875000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 149.125000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 154.050000 113.500000 moveto 156.375000 113.500000 lineto stroke
+ newpath 154.050000 108.500000 moveto 156.375000 108.500000 lineto  stroke
+newpath 160.500000 111.000000 moveto 162 111.000000 lineto stroke 
+154.300000 112.100000 moveto (XOR.8) show
+162.000000 112.000000 moveto (s_3) show
+newpath 152 110 moveto 2 0 rlineto closepath  stroke
+ 150.000000 110.000000 moveto (p3) show
+newpath 152 112 moveto 2 0 rlineto closepath  stroke
+ 150.000000 112.000000 moveto (c3) show
+
+%% XOR Gate centered at 177.000000 111.000000... 
+newpath 175.875000 108.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 175.875000 113.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 169.875000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 169.125000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 174.050000 113.500000 moveto 176.375000 113.500000 lineto stroke
+ newpath 174.050000 108.500000 moveto 176.375000 108.500000 lineto  stroke
+newpath 180.500000 111.000000 moveto 182 111.000000 lineto stroke 
+174.300000 112.100000 moveto (XOR.7) show
+182.000000 112.000000 moveto (s_2) show
+newpath 172 110 moveto 2 0 rlineto closepath  stroke
+ 170.000000 110.000000 moveto (p2) show
+newpath 172 112 moveto 2 0 rlineto closepath  stroke
+ 170.000000 112.000000 moveto (c2) show
+
+%% XOR Gate centered at 197.000000 111.000000... 
+newpath 195.875000 108.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 195.875000 113.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 189.875000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 189.125000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 194.050000 113.500000 moveto 196.375000 113.500000 lineto stroke
+ newpath 194.050000 108.500000 moveto 196.375000 108.500000 lineto  stroke
+newpath 200.500000 111.000000 moveto 202 111.000000 lineto stroke 
+194.300000 112.100000 moveto (XOR.6) show
+202.000000 112.000000 moveto (s_1) show
+newpath 192 110 moveto 2 0 rlineto closepath  stroke
+ 190.000000 110.000000 moveto (p1) show
+newpath 192 112 moveto 2 0 rlineto closepath  stroke
+ 190.000000 112.000000 moveto (c1) show
+
+%% XOR Gate centered at 217.000000 111.000000... 
+newpath 215.875000 108.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 215.875000 113.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 209.875000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 209.125000 111.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 214.050000 113.500000 moveto 216.375000 113.500000 lineto stroke
+ newpath 214.050000 108.500000 moveto 216.375000 108.500000 lineto  stroke
+newpath 220.500000 111.000000 moveto 222 111.000000 lineto stroke 
+214.300000 112.100000 moveto (XOR.5) show
+222.000000 112.000000 moveto (s_0) show
+newpath 212 110 moveto 2 0 rlineto closepath  stroke
+ 210.000000 110.000000 moveto (p0) show
+newpath 212 112 moveto 2 0 rlineto closepath  stroke
+ 210.000000 112.000000 moveto (c0) show
+
+%% OR Gate centered at 188.600006 85.000000... 
+newpath 187.350006 82.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 187.350006 87.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 181.350006 85.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 185.525006 87.500000 moveto 187.850006 87.500000 lineto stroke
+ newpath 185.525006 82.500000 moveto 187.850006 82.500000 lineto  stroke
+newpath 191.850006 85.000000 moveto 194 85.000000 lineto stroke
+185.300000 86.100000 moveto (b2/OR.2) show
+194.000000 86.000000 moveto (c2) show
+newpath 184 87 moveto 2 0 rlineto closepath  stroke
+ 178.000000 87.000000 moveto (b2/_13) show
+newpath 184 85 moveto 2 0 rlineto closepath  stroke
+ 178.000000 85.000000 moveto (b2/_12) show
+newpath 184 83 moveto 2 0 rlineto closepath  stroke
+ 182.000000 83.000000 moveto (g1) show
+
+%% AND Gate centered at 169.000000 85.000000... 
+newpath 169.500000 85.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 169.500000 87.500000 moveto 165.750000 87.500000 lineto 165.750000 82.500000 lineto 169.500000 82.500000 lineto stroke
+ newpath 172.000000 85.000000 moveto 174 85.000000 lineto stroke 
+164.800000 86.100000 moveto (b2/AND.4) show
+174.000000 86.000000 moveto (b2/_12) show
+newpath 164 84 moveto 165.500000 84 lineto closepath  stroke
+ 162.000000 84.000000 moveto (g0) show
+newpath 164 86 moveto 165.500000 86 lineto closepath  stroke
+ 162.000000 86.000000 moveto (p1) show
+
+%% XOR Gate centered at 152.000000 86.000000... 
+newpath 150.875000 83.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 150.875000 88.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 144.875000 86.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 144.125000 86.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 149.050000 88.500000 moveto 151.375000 88.500000 lineto stroke
+ newpath 149.050000 83.500000 moveto 151.375000 83.500000 lineto  stroke
+newpath 155.500000 86.000000 moveto 157 86.000000 lineto stroke 
+147.800000 87.100000 moveto (b2/XOR.2) show
+157.000000 87.000000 moveto (p1) show
+newpath 147 85 moveto 2 0 rlineto closepath  stroke
+ 144.000000 85.000000 moveto (b_1) show
+newpath 147 87 moveto 2 0 rlineto closepath  stroke
+ 144.000000 87.000000 moveto (a_1) show
+
+%% AND Gate centered at 145.000000 100.000000... 
+newpath 145.500000 100.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 145.500000 102.500000 moveto 141.750000 102.500000 lineto 141.750000 97.500000 lineto 145.500000 97.500000 lineto stroke
+ newpath 148.000000 100.000000 moveto 150 100.000000 lineto stroke 
+140.800000 101.100000 moveto (b2/AND.3) show
+150.000000 101.000000 moveto (g1) show
+newpath 140 99 moveto 141.500000 99 lineto closepath  stroke
+ 137.000000 99.000000 moveto (b_1) show
+newpath 140 101 moveto 141.500000 101 lineto closepath  stroke
+ 137.000000 101.000000 moveto (a_1) show
+
+%% AND Gate centered at 130.000000 89.000000... 
+newpath 130.500000 89.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 130.500000 91.500000 moveto 126.750000 91.500000 lineto 126.750000 86.500000 lineto 130.500000 86.500000 lineto stroke
+ newpath 133.000000 89.000000 moveto 135 89.000000 lineto stroke 
+125.800000 90.100000 moveto (b2/AND.5) show
+135.000000 90.000000 moveto (b2/_13) show
+newpath 125 91 moveto 126.500000 91 lineto closepath  stroke
+ 123.000000 91.000000 moveto (c0) show
+newpath 125 89 moveto 126.500000 89 lineto closepath  stroke
+ 123.000000 89.000000 moveto (p0) show
+newpath 125 87 moveto 126.500000 87 lineto closepath  stroke
+ 123.000000 87.000000 moveto (p1) show
+
+%% OR Gate centered at 214.600006 52.000000... 
+newpath 213.350006 49.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 213.350006 54.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 207.350006 52.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 211.525006 54.500000 moveto 213.850006 54.500000 lineto stroke
+ newpath 211.525006 49.500000 moveto 213.850006 49.500000 lineto  stroke
+newpath 217.850006 52.000000 moveto 220 52.000000 lineto stroke
+211.300000 53.100000 moveto (b3/OR.3) show
+220.000000 53.000000 moveto (c3) show
+newpath 210 49 moveto 2 0 rlineto closepath  stroke
+ 204.000000 49.000000 moveto (b3/_22) show
+newpath 210 51 moveto 2 0 rlineto closepath  stroke
+ 204.000000 51.000000 moveto (b3/_21) show
+newpath 210 53 moveto 2 0 rlineto closepath  stroke
+ 204.000000 53.000000 moveto (b3/_20) show
+newpath 210 55 moveto 2 0 rlineto closepath  stroke
+ 208.000000 55.000000 moveto (g2) show
+
+%% AND Gate centered at 192.000000 53.000000... 
+newpath 192.500000 53.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 192.500000 55.500000 moveto 188.750000 55.500000 lineto 188.750000 50.500000 lineto 192.500000 50.500000 lineto stroke
+ newpath 195.000000 53.000000 moveto 197 53.000000 lineto stroke 
+187.800000 54.100000 moveto (b3/AND.7) show
+197.000000 54.000000 moveto (b3/_20) show
+newpath 187 52 moveto 188.500000 52 lineto closepath  stroke
+ 185.000000 52.000000 moveto (g1) show
+newpath 187 54 moveto 188.500000 54 lineto closepath  stroke
+ 185.000000 54.000000 moveto (p2) show
+
+%% XOR Gate centered at 175.000000 54.000000... 
+newpath 173.875000 51.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 173.875000 56.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 167.875000 54.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 167.125000 54.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 172.050000 56.500000 moveto 174.375000 56.500000 lineto stroke
+ newpath 172.050000 51.500000 moveto 174.375000 51.500000 lineto  stroke
+newpath 178.500000 54.000000 moveto 180 54.000000 lineto stroke 
+170.800000 55.100000 moveto (b3/XOR.3) show
+180.000000 55.000000 moveto (p2) show
+newpath 170 53 moveto 2 0 rlineto closepath  stroke
+ 167.000000 53.000000 moveto (b_2) show
+newpath 170 55 moveto 2 0 rlineto closepath  stroke
+ 167.000000 55.000000 moveto (a_2) show
+
+%% AND Gate centered at 165.000000 75.000000... 
+newpath 165.500000 75.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 165.500000 77.500000 moveto 161.750000 77.500000 lineto 161.750000 72.500000 lineto 165.500000 72.500000 lineto stroke
+ newpath 168.000000 75.000000 moveto 170 75.000000 lineto stroke 
+160.800000 76.100000 moveto (b3/AND.6) show
+170.000000 76.000000 moveto (g2) show
+newpath 160 74 moveto 161.500000 74 lineto closepath  stroke
+ 157.000000 74.000000 moveto (b_2) show
+newpath 160 76 moveto 161.500000 76 lineto closepath  stroke
+ 157.000000 76.000000 moveto (a_2) show
+
+%% AND Gate centered at 188.000000 69.000000... 
+newpath 188.500000 69.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 188.500000 71.500000 moveto 184.750000 71.500000 lineto 184.750000 66.500000 lineto 188.500000 66.500000 lineto stroke
+ newpath 191.000000 69.000000 moveto 193 69.000000 lineto stroke 
+183.800000 70.100000 moveto (b3/AND.8) show
+193.000000 70.000000 moveto (b3/_21) show
+newpath 183 71 moveto 184.500000 71 lineto closepath  stroke
+ 181.000000 71.000000 moveto (g0) show
+newpath 183 69 moveto 184.500000 69 lineto closepath  stroke
+ 181.000000 69.000000 moveto (p1) show
+newpath 183 67 moveto 184.500000 67 lineto closepath  stroke
+ 181.000000 67.000000 moveto (p2) show
+
+%% AND Gate centered at 153.000000 51.000000... 
+newpath 153.500000 51.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 153.500000 53.500000 moveto 149.750000 53.500000 lineto 149.750000 48.500000 lineto 153.500000 48.500000 lineto stroke
+ newpath 156.000000 51.000000 moveto 158 51.000000 lineto stroke 
+148.800000 52.100000 moveto (b3/AND.9) show
+158.000000 52.000000 moveto (b3/_22) show
+newpath 148 48 moveto 149.500000 48 lineto closepath  stroke
+ 146.000000 48.000000 moveto (c0) show
+newpath 148 50 moveto 149.500000 50 lineto closepath  stroke
+ 146.000000 50.000000 moveto (p0) show
+newpath 148 52 moveto 149.500000 52 lineto closepath  stroke
+ 146.000000 52.000000 moveto (p1) show
+newpath 148 54 moveto 149.500000 54 lineto closepath  stroke
+ 146.000000 54.000000 moveto (p2) show
+
+%% OR Gate centered at 230.600006 9.000000... 
+newpath 229.350006 6.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 229.350006 11.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 223.350006 9.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 227.525006 11.500000 moveto 229.850006 11.500000 lineto stroke
+ newpath 227.525006 6.500000 moveto 229.850006 6.500000 lineto  stroke
+newpath 233.850006 9.000000 moveto 236 9.000000 lineto stroke
+227.300000 10.100000 moveto (b4/OR.4) show
+236.000000 10.000000 moveto (c4) show
+newpath 226 5 moveto 2 0 rlineto closepath  stroke
+ 220.000000 5.000000 moveto (b4/_32) show
+newpath 226 7 moveto 2 0 rlineto closepath  stroke
+ 220.000000 7.000000 moveto (b4/_31) show
+newpath 226 9 moveto 2 0 rlineto closepath  stroke
+ 220.000000 9.000000 moveto (b4/_30) show
+newpath 226 11 moveto 2 0 rlineto closepath  stroke
+ 220.000000 11.000000 moveto (b4/_29) show
+newpath 226 13 moveto 2 0 rlineto closepath  stroke
+ 224.000000 13.000000 moveto (g3) show
+newpath 223.475006 13.705800 5.000000 -28.072000 3.894274 arc stroke
+newpath 223.475006 4.294200 5.000000 -3.894274 28.072000 arc stroke
+
+%% AND Gate centered at 205.000000 11.000000... 
+newpath 205.500000 11.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 205.500000 13.500000 moveto 201.750000 13.500000 lineto 201.750000 8.500000 lineto 205.500000 8.500000 lineto stroke
+ newpath 208.000000 11.000000 moveto 210 11.000000 lineto stroke 
+200.300000 12.100000 moveto (b4/AND.11) show
+210.000000 12.000000 moveto (b4/_29) show
+newpath 200 10 moveto 201.500000 10 lineto closepath  stroke
+ 198.000000 10.000000 moveto (g2) show
+newpath 200 12 moveto 201.500000 12 lineto closepath  stroke
+ 198.000000 12.000000 moveto (p3) show
+
+%% XOR Gate centered at 188.000000 12.000000... 
+newpath 186.875000 9.500000 5.000000 91.219000 29.219000 arcn stroke
+newpath 186.875000 14.500000 5.000000 -90.618000 -29.892000 arc stroke
+newpath 180.875000 12.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 180.125000 12.000000 5.000000 -28.072000 28.072000 arc stroke
+newpath 185.050000 14.500000 moveto 187.375000 14.500000 lineto stroke
+ newpath 185.050000 9.500000 moveto 187.375000 9.500000 lineto  stroke
+newpath 191.500000 12.000000 moveto 193 12.000000 lineto stroke 
+183.800000 13.100000 moveto (b4/XOR.4) show
+193.000000 13.000000 moveto (p3) show
+newpath 183 11 moveto 2 0 rlineto closepath  stroke
+ 180.000000 11.000000 moveto (b_3) show
+newpath 183 13 moveto 2 0 rlineto closepath  stroke
+ 180.000000 13.000000 moveto (a_3) show
+
+%% AND Gate centered at 174.000000 39.000000... 
+newpath 174.500000 39.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 174.500000 41.500000 moveto 170.750000 41.500000 lineto 170.750000 36.500000 lineto 174.500000 36.500000 lineto stroke
+ newpath 177.000000 39.000000 moveto 179 39.000000 lineto stroke 
+169.300000 40.100000 moveto (b4/AND.10) show
+179.000000 40.000000 moveto (g3) show
+newpath 169 38 moveto 170.500000 38 lineto closepath  stroke
+ 166.000000 38.000000 moveto (b_3) show
+newpath 169 40 moveto 170.500000 40 lineto closepath  stroke
+ 166.000000 40.000000 moveto (a_3) show
+
+%% AND Gate centered at 197.000000 41.000000... 
+newpath 197.500000 41.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 197.500000 43.500000 moveto 193.750000 43.500000 lineto 193.750000 38.500000 lineto 197.500000 38.500000 lineto stroke
+ newpath 200.000000 41.000000 moveto 202 41.000000 lineto stroke 
+192.300000 42.100000 moveto (b4/AND.12) show
+202.000000 42.000000 moveto (b4/_30) show
+newpath 192 43 moveto 193.500000 43 lineto closepath  stroke
+ 190.000000 43.000000 moveto (g1) show
+newpath 192 41 moveto 193.500000 41 lineto closepath  stroke
+ 190.000000 41.000000 moveto (p2) show
+newpath 192 39 moveto 193.500000 39 lineto closepath  stroke
+ 190.000000 39.000000 moveto (p3) show
+
+%% AND Gate centered at 201.000000 28.000000... 
+newpath 201.500000 28.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 201.500000 30.500000 moveto 197.750000 30.500000 lineto 197.750000 25.500000 lineto 201.500000 25.500000 lineto stroke
+ newpath 204.000000 28.000000 moveto 206 28.000000 lineto stroke 
+196.300000 29.100000 moveto (b4/AND.13) show
+206.000000 29.000000 moveto (b4/_31) show
+newpath 196 25 moveto 197.500000 25 lineto closepath  stroke
+ 194.000000 25.000000 moveto (g0) show
+newpath 196 27 moveto 197.500000 27 lineto closepath  stroke
+ 194.000000 27.000000 moveto (p1) show
+newpath 196 29 moveto 197.500000 29 lineto closepath  stroke
+ 194.000000 29.000000 moveto (p2) show
+newpath 196 31 moveto 197.500000 31 lineto closepath  stroke
+ 194.000000 31.000000 moveto (p3) show
+
+%% AND Gate centered at 166.000000 7.000000... 
+newpath 166.500000 7.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 166.500000 9.500000 moveto 162.750000 9.500000 lineto 162.750000 4.500000 lineto 166.500000 4.500000 lineto stroke
+ newpath 169.000000 7.000000 moveto 171 7.000000 lineto stroke 
+161.300000 8.100000 moveto (b4/AND.14) show
+171.000000 8.000000 moveto (b4/_32) show
+newpath 161 3 moveto 162.500000 3 lineto closepath  stroke
+ 159.000000 3.000000 moveto (c0) show
+newpath 161 5 moveto 162.500000 5 lineto closepath  stroke
+ 159.000000 5.000000 moveto (p0) show
+newpath 161 7 moveto 162.500000 7 lineto closepath  stroke
+ 159.000000 7.000000 moveto (p1) show
+newpath 161 9 moveto 162.500000 9 lineto closepath  stroke
+ 159.000000 9.000000 moveto (p2) show
+newpath 161 11 moveto 162.500000 11 lineto closepath  stroke
+ 159.000000 11.000000 moveto (p3) show
+newpath 162.500000 2 moveto  0 10 rlineto closepath  stroke
+[4.0] 0 setdash
+newpath 147 0 moveto 245 0 lineto 
+245 47 lineto 147 47 lineto
+closepath stroke [] 0 setdash
+148.000000 45.000000 moveto ([part: #1, placed:1]) show
+[4.0] 0 setdash
+newpath 147 106 moveto 227 106 lineto 
+227 117 lineto 147 117 lineto
+closepath stroke [] 0 setdash
+148.000000 115.000000 moveto ([part: #2, placed:4]) show
+[4.0] 0 setdash
+newpath 137 45 moveto 229 45 lineto 
+229 81 lineto 137 81 lineto
+closepath stroke [] 0 setdash
+138.000000 79.000000 moveto ([part: #3, placed:2]) show
+[4.0] 0 setdash
+newpath 117 81 moveto 203 81 lineto 
+203 106 lineto 117 106 lineto
+closepath stroke [] 0 setdash
+118.000000 104.000000 moveto ([part: #4, placed:3]) show
+[4.0] 0 setdash
+newpath 70 106 moveto 135 106 lineto 
+135 132 lineto 70 132 lineto
+closepath stroke [] 0 setdash
+71.000000 130.000000 moveto ([part: #5, placed:5]) show
+showpage

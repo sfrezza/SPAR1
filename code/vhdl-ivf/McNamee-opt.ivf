@@ -1,0 +1,33 @@
+
+MX opt.str{
+MP{a IN;b IN;c IN;d IN;e IN;f OUT;g OUT;}
+MH{
+HS{a1;a2;n1;n2;
+o1;o2;o3;}
+HA{n1<=(NOT(c))}
+HA{n2<=(NOT(o2))}
+HA{a2<=((d AND e))}
+HA{a1<=((n1 AND b))}
+HA{o1<=((a1 OR a))}
+HA{o2<=((a2 OR n1))}
+HA{o3<=((d OR e))}
+HA{f<=((n2 AND o1))}
+HA{g<=((o1 AND o3))}}}
+
+MF{
+FS{a b c d e f g }
+FS{a1 a2 n1 n2 o1 o2 o3 }
+FG NOT.9{NOT 0 I 1 c 1 n1 }
+FG NOT.10{NOT 0 I 1 o2 1 n2 }
+FG AND.15{AND 0 I 2 
+d e 1 a2 }
+FG AND.16{AND 0 I 2 n1 b 1 
+a1 }
+FG OR.4{OR 0 I 2 a1 a 1 o1 }
+FG OR.5{OR 0 I 2 a2 
+n1 1 o2 }
+FG OR.6{OR 0 I 2 d e 1 o3 }
+FG AND.17{AND 0 I 2 
+n2 o1 1 f }
+FG AND.18{AND 0 I 2 o1 o3 1 
+g }}

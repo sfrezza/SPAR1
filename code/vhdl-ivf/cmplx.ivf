@@ -1,0 +1,32 @@
+
+MX cc.str{
+MP{a IN;b IN;c IN;d IN;e OUT;f OUT;g OUT;}
+MH{
+HS{p;pbar;q;qbar;
+r;rbar;t1;t2;}
+HA{q<=((a NOR qbar))}
+HA{qbar<=((b NOR q))}
+HA{t1<=((q) AFTER 30)}
+HA{pbar<=(NOT(((p XOR c))))}
+HA{p<=(NOT(((t1 XOR pbar))))}
+HA{e<=((p) AFTER 30)}
+HA{rbar<=((qbar AND r))}
+HA{r<=((d AND rbar))}
+HA{f<=((r))}
+HA{g<=((rbar))}}}
+
+MF{
+FS{a b c d e f g }
+FS{_24 _27 p pbar q qbar r rbar t1 t2 }
+FG NOR.1{NOR 0 I 2 a qbar 1 q }
+FG NOR.2{NOR 0 I 2 b q 1 qbar }
+FG NL_GATE.23{BUFFER 30 I 1 q 1 t1 }
+FG XOR.1{XOR 0 I 2 p c 1 _24 }
+FG NOT.3{NOT 0 I 1 _24 1 pbar }
+FG XOR.2{XOR 0 I 2 t1 pbar 1 _27 }
+FG NOT.4{NOT 0 I 1 _27 1 p }
+FG NL_GATE.29{BUFFER 30 I 1 p 1 e }
+FG AND.5{AND 0 I 2 qbar r 1 rbar }
+FG AND.6{AND 0 I 2 d rbar 1 r }
+FG NL_GATE.35{BUFFER 0 I 1 r 1 f }
+FG NL_GATE.37{BUFFER 0 I 1 rbar 1 g }}

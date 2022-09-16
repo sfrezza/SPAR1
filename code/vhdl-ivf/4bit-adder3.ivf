@@ -1,0 +1,116 @@
+
+MX adder4.test3b4{
+MP{arg1[3:0] IN;arg2[3:0] IN;carry_in IN;result[3:0] OUT;carry_out OUT;}
+MH{
+HS{carry[3:0];}
+HC f4{ibm arg1[3:3];arg2[3:3];carry[2:2];result[3:3];carry_out;}
+HC f3{c arg1[2:2];arg2[2:2];carry[1:1];result[2:2];carry[2:2];}
+HC f2{ibm arg1[1:1];arg2[1:1];carry[0:0];result[1:1];carry[1:1];}
+HC f1{c arg1[0:0];arg2[0:0];carry_in;result[0:0];carry[0:0];}}}
+
+M_ c{
+MP{x IN;y IN;c_in IN;sum OUT;c_out OUT;}
+MH{
+HS{int_c1;int_c2;int_s1;}
+HA{c_out<=((int_c1 OR int_c2))}
+HC h2{half_adder.classic int_s1;c_in;sum;int_c2;}
+HC h1{half_adder.classic x;y;int_s1;int_c1;}}}
+
+M_ ibm{
+MP{x IN;y IN;c_in IN;sum OUT;c_out OUT;}
+MH{
+HS{xc;xy;xyc;yc;}
+HA{yc<=((y AND c_in))}
+HA{xc<=((x AND c_in))}
+HA{xy<=((x AND y))}
+HA{xyc<=((x AND y AND c_in))}
+HA{sum<=((((x OR y OR c_in)) AND ((xyc OR (NOT(c_out))))))}
+HA{c_out<=((yc OR xc OR xy))}}}
+
+M_ half_adder.classic{
+MP{x IN;y IN;s OUT;c OUT;}
+MH{
+HS{}
+HA{s<=(((((NOT(x)) AND y)) OR ((x AND (NOT(y))))))}
+HA{c<=((x AND y))}}}
+
+MF{
+FS{arg1_0 arg1_1 arg1_2 arg1_3 arg2_0 arg2_1 arg2_2 arg2_3 carry_in carry_out result_0 result_1 result_2 result_3 }
+FS{carry_0 carry_1 carry_2 carry_3 }
+FS{f4/_200 f4/_201 f4/_202 f4/xc f4/xy f4/xyc f4/yc }
+FG f4/AND.88{AND 0 I 2 arg2_3 carry_2 1 f4/yc }
+FG f4/AND.89{AND 0 I 2 arg1_3 
+carry_2 1 f4/xc }
+FG f4/AND.90{AND 0 I 2 arg1_3 arg2_3 1 f4/xy }
+FG f4/AND.91{AND 0 I 3 
+arg1_3 arg2_3 carry_2 1 f4/xyc }
+FG f4/OR.34{OR 0 I 3 arg1_3 
+arg2_3 carry_2 1 f4/_200 }
+FG f4/NOT.9{NOT 0 I 1 carry_out 1 f4/_201 }
+FG f4/OR.35{OR 0 I 2 
+f4/xyc f4/_201 1 f4/_202 }
+FG f4/AND.92{AND 0 I 2 f4/_200 f4/_202 1 
+result_3 }
+FG f4/OR.36{OR 0 I 3 f4/yc f4/xc f4/xy 1 carry_out }
+FS{f3/int_c1 f3/int_c2 f3/int_s1 }
+FG f3/OR.38{OR 0 I 2 
+f3/int_c1 f3/int_c2 1 carry_2 }
+FS{f3/c.h2/_207 f3/c.h2/_208 f3/c.h2/_209 f3/c.h2/_210 }
+FG f3/c.h2/NOT.10{NOT 0 I 1 f3/int_s1 1 f3/c.h2/_207 }
+FG f3/c.h2/AND.93{AND 0 I 2 
+f3/c.h2/_207 carry_1 1 f3/c.h2/_208 }
+FG f3/c.h2/NOT.11{NOT 0 I 1 carry_1 1 f3/c.h2/_209 }
+FG f3/c.h2/AND.94{AND 0 I 2 
+f3/int_s1 f3/c.h2/_209 1 f3/c.h2/_210 }
+FG f3/c.h2/OR.37{OR 0 I 2 f3/c.h2/_208 f3/c.h2/_210 1 
+result_2 }
+FG f3/c.h2/AND.95{AND 0 I 2 f3/int_s1 carry_1 1 f3/int_c2 }
+FS{f3/c.h1/_207 f3/c.h1/_208 f3/c.h1/_209 f3/c.h1/_210 }
+FG f3/c.h1/NOT.10{NOT 0 I 1 arg1_2 1 
+f3/c.h1/_207 }
+FG f3/c.h1/AND.93{AND 0 I 2 f3/c.h1/_207 arg2_2 1 f3/c.h1/_208 }
+FG f3/c.h1/NOT.11{NOT 0 I 1 arg2_2 1 
+f3/c.h1/_209 }
+FG f3/c.h1/AND.94{AND 0 I 2 arg1_2 f3/c.h1/_209 1 f3/c.h1/_210 }
+FG f3/c.h1/OR.37{OR 0 I 2 f3/c.h1/_208 
+f3/c.h1/_210 1 f3/int_s1 }
+FG f3/c.h1/AND.95{AND 0 I 2 arg1_2 arg2_2 1 f3/int_c1 }
+FS{f2/_200 f2/_201 f2/_202 f2/xc f2/xy f2/xyc f2/yc }
+FG f2/AND.88{AND 0 I 2 
+arg2_1 carry_0 1 f2/yc }
+FG f2/AND.89{AND 0 I 2 arg1_1 carry_0 1 
+f2/xc }
+FG f2/AND.90{AND 0 I 2 arg1_1 arg2_1 1 f2/xy }
+FG f2/AND.91{AND 0 I 3 arg1_1 
+arg2_1 carry_0 1 f2/xyc }
+FG f2/OR.34{OR 0 I 3 arg1_1 arg2_1 
+carry_0 1 f2/_200 }
+FG f2/NOT.9{NOT 0 I 1 carry_1 1 f2/_201 }
+FG f2/OR.35{OR 0 I 2 f2/xyc 
+f2/_201 1 f2/_202 }
+FG f2/AND.92{AND 0 I 2 f2/_200 f2/_202 1 result_1 }
+FG f2/OR.36{OR 0 I 3 
+f2/yc f2/xc f2/xy 1 carry_1 }
+FS{f1/int_c1 f1/int_c2 f1/int_s1 }
+FG f1/OR.38{OR 0 I 2 f1/int_c1 
+f1/int_c2 1 carry_0 }
+FS{f1/c.h2/_207 f1/c.h2/_208 f1/c.h2/_209 f1/c.h2/_210 }
+FG f1/c.h2/NOT.10{NOT 0 I 1 f1/int_s1 1 f1/c.h2/_207 }
+FG f1/c.h2/AND.93{AND 0 I 2 f1/c.h2/_207 
+carry_in 1 f1/c.h2/_208 }
+FG f1/c.h2/NOT.11{NOT 0 I 1 carry_in 1 f1/c.h2/_209 }
+FG f1/c.h2/AND.94{AND 0 I 2 f1/int_s1 
+f1/c.h2/_209 1 f1/c.h2/_210 }
+FG f1/c.h2/OR.37{OR 0 I 2 f1/c.h2/_208 f1/c.h2/_210 1 result_0 }
+FG f1/c.h2/AND.95{AND 0 I 2 
+f1/int_s1 carry_in 1 f1/int_c2 }
+FS{f1/c.h1/_207 f1/c.h1/_208 f1/c.h1/_209 f1/c.h1/_210 }
+FG f1/c.h1/NOT.10{NOT 0 I 1 arg1_0 1 f1/c.h1/_207 }
+FG f1/c.h1/AND.93{AND 0 I 2 
+f1/c.h1/_207 arg2_0 1 f1/c.h1/_208 }
+FG f1/c.h1/NOT.11{NOT 0 I 1 arg2_0 1 f1/c.h1/_209 }
+FG f1/c.h1/AND.94{AND 0 I 2 
+arg1_0 f1/c.h1/_209 1 f1/c.h1/_210 }
+FG f1/c.h1/OR.37{OR 0 I 2 f1/c.h1/_208 f1/c.h1/_210 1 
+f1/int_s1 }
+FG f1/c.h1/AND.95{AND 0 I 2 arg1_0 arg2_0 1 f1/int_c1 }}

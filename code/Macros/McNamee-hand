@@ -1,0 +1,28 @@
+# Module NOT.1
+n
+20 41
+# Module AND.1
+n
+40 55
+# Module OR.1
+n
+60 56
+# Module AND.2
+n
+20 25
+# Module OR.2
+n
+40 26
+# Module NOT.2
+n
+60 26
+# Module OR.3
+n
+60 10
+# Module AND.3
+n
+80 40
+# Module AND.4
+n
+80 11
+

@@ -1,0 +1,51 @@
+MX fig9.27{
+MP{}
+MH{
+HS{DataIn;a;A;WE_bar;CP_;_CP;CP;_CP_LDataOutA;LDataOutB;EA;DA;DB;I0;OEbarX;OEbarY;YL0;}}}
+MF{
+FS{ DataIn a A WE_bar CP _CP CP_ _CP_ DataOutA DataOutB LDataOutA LDataOutB }
+FS{ R0 S0 EA I0 DA DB Carry Cn F0 Qbar Pbar Cn4 Y0 Temp OEbarX OEbarY YL0}
+
+FP Tri{TRI_STATE 0 2 Y0 OEbarY 1 YL0
+FPIS{4 4}
+FPPP{3 Y0 -1 2 OEbarY 2 -1 YL0 5 2 }}
+
+FP Tri{TRI_STATE 0 2 LDataOutB OEbarX 1 DB
+FPIS{4 4}
+FPPP{3 LDataOutB -1 2 OEbarX 2 5 DB 5 2 }}
+
+FP O_Register{Register 0 2 Temp _CP_ 1 Carry
+FPIS{6 9}
+FPPP{3 Temp -1 5 Carry 7 5 _CP_ 3 -1}}
+
+FP O_Shifter{Shifter 0 2 F0 Carry 1 Temp
+FPIS{6 9}}
+
+FP ALU_Shifter{Shifter 0 1 F0 1 Y0
+FPIS{6 9}}
+
+FP ALU{ALU 0 3 Cn R0 S0 4 F0 Qbar Pbar Cn4
+FPIS{12 30}
+FPPP{7 R0 -1 5 S0 -1 24 Cn 4 31 Cn4 2 -1 F0 15 15 Qbar 5 -1 Pbar 7 -1}}
+
+FP Mux_1{MUX 0 3 EA LDataOutA DA 1 R0
+FPIS{7 9} 
+FPPP{4 EA 4 -1 DA -1 2 LDataOutA -1 7 R0 7 5 }}
+
+FP Mux_2{MUX 0 3 I0 DB Carry 1 S0
+FPIS{7 9} 
+FPPP{4 I0 4 10 Carry -1 7 DB -1 2 S0 7 5 }}
+
+FP Latch_1{Latch 0 2 _CP DataOutA 1 LDataOutA
+FPIS{6 9} 
+FPPP{3  _CP 3 -1 DataOutA -1 5 LDataOutA 6 5 }}
+
+FP Latch_2{Latch 0 2 CP_ DataOutB 1 LDataOutB 
+FPIS{6 9} 
+FPPP{3 CP_ 3 10 DataOutB -1 5 LDataOutB 7 5 }}
+
+FP RAM{RAM 0 2 DataIn A 5 a WE_bar CP DataOutA DataOutB 
+FPIS{16 32} 
+FPPP{7 DataIn 0 16 a 3 32 A 3 -1 WE_bar 10 32 CP 12 32 DataOutA 16 9 DataOutB 16 23 }}
+}
+

@@ -1,0 +1,174 @@
+
+M_ dff.dff_struct{
+MP{clk IN;d IN;q OUT;}
+MH{
+HS{clko;do;p;po;
+pp;ppo;r;rr;s;
+ss;}
+HA{clko<=(NOT(clk))}
+HA{do<=(NOT(d))}
+HA{r<=((do AND clko))}
+HA{s<=((d AND clko))}
+HA{p<=((r NOR po) AFTER 10)}
+HA{po<=((s NOR p) AFTER 20)}
+HA{rr<=((po AND clk))}
+HA{ss<=((p AND clk))}
+HA{pp<=((rr NOR ppo) AFTER 20)}
+HA{ppo<=((ss NOR pp) AFTER 10)}
+HA{q<=((pp))}}}
+
+MX div_fsm.div_fsm_struct{
+MP{clock IN;fu_3_a IN;mux_b_en[1:0] OUT;mux_f_en[3:0] OUT;mux_r_en[1:0] OUT;op_sel_en[5:0] OUT;reg_en[4:0] OUT;}
+MH{
+HS{nclock;ns[2:0];ps[2:0];}
+HA{nclock<=(NOT(clock))}
+HC reg3_0{reg3.reg3_struct nclock;ns[2:0];ps[2:0];}
+HP _24{
+PN{ps[2:0];fu_3_a;}
+PD{}
+HK{
+KE{((ps[2:0]))}
+KC{(("001"[2:0]))}
+PS{reg_en[4:0]<=(("11100"[4:0]))}
+PS{mux_f_en[3:0]<=(("0101"[3:0]))}
+PS{mux_b_en[1:0]<=(("10"[1:0]))}
+PS{mux_r_en[1:0]<=(("01"[1:0]))}
+PS{op_sel_en[5:0]<=(("011100"[5:0]))}
+PI{
+IC{((fu_3_a EQ "1"[0:0]))}
+PS{ns[2:0]<=(("010"[2:0]))}
+IE{}
+PS{ns[2:0]<=(("100"[2:0]))}}
+KC{(("010"[2:0]))}
+PS{reg_en[4:0]<=(("10100"[4:0]))}
+PS{mux_f_en[3:0]<=(("0000"[3:0]))}
+PS{mux_b_en[1:0]<=(("01"[1:0]))}
+PS{mux_r_en[1:0]<=(("10"[1:0]))}
+PS{op_sel_en[5:0]<=(("000011"[5:0]))}
+PS{ns[2:0]<=(("011"[2:0]))}
+KC{(("011"[2:0]))}
+PS{reg_en[4:0]<=(("00000"[4:0]))}
+PS{mux_f_en[3:0]<=(("1010"[3:0]))}
+PS{mux_b_en[1:0]<=(("00"[1:0]))}
+PS{mux_r_en[1:0]<=(("00"[1:0]))}
+PS{op_sel_en[5:0]<=(("000100"[5:0]))}
+PI{
+IC{((fu_3_a EQ "1"[0:0]))}
+PS{ns[2:0]<=(("010"[2:0]))}
+IE{}
+PS{ns[2:0]<=(("100"[2:0]))}}
+KC{(("100"[2:0]))}
+PS{reg_en[4:0]<=(("00000"[4:0]))}
+PS{mux_f_en[3:0]<=(("0000"[3:0]))}
+PS{mux_b_en[1:0]<=(("00"[1:0]))}
+PS{mux_r_en[1:0]<=(("00"[1:0]))}
+PS{op_sel_en[5:0]<=(("100000"[5:0]))}
+PS{ns[2:0]<=(("001"[2:0]))}
+KC{(("101"[2:0]))}
+PS{reg_en[4:0]<=(("00000"[4:0]))}
+PS{mux_f_en[3:0]<=(("0000"[3:0]))}
+PS{mux_b_en[1:0]<=(("00"[1:0]))}
+PS{mux_r_en[1:0]<=(("00"[1:0]))}
+PS{op_sel_en[5:0]<=(("000000"[5:0]))}
+PS{ns[2:0]<=(("001"[2:0]))}
+KC{(("110"[2:0]))}
+PS{reg_en[4:0]<=(("00000"[4:0]))}
+PS{mux_f_en[3:0]<=(("0000"[3:0]))}
+PS{mux_b_en[1:0]<=(("00"[1:0]))}
+PS{mux_r_en[1:0]<=(("00"[1:0]))}
+PS{op_sel_en[5:0]<=(("000000"[5:0]))}
+PS{ns[2:0]<=(("001"[2:0]))}
+KC{(("111"[2:0]))}
+PS{reg_en[4:0]<=(("00000"[4:0]))}
+PS{mux_f_en[3:0]<=(("0000"[3:0]))}
+PS{mux_b_en[1:0]<=(("00"[1:0]))}
+PS{mux_r_en[1:0]<=(("00"[1:0]))}
+PS{op_sel_en[5:0]<=(("000000"[5:0]))}
+PS{ns[2:0]<=(("001"[2:0]))}
+KC{(("000"[2:0]))}
+PS{reg_en[4:0]<=(("00000"[4:0]))}
+PS{mux_f_en[3:0]<=(("0000"[3:0]))}
+PS{mux_b_en[1:0]<=(("00"[1:0]))}
+PS{mux_r_en[1:0]<=(("00"[1:0]))}
+PS{op_sel_en[5:0]<=(("000000"[5:0]))}
+PS{ns[2:0]<=(("001"[2:0]))}}}}}
+
+M_ reg3.reg3_struct{
+MP{clk IN;d[2:0] IN;q[2:0] OUT;}
+MH{
+HS{dd[2:0];qq[2:0];}
+HA{q[2:0]<=((qq[2:0]))}
+HC dff_2{dff.dff_struct clk;d[2:2];qq[2:2];}
+HC dff_1{dff.dff_struct clk;d[1:1];qq[1:1];}
+HC dff_0{dff.dff_struct clk;d[0:0];qq[0:0];}}}
+
+MF{
+FS{clock fu_3_a mux_b_en_0 mux_b_en_1 mux_f_en_0 mux_f_en_1 mux_f_en_2 mux_f_en_3 mux_r_en_0 mux_r_en_1 op_sel_en_0 op_sel_en_1 op_sel_en_2 op_sel_en_3 op_sel_en_4 op_sel_en_5 reg_en_0 reg_en_1 reg_en_2 reg_en_3 reg_en_4 }
+FS{nclock ns_0 ns_1 ns_2 ps_0 ps_1 ps_2 }
+FG NOT.3{NOT 0 I 1 clock 1 nclock }
+FP _24{fun_div_fsm_div_fsm_struct__24 4 ps_0 ps_1 
+ps_2 fu_3_a 26 fu_3_a mux_b_en_0 mux_b_en_1 
+mux_f_en_0 mux_f_en_1 mux_f_en_2 mux_f_en_3 mux_r_en_0 
+mux_r_en_1 ns_0 ns_1 ns_2 op_sel_en_0 
+op_sel_en_1 op_sel_en_2 op_sel_en_3 op_sel_en_4 op_sel_en_5 
+ps_0 ps_1 ps_2 reg_en_0 reg_en_1 
+reg_en_2 reg_en_3 reg_en_4 0 }
+FS{reg3_0/dd_0 reg3_0/dd_1 reg3_0/dd_2 reg3_0/qq_0 reg3_0/qq_1 reg3_0/qq_2 }
+FG reg3_0/NL_GATE.23_0{NL_GATE 0 I 1 reg3_0/qq_0 1 ps_0 }
+FG reg3_0/NL_GATE.23_1{NL_GATE 0 I 1 
+reg3_0/qq_1 1 ps_1 }
+FG reg3_0/NL_GATE.23_2{NL_GATE 0 I 1 reg3_0/qq_2 1 ps_2 }
+FS{reg3_0/reg3.reg3_struct.dff_2/clko reg3_0/reg3.reg3_struct.dff_2/do reg3_0/reg3.reg3_struct.dff_2/p reg3_0/reg3.reg3_struct.dff_2/po reg3_0/reg3.reg3_struct.dff_2/pp reg3_0/reg3.reg3_struct.dff_2/ppo reg3_0/reg3.reg3_struct.dff_2/r reg3_0/reg3.reg3_struct.dff_2/rr reg3_0/reg3.reg3_struct.dff_2/s reg3_0/reg3.reg3_struct.dff_2/ss }
+FG reg3_0/reg3.reg3_struct.dff_2/NOT.1{NOT 0 I 1 nclock 1 
+reg3_0/reg3.reg3_struct.dff_2/clko }
+FG reg3_0/reg3.reg3_struct.dff_2/NOT.2{NOT 0 I 1 ns_2 1 reg3_0/reg3.reg3_struct.dff_2/do }
+FG reg3_0/reg3.reg3_struct.dff_2/AND.1{AND 0 I 2 reg3_0/reg3.reg3_struct.dff_2/do reg3_0/reg3.reg3_struct.dff_2/clko 1 
+reg3_0/reg3.reg3_struct.dff_2/r }
+FG reg3_0/reg3.reg3_struct.dff_2/AND.2{AND 0 I 2 ns_2 reg3_0/reg3.reg3_struct.dff_2/clko 1 reg3_0/reg3.reg3_struct.dff_2/s }
+FG reg3_0/reg3.reg3_struct.dff_2/NOR.1{NOR 10 I 2 reg3_0/reg3.reg3_struct.dff_2/r 
+reg3_0/reg3.reg3_struct.dff_2/po 1 reg3_0/reg3.reg3_struct.dff_2/p }
+FG reg3_0/reg3.reg3_struct.dff_2/NOR.2{NOR 20 I 2 reg3_0/reg3.reg3_struct.dff_2/s reg3_0/reg3.reg3_struct.dff_2/p 1 reg3_0/reg3.reg3_struct.dff_2/po }
+FG reg3_0/reg3.reg3_struct.dff_2/AND.3{AND 0 I 2 
+reg3_0/reg3.reg3_struct.dff_2/po nclock 1 reg3_0/reg3.reg3_struct.dff_2/rr }
+FG reg3_0/reg3.reg3_struct.dff_2/AND.4{AND 0 I 2 reg3_0/reg3.reg3_struct.dff_2/p nclock 1 
+reg3_0/reg3.reg3_struct.dff_2/ss }
+FG reg3_0/reg3.reg3_struct.dff_2/NOR.3{NOR 20 I 2 reg3_0/reg3.reg3_struct.dff_2/rr reg3_0/reg3.reg3_struct.dff_2/ppo 1 reg3_0/reg3.reg3_struct.dff_2/pp }
+FG reg3_0/reg3.reg3_struct.dff_2/NOR.4{NOR 10 I 2 reg3_0/reg3.reg3_struct.dff_2/ss 
+reg3_0/reg3.reg3_struct.dff_2/pp 1 reg3_0/reg3.reg3_struct.dff_2/ppo }
+FG reg3_0/reg3.reg3_struct.dff_2/NL_GATE.21{NL_GATE 0 I 1 reg3_0/reg3.reg3_struct.dff_2/pp 1 reg3_0/qq_2 }
+FS{reg3_0/reg3.reg3_struct.dff_1/clko reg3_0/reg3.reg3_struct.dff_1/do reg3_0/reg3.reg3_struct.dff_1/p reg3_0/reg3.reg3_struct.dff_1/po reg3_0/reg3.reg3_struct.dff_1/pp reg3_0/reg3.reg3_struct.dff_1/ppo reg3_0/reg3.reg3_struct.dff_1/r reg3_0/reg3.reg3_struct.dff_1/rr reg3_0/reg3.reg3_struct.dff_1/s reg3_0/reg3.reg3_struct.dff_1/ss }
+FG reg3_0/reg3.reg3_struct.dff_1/NOT.1{NOT 0 I 1 nclock 1 
+reg3_0/reg3.reg3_struct.dff_1/clko }
+FG reg3_0/reg3.reg3_struct.dff_1/NOT.2{NOT 0 I 1 ns_1 1 reg3_0/reg3.reg3_struct.dff_1/do }
+FG reg3_0/reg3.reg3_struct.dff_1/AND.1{AND 0 I 2 reg3_0/reg3.reg3_struct.dff_1/do reg3_0/reg3.reg3_struct.dff_1/clko 1 
+reg3_0/reg3.reg3_struct.dff_1/r }
+FG reg3_0/reg3.reg3_struct.dff_1/AND.2{AND 0 I 2 ns_1 reg3_0/reg3.reg3_struct.dff_1/clko 1 reg3_0/reg3.reg3_struct.dff_1/s }
+FG reg3_0/reg3.reg3_struct.dff_1/NOR.1{NOR 10 I 2 reg3_0/reg3.reg3_struct.dff_1/r 
+reg3_0/reg3.reg3_struct.dff_1/po 1 reg3_0/reg3.reg3_struct.dff_1/p }
+FG reg3_0/reg3.reg3_struct.dff_1/NOR.2{NOR 20 I 2 reg3_0/reg3.reg3_struct.dff_1/s reg3_0/reg3.reg3_struct.dff_1/p 1 reg3_0/reg3.reg3_struct.dff_1/po }
+FG reg3_0/reg3.reg3_struct.dff_1/AND.3{AND 0 I 2 
+reg3_0/reg3.reg3_struct.dff_1/po nclock 1 reg3_0/reg3.reg3_struct.dff_1/rr }
+FG reg3_0/reg3.reg3_struct.dff_1/AND.4{AND 0 I 2 reg3_0/reg3.reg3_struct.dff_1/p nclock 1 
+reg3_0/reg3.reg3_struct.dff_1/ss }
+FG reg3_0/reg3.reg3_struct.dff_1/NOR.3{NOR 20 I 2 reg3_0/reg3.reg3_struct.dff_1/rr reg3_0/reg3.reg3_struct.dff_1/ppo 1 reg3_0/reg3.reg3_struct.dff_1/pp }
+FG reg3_0/reg3.reg3_struct.dff_1/NOR.4{NOR 10 I 2 reg3_0/reg3.reg3_struct.dff_1/ss 
+reg3_0/reg3.reg3_struct.dff_1/pp 1 reg3_0/reg3.reg3_struct.dff_1/ppo }
+FG reg3_0/reg3.reg3_struct.dff_1/NL_GATE.21{NL_GATE 0 I 1 reg3_0/reg3.reg3_struct.dff_1/pp 1 reg3_0/qq_1 }
+FS{reg3_0/reg3.reg3_struct.dff_0/clko reg3_0/reg3.reg3_struct.dff_0/do reg3_0/reg3.reg3_struct.dff_0/p reg3_0/reg3.reg3_struct.dff_0/po reg3_0/reg3.reg3_struct.dff_0/pp reg3_0/reg3.reg3_struct.dff_0/ppo reg3_0/reg3.reg3_struct.dff_0/r reg3_0/reg3.reg3_struct.dff_0/rr reg3_0/reg3.reg3_struct.dff_0/s reg3_0/reg3.reg3_struct.dff_0/ss }
+FG reg3_0/reg3.reg3_struct.dff_0/NOT.1{NOT 0 I 1 nclock 1 
+reg3_0/reg3.reg3_struct.dff_0/clko }
+FG reg3_0/reg3.reg3_struct.dff_0/NOT.2{NOT 0 I 1 ns_0 1 reg3_0/reg3.reg3_struct.dff_0/do }
+FG reg3_0/reg3.reg3_struct.dff_0/AND.1{AND 0 I 2 reg3_0/reg3.reg3_struct.dff_0/do reg3_0/reg3.reg3_struct.dff_0/clko 1 
+reg3_0/reg3.reg3_struct.dff_0/r }
+FG reg3_0/reg3.reg3_struct.dff_0/AND.2{AND 0 I 2 ns_0 reg3_0/reg3.reg3_struct.dff_0/clko 1 reg3_0/reg3.reg3_struct.dff_0/s }
+FG reg3_0/reg3.reg3_struct.dff_0/NOR.1{NOR 10 I 2 reg3_0/reg3.reg3_struct.dff_0/r 
+reg3_0/reg3.reg3_struct.dff_0/po 1 reg3_0/reg3.reg3_struct.dff_0/p }
+FG reg3_0/reg3.reg3_struct.dff_0/NOR.2{NOR 20 I 2 reg3_0/reg3.reg3_struct.dff_0/s reg3_0/reg3.reg3_struct.dff_0/p 1 reg3_0/reg3.reg3_struct.dff_0/po }
+FG reg3_0/reg3.reg3_struct.dff_0/AND.3{AND 0 I 2 
+reg3_0/reg3.reg3_struct.dff_0/po nclock 1 reg3_0/reg3.reg3_struct.dff_0/rr }
+FG reg3_0/reg3.reg3_struct.dff_0/AND.4{AND 0 I 2 reg3_0/reg3.reg3_struct.dff_0/p nclock 1 
+reg3_0/reg3.reg3_struct.dff_0/ss }
+FG reg3_0/reg3.reg3_struct.dff_0/NOR.3{NOR 20 I 2 reg3_0/reg3.reg3_struct.dff_0/rr reg3_0/reg3.reg3_struct.dff_0/ppo 1 reg3_0/reg3.reg3_struct.dff_0/pp }
+FG reg3_0/reg3.reg3_struct.dff_0/NOR.4{NOR 10 I 2 reg3_0/reg3.reg3_struct.dff_0/ss 
+reg3_0/reg3.reg3_struct.dff_0/pp 1 reg3_0/reg3.reg3_struct.dff_0/ppo }
+FG reg3_0/reg3.reg3_struct.dff_0/NL_GATE.21{NL_GATE 0 I 1 reg3_0/reg3.reg3_struct.dff_0/pp 1 reg3_0/qq_0 }}

@@ -1,0 +1,44 @@
+
+M_ clocked_rs.beh{
+MP{r IN;s IN;clock IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HP _8{
+PN{clock;}
+PD{}
+PI{
+IC{((clock EQ "0"[0:0]))}
+PS{q<=((r NOR qbar))}
+PS{qbar<=((s NOR q))}}}}}
+
+MX sn5491a.str{
+MP{a IN;b IN;clock IN;q OUT;qbar OUT;}
+MH{
+HS{clk_bar;r[7:0];s[7:0];}
+HA{r[0:0]<=((a NAND b))}
+HA{s[0:0]<=(NOT(r[0:0]))}
+HA{clk_bar<=(NOT(clock))}
+HC flipflop_7{clocked_rs.beh r[7:7];s[7:7];clk_bar;q;qbar;}
+HC flipflop_6{clocked_rs.beh r[6:6];s[6:6];clk_bar;s[7:7];r[7:7];}
+HC flipflop_5{clocked_rs.beh r[5:5];s[5:5];clk_bar;s[6:6];r[6:6];}
+HC flipflop_4{clocked_rs.beh r[4:4];s[4:4];clk_bar;s[5:5];r[5:5];}
+HC flipflop_3{clocked_rs.beh r[3:3];s[3:3];clk_bar;s[4:4];r[4:4];}
+HC flipflop_2{clocked_rs.beh r[2:2];s[2:2];clk_bar;s[3:3];r[3:3];}
+HC flipflop_1{clocked_rs.beh r[1:1];s[1:1];clk_bar;s[2:2];r[2:2];}
+HC flipflop_0{clocked_rs.beh r[0:0];s[0:0];clk_bar;s[1:1];r[1:1];}}}
+
+MF{
+FS{a b clock q qbar }
+FS{clk_bar r_0 r_1 r_2 r_3 r_4 r_5 r_6 r_7 s_0 s_1 s_2 s_3 s_4 s_5 s_6 s_7 }
+FG NAND.1_0{NAND 0 I 2 a b 1 r_0 }
+FG NOT.2_0{NOT 0 I 1 r_0 1 
+s_0 }
+FG NOT.3{NOT 0 I 1 clock 1 clk_bar }
+FP FF_7{ff 1 clk_bar 3 clk_bar s_7 r_7 2 q qbar}
+FP FF_6{ff 1 clk_bar 3 clk_bar s_6 r_6 2 s_7 r_7}
+FP FF_5{ff 1 clk_bar 3 clk_bar s_5 r_5 2 s_6 r_6}
+FP FF_4{ff 1 clk_bar 3 clk_bar s_4 r_4 2 s_5 r_5}
+FP FF_3{ff 1 clk_bar 3 clk_bar s_3 r_3 2 s_4 r_4}
+FP FF_2{ff 1 clk_bar 3 clk_bar s_2 r_2 2 s_3 r_3}
+FP FF_1{ff 1 clk_bar 3 clk_bar s_1 r_1 2 s_2 r_2}
+FP FF_0{ff 1 clk_bar 3 clk_bar s_0 r_0 2 s_1 r_1}}

@@ -1,0 +1,167 @@
+ -Oz -e SN7474.gates SN7474.vhdl creates the .ivf file from the vhdl code
+v2: 7 september - Sytem terminals were not included as modules.
+
+v4: 14 september, 1989 - included incremental improvements to route & place, as well
+                         as utilities, where sys terminal bugs were being eradicated
+
+v5: 16 september, 1989 - addition of multiple partitioning rules, & partition info on 
+			 icons.  -r flag inoperable.
+
+v9: 11 October, 1989 - completion of partition placement, and box placement for multiple
+		       non-trivial strings.  Modifications to spacings made to allow for
+		       code labels in SCED.  1-level cc modules are recognized.
+
+v9: 19 October, 1989 - code for complex strings, multi-level cc modules, and improved 
+		      'greedy' algorithm for systerm placement.
+
+v10a 20 October, 1989 - code for complex strings completed, post-script code generation
+                        added.  Router switched back to "middle-of-available-space" rule,
+                        with limited success (ranges were changed to try to protect the 
+                        guilty)  Direction added to the connection matrix. (previous 
+			versions have symetric connection matricies)
+
+v10b 20 October, 1989 - Same as v10a, saving that an older router (v8->tight-turns) was 
+			used, and the symetric connection matrix was restored. 
+			Generally better results.
+
+v11 24 October, 1989 - Old (tight-turn) router, with -m(matrix flag) so the signal 
+		       dominance can be selected.  Interesting results, particularly for 
+		       SN54S151.  Router bugs still extant.
+
+v12 24 October, 1989 - placement changed to rely upon signal flow:  The dominant count of
+		       in-out/in-in/out-out/out-in decides where to place the new 
+	               partition.  Once the side has been decided, then something akin 
+	               to the old gravity stuff is used.  Much better results for mux, 
+		       demux examples.
+
+v13 27 October, 1989 - Partitioning changed to replace the connected matrix row & column
+		       for any cluster that is clipped from the cluster tree. (BUG FIX
+		       This greatly improves placement for -p2 -p3 options.  Signal flow
+		       now used to place boxes within the partition.   
+
+v15 8 November, 1989 - Many bugs gone.  -n flag also creates a 'draft_stats' file 
+		       containing a line of statistical information.  (Tight-turn router)
+		       Results used for DAC paper.
+
+v17 5 January, 1990 - working on router and printer bugs:  Nets are no longer started 
+		      one position away from the module, and dots have been removed from
+		      the module icons.  Also, joining dots have been added to the nets.
+		      The router will still step on itself (n2a -s12 7474.ivf z and 
+		      clock nets)
+
+v18 24 January, 1990 - Some router bugs removed, beginings of corner-stitching code added
+
+v19 1 February, 1990 - Cornerstiching code successfuly integrated.
+
+iccd90 15 Feb, 1990 - Code used to generate ICCD '90 summary.  Contains mostly working 
+		      code;  The router is horrible, but operational for the most part.  
+		      The corner-stitching code has been debugged, but there are still 
+		      algorithm problems.  The initial point chosen in the newtonian 
+		      search may fall outside the bounds of the tile space, which is a 
+		      problem.  Also, the function that lists all tiles along a line 
+		      should probably list all tiles along a swath instead.
+
+iccd90 16 Feb, 1990 - More bugs fixed.  OBSERVATION: angled insertion will not allow for
+	              pin-alignment in most cases.  This is because the pivot/anchor
+		      points are inside the tile.  For angled insertion to allow lineup 
+	              to occur (a desired response) then one soln. is to select piv/
+		      anchor points only on the edge of tiles (Nearest edge).  Another 
+		      idea is do make seperate pass alignment. (Unresolved)
+
+v20 May, 1990 -	     Last version of sw before new router was introdued.
+
+v21 July, 1990 -     Includes new global router as developed for Dottie's course.  
+		     Decision to move to the incremental router.  Arc-edge space mapped 
+	             onto the tiles in the main page - Kern-style lee expansion global 
+	             router, with home-grown local router.
+
+v22 October, 1990 -  Includes a correct Global router;  The rip-up-&-reroute mechanism
+		     seems to work, but the congestion model has been turned off.  
+	             This appears to work on nets upto/including 7474,ivf
+
+v23 November, 1990 - Includes all kinds of cleanup work for the local router, as well as
+	             an add-on fix to the dreaded sliver bug.  Still has some bugs.
+
+v24 December, 1990 - New Router completed.
+
+v25 December, 1990 - Includes ANSI/IEEE Standard figures for standard gates. Router 
+	             seems to be complete, and relatively bullet-proof.
+
+v26 February, 1991 - Includes the beginings of the incremental Router.  Not completely 
+                     debugged.  Incl. lots of minor changes, such as terminal placement,
+	             and additions to the placer to handle multi-output modules, etc..
+
+v27 February, 1991 - Includes the incremental router, new systerm placement, lots of 
+		     improvements to the placer, especially in the gravity usage. 
+	 	     Bugs in the clustering removed, and process blocks are handled
+		     better, esp. if you hack the ivf a little.  The local router 
+		     still has a lot of bugs, and the systerm placer has not been 
+		     completely debuged.
+
+v28 February, 1991 - Includes more fixes top the placer, esp. to the handling/discovery 
+		     of complex	strings.  Some modifications to the local router.
+		     Still not completely debugged.  Produces nice results using
+	             the "example" script.
+
+v29 March, 1991 - Includes a completely rewritten dependency-graph generator in 
+		  "local_route.c"  Still has minor bugs.  "big-or.ivf" is a good,
+		  "hard" problem for the dependency graph code.
+
+           
+v30 March, 1991 - Includes lots of minor changes, including the ANSI extendors
+	          for AND NAND OR NOR XOR XNOR gates.  Many annoying bugs 
+		  removed.  The partition-lineup code has been modified to pay 
+	 	  attention to the furthest right /left terminals in the 
+	          partition (see "best_side_part").  The systerm placement stuff
+		  still seems a bit weak - it can probably still step on itself.
+		  The code to seperate spans should be redone from scratch.
+		  The "fixed terminal" problem still exists in the local router
+		  if a third range seperates the two that are fixed.
+
+v30 March, 1991 - More minor changes - version used for tcad paper.  Lineup code has
+		  been improved, attempt at removing the opposing-pin routing problem
+	 	  has been tried (unsucessfully  -corrected in v32).  A double-check 
+		  is made of all systerms to insure they don't step on each other.
+
+v31 June, 1991 -  Some small improvements, bug fixes.
+
+v32 October, 1991 - Added the hand placement (-h) option.  Some (minor) cleanup of 
+	            code and bug fixes.  Major code work in the Local Router addressing
+		    net dependence issues - such as when fixed points on nets constrain
+                    where other nets can fall.  Seems to be rather successful.  Added
+		    the INVNOT icon to the lists.
+
+		    There are four problems to be addressed - the round'about problem,
+                    where the global router goes all over creation when congestion is
+		    turned on;  The Multiple-path problem, where two columns contain 
+                    the same net, and the local router collapses them to form a circle;
+                    The column reuse problem, where the global router tries to put too 
+	            much in a single tile.  There is also a problem with the way that
+                    congestion is calcualted, in that crossovers should be estimated 
+                    as well as corners, because they also degrade the diagram.
+
+v33 March 1992 - Added the FPIS{} (Flat Process Icon Size) and FPPP{} (Flat Process
+	         Pin Positions) options to the FP{} (Flat Process) .ivf construct.
+	         This permits icon information to be read in, rather than derived.
+	         Other changes?
+
+v34 April 1992 - Added the -a, -b, and -o options to the command line.   These 
+	         turn on/off automatic icon scaling, Xcanvas scaling, and determine
+	         the output file.  "header.ps" file folded into "psfigs.c" - no longer
+	         needed to produce output.
+
+KNOWN BUGS - Local Router:
+	     The jog insertion for completely constrained nets is not quite right.
+	     The dependency-graph link that remains much be appropriately mached with the
+	     corner that is used for separation - that is the separated corner MUST
+	     BE APPROPRIATELY MATCHED to the dependency graph to insure that 
+	     the ordering routines will place the right pieces of the now-broken
+             net on the appropriate sides.
+
+	     Also - there is an imbalance between how `delete_duplicate_corners'
+             works for ->cx and ->cy cases.  Not completely understood.  Current code
+             seems to work.
+
+	     Global Router - still does not choose the appropriate route without 
+	     congestion. (Round-about problem) This is a search problem.  Also, 
+	     the congestion metrics don't seem to do much.

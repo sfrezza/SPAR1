@@ -1,0 +1,98 @@
+
+MX merged.combined{
+MP{ina IN;inb IN;inc IN;strobe IN;outa OUT;outb OUT;}
+MH{
+HS{c_bar;temp[7:0];}
+HA{c_bar<=(NOT(inc))}
+HC mux{sn54s151.mux_str strobe;ina;inb;inc;temp[7:0];outa;outb;}
+HC demux{sn54155.str strobe;strobe;ina;inb;inc;c_bar;temp[7:4];temp[3:0];}}}
+
+M_ sn54155.str{
+MP{strobe1g IN;strobe2g IN;selecta IN;selectb IN;data1c IN;data2c IN;out1y[3:0] OUT;out2y[3:0] OUT;}
+MH{
+HS{d1c_bar;sa_bar;sa_bar_bar;sb_bar;sb_bar_bar;t1;t2;}
+HA{d1c_bar<=(NOT(data1c))}
+HA{sa_bar<=(NOT(selecta))}
+HA{sb_bar<=(NOT(selectb))}
+HA{sa_bar_bar<=(NOT(sa_bar))}
+HA{sb_bar_bar<=(NOT(sb_bar))}
+HA{t1<=((strobe1g NOR d1c_bar))}
+HA{t2<=((strobe2g NOR data2c))}
+HA{out1y[0:0]<=(NOT(((t1 AND sb_bar AND sa_bar))))}
+HA{out1y[1:1]<=(NOT(((t1 AND sb_bar AND sa_bar_bar))))}
+HA{out1y[2:2]<=(NOT(((t1 AND sb_bar_bar AND sa_bar))))}
+HA{out1y[3:3]<=(NOT(((t1 AND sb_bar_bar AND sa_bar_bar))))}
+HA{out2y[0:0]<=(NOT(((t2 AND sb_bar AND sa_bar))))}
+HA{out2y[1:1]<=(NOT(((t2 AND sb_bar AND sa_bar_bar))))}
+HA{out2y[2:2]<=(NOT(((t2 AND sb_bar_bar AND sa_bar))))}
+HA{out2y[3:3]<=(NOT(((t2 AND sb_bar_bar AND sa_bar_bar))))}}}
+
+M_ sn54s151.mux_str{
+MP{strobe IN;a IN;b IN;c IN;d[7:0] IN;outy OUT;outw OUT;}
+MH{
+HS{a_bar;a_bar_bar;b_bar;b_bar_bar;c_bar;c_bar_bar;strobe_bar;t[7:0];}
+HA{strobe_bar<=(NOT(strobe))}
+HA{a_bar<=(NOT(a))}
+HA{b_bar<=(NOT(b))}
+HA{c_bar<=(NOT(c))}
+HA{a_bar_bar<=(NOT(a_bar))}
+HA{b_bar_bar<=(NOT(b_bar))}
+HA{c_bar_bar<=(NOT(c_bar))}
+HA{t[0:0]<=((d[0:0] AND a_bar AND b_bar AND c_bar AND strobe_bar))}
+HA{t[1:1]<=((d[1:1] AND a_bar_bar AND b_bar AND c_bar AND strobe_bar))}
+HA{t[2:2]<=((d[2:2] AND a_bar AND b_bar_bar AND c_bar AND strobe_bar))}
+HA{t[3:3]<=((d[3:3] AND a_bar_bar AND b_bar_bar AND c_bar AND strobe_bar))}
+HA{t[4:4]<=((d[4:4] AND a_bar AND b_bar AND c_bar_bar AND strobe_bar))}
+HA{t[5:5]<=((d[5:5] AND a_bar_bar AND b_bar AND c_bar_bar AND strobe_bar))}
+HA{t[6:6]<=((d[6:6] AND a_bar AND b_bar_bar AND c_bar_bar AND strobe_bar))}
+HA{t[7:7]<=((d[7:7] AND a_bar_bar AND b_bar_bar AND c_bar_bar AND strobe_bar))}
+HA{outy<=(NOT(((t[0:0] OR t[1:1] OR t[2:2] OR t[3:3] OR t[4:4] OR t[5:5] OR t[6:6] OR t[7:7]))))}
+HA{outw<=(NOT(outy))}}}
+
+MF{
+FS{ina inb inc outa outb strobe }
+FS{c_bar temp_0 temp_1 temp_2 temp_3 temp_4 temp_5 temp_6 temp_7 }
+FG NOT.23{NOT 0 I 1 inc 1 c_bar }
+FS{mux/_69 mux/a_bar mux/a_bar_bar mux/b_bar mux/b_bar_bar mux/c_bar mux/c_bar_bar mux/strobe_bar mux/t_0 mux/t_1 mux/t_2 mux/t_3 mux/t_4 mux/t_5 mux/t_6 mux/t_7 }
+FG mux/NOT.14{NOT 0 I 1 strobe 1 mux/strobe_bar }
+FG mux/NOT.15{NOT 0 I 1 ina 1 mux/a_bar }
+FG mux/NOT.16{NOT 0 I 1 inb 1 mux/b_bar }
+FG mux/NOT.17{NOT 0 I 1 inc 1 mux/c_bar }
+FG mux/NOT.18{NOT 0 I 1 mux/a_bar 1 mux/a_bar_bar }
+FG mux/NOT.19{NOT 0 I 1 mux/b_bar 1 mux/b_bar_bar }
+FG mux/NOT.20{NOT 0 I 1 mux/c_bar 1 mux/c_bar_bar }
+FG mux/AND.9_0{AND 0 I 5 temp_0 mux/a_bar mux/b_bar mux/c_bar mux/strobe_bar 1 mux/t_0 }
+FG mux/AND.10_0{AND 0 I 5 temp_1 mux/a_bar_bar mux/b_bar mux/c_bar mux/strobe_bar 1 mux/t_1 }
+FG mux/AND.11_0{AND 0 I 5 temp_2 mux/a_bar mux/b_bar_bar mux/c_bar mux/strobe_bar 1 mux/t_2 }
+FG mux/AND.12_0{AND 0 I 5 temp_3 mux/a_bar_bar mux/b_bar_bar mux/c_bar mux/strobe_bar 1 mux/t_3 }
+FG mux/AND.13_0{AND 0 I 5 temp_4 mux/a_bar mux/b_bar mux/c_bar_bar mux/strobe_bar 1 mux/t_4 }
+FG mux/AND.14_0{AND 0 I 5 temp_5 mux/a_bar_bar mux/b_bar mux/c_bar_bar mux/strobe_bar 1 mux/t_5 }
+FG mux/AND.15_0{AND 0 I 5 temp_6 mux/a_bar mux/b_bar_bar mux/c_bar_bar mux/strobe_bar 1 mux/t_6 }
+FG mux/AND.16_0{AND 0 I 5 temp_7 mux/a_bar_bar mux/b_bar_bar mux/c_bar_bar mux/strobe_bar 1 mux/t_7 }
+FG mux/OR.1{OR 0 I 8 mux/t_0 mux/t_1 mux/t_2 mux/t_3 mux/t_4 mux/t_5 mux/t_6 mux/t_7 1 mux/_69 }
+FG mux/NOT.21{NOT 0 I 1 mux/_69 1 outa }
+FG mux/NOT.22{NOT 0 I 1 outa 1 outb }
+FS{demux/_15_0 demux/_18_0 demux/_21_0 demux/_24_0 demux/_27_0 demux/_30_0 demux/_33_0 demux/_36_0 demux/d1c_bar demux/sa_bar demux/sa_bar_bar demux/sb_bar demux/sb_bar_bar demux/t1 demux/t2 }
+FG demux/NOT.1{NOT 0 I 1 inc 1 demux/d1c_bar }
+FG demux/NOT.2{NOT 0 I 1 ina 1 demux/sa_bar }
+FG demux/NOT.3{NOT 0 I 1 inb 1 demux/sb_bar }
+FG demux/NOT.4{NOT 0 I 1 demux/sa_bar 1 demux/sa_bar_bar }
+FG demux/NOT.5{NOT 0 I 1 demux/sb_bar 1 demux/sb_bar_bar }
+FG demux/NOR.1{NOR 0 I 2 strobe demux/d1c_bar 1 demux/t1 }
+FG demux/NOR.2{NOR 0 I 2 strobe c_bar 1 demux/t2 }
+FG demux/AND.1_0{AND 0 I 3 demux/t1 demux/sb_bar demux/sa_bar 1 demux/_15_0 }
+FG demux/NOT.6_0{NOT 0 I 1 demux/_15_0 1 temp_4 }
+FG demux/AND.2_0{AND 0 I 3 demux/t1 demux/sb_bar demux/sa_bar_bar 1 demux/_18_0 }
+FG demux/NOT.7_0{NOT 0 I 1 demux/_18_0 1 temp_5 }
+FG demux/AND.3_0{AND 0 I 3 demux/t1 demux/sb_bar_bar demux/sa_bar 1 demux/_21_0 }
+FG demux/NOT.8_0{NOT 0 I 1 demux/_21_0 1 temp_6 }
+FG demux/AND.4_0{AND 0 I 3 demux/t1 demux/sb_bar_bar demux/sa_bar_bar 1 demux/_24_0 }
+FG demux/NOT.9_0{NOT 0 I 1 demux/_24_0 1 temp_7 }
+FG demux/AND.5_0{AND 0 I 3 demux/t2 demux/sb_bar demux/sa_bar 1 demux/_27_0 }
+FG demux/NOT.10_0{NOT 0 I 1 demux/_27_0 1 temp_0 }
+FG demux/AND.6_0{AND 0 I 3 demux/t2 demux/sb_bar demux/sa_bar_bar 1 demux/_30_0 }
+FG demux/NOT.11_0{NOT 0 I 1 demux/_30_0 1 temp_1 }
+FG demux/AND.7_0{AND 0 I 3 demux/t2 demux/sb_bar_bar demux/sa_bar 1 demux/_33_0 }
+FG demux/NOT.12_0{NOT 0 I 1 demux/_33_0 1 temp_2 }
+FG demux/AND.8_0{AND 0 I 3 demux/t2 demux/sb_bar_bar demux/sa_bar_bar 1 demux/_36_0 }
+FG demux/NOT.13_0{NOT 0 I 1 demux/_36_0 1 temp_3 }}

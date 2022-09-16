@@ -1,0 +1,109 @@
+
+MX example3.literal{
+MP{Ain IN;Bin IN;Cin IN;Din IN;Ein IN;Fin IN;Gin IN;Hin IN;Iin IN;evenSum OUT;oddSum OUT;}
+MH{
+HS{a;a1;aa;b;
+b1;bb;c;c1;cc;
+d;d1;dd;e;e1;
+ee;f;f1;ff;g;
+g1;gg;h;h1;hh;
+i;i1;k;l;m;
+n;o;p;q;r;
+s;t;u;v;w;
+w1;x;x1;y;y1;}
+HA{a<=(NOT(Ain))}
+HA{b<=(NOT(Bin))}
+HA{c<=(NOT(Cin))}
+HA{a1<=(NOT(a))}
+HA{b1<=(NOT(b))}
+HA{c1<=(NOT(c))}
+HA{k<=((a1 AND b1 AND c1))}
+HA{l<=((a1 AND b AND c))}
+HA{m<=((a AND b1 AND c))}
+HA{n<=((a AND b AND c1))}
+HA{w<=((k OR l OR m OR n))}
+HA{w1<=(NOT(w))}
+HA{d<=(NOT(Din))}
+HA{e<=(NOT(Ein))}
+HA{f<=(NOT(Fin))}
+HA{d1<=(NOT(d))}
+HA{e1<=(NOT(e))}
+HA{f1<=(NOT(f))}
+HA{o<=((d1 AND e1 AND f1))}
+HA{p<=((d1 AND e AND f))}
+HA{q<=((d AND e1 AND f))}
+HA{r<=((d AND e AND f1))}
+HA{x<=((o OR p OR q OR r))}
+HA{x1<=(NOT(x))}
+HA{g<=(NOT(Gin))}
+HA{h<=(NOT(Hin))}
+HA{i<=(NOT(Iin))}
+HA{g1<=(NOT(g))}
+HA{h1<=(NOT(h))}
+HA{i1<=(NOT(i))}
+HA{s<=((g1 AND h1 AND i1))}
+HA{t<=((g1 AND h AND i))}
+HA{u<=((g AND h1 AND i))}
+HA{v<=((g AND h AND i1))}
+HA{y<=((s OR t OR u OR v))}
+HA{y1<=(NOT(y))}
+HA{aa<=((w AND y AND x))}
+HA{bb<=((y AND y1 AND x1))}
+HA{cc<=((y AND w1 AND x1))}
+HA{dd<=((w1 AND y1 AND x))}
+HA{ee<=((w1 AND y1 AND x1))}
+HA{ff<=((w1 AND y AND x))}
+HA{gg<=((y AND w1 AND x))}
+HA{hh<=((w AND y AND x1))}
+HA{oddSum<=((aa OR bb OR cc OR dd))}
+HA{evenSum<=((ee OR ff OR gg OR hh))}}}
+
+MF{
+FS{Ain oddSum Bin evenSum Cin Din Ein Fin Gin Hin Iin }
+FS{a a1 aa b b1 bb c c1 cc d d1 dd e e1 ee f f1 ff g g1 gg h h1 hh i i1 k l m n o p q r s t u v w w1 x x1 y y1 }
+FG 8{NOT 0 I 1 Ain 1 a }
+FG 9{NOT 0 I 1 Bin 1 b }
+FG 10{NOT 0 I 1 Cin 1 c }
+FG 11{INVNOT 0 I 1 a 1 a1 }
+FG 12{INVNOT 0 I 1 b 1 b1 }
+FG 13{INVNOT 0 I 1 c 1 c1 }
+FG AND.13{AND 0 I 3 b c a1 1 k }
+FG AND.14{AND 0 I 3 a c b1 1 l }
+FG AND.15{AND 0 I 3 b a c1 1 m }
+FG AND.16{AND 0 I 3 c1 b1 a1 1 n }
+FG NOR.4{NOR 0 I 4 k l m n 1 w }
+FG 14{INVNOT 0 I 1 w 1 w1 }
+FG 15{NOT 0 I 1 Din 1 d }
+FG 16{NOT 0 I 1 Ein 1 e }
+FG 17{NOT 0 I 1 Fin 1 f }
+FG 18{INVNOT 0 I 1 d 1 d1 }
+FG 19{INVNOT 0 I 1 e 1 e1 }
+FG 20{INVNOT 0 I 1 f 1 f1 }
+FG AND.17{AND 0 I 3 e f d1 1 o }
+FG AND.18{AND 0 I 3 d f e1 1 p }
+FG AND.19{AND 0 I 3 e d f1 1 q }
+FG AND.20{AND 0 I 3 f1 e1 d1 1 r }
+FG NOR.5{NOR 0 I 4 o p q r 1 x }
+FG 21{INVNOT 0 I 1 x 1 x1 }
+FG 22{NOT 0 I 1 Gin 1 g }
+FG 23{NOT 0 I 1 Hin 1 h }
+FG 24{NOT 0 I 1 Iin 1 i }
+FG 25{INVNOT 0 I 1 g 1 g1 }
+FG 26{INVNOT 0 I 1 h 1 h1 }
+FG 27{INVNOT 0 I 1 i 1 i1 }
+FG AND.21{AND 0 I 3 h i g1 1 s }
+FG AND.22{AND 0 I 3 g i h1 1 t }
+FG AND.23{AND 0 I 3 h g i1 1 u }
+FG AND.24{AND 0 I 3 i1 h1 g1 1 v }
+FG NOR.6{NOR 0 I 4 s t u v 1 y }
+FG 28{INVNOT 0 I 1 y 1 y1 }
+FG AND.25{AND 0 I 3 x y w1 1 aa }
+FG AND.26{AND 0 I 3 w y x1 1 bb }
+FG AND.27{AND 0 I 3 w x y1 1 cc }
+FG AND.28{AND 0 I 3 w1 x1 y1 1 dd }
+FG AND.29{AND 0 I 3 x1 y1 w 1 ee }
+FG AND.30{AND 0 I 3 x w1 y1 1 ff }
+FG AND.31{AND 0 I 3 x1 w1 y 1 gg }
+FG AND.32{AND 0 I 3 x w y 1 hh }
+FG NOR.7{NOR 0 I 4 aa bb cc dd 1 evenSum }
+FG NOR.8{NOR 0 I 4 ee ff gg hh 1 oddSum }}

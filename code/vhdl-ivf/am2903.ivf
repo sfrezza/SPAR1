@@ -1,0 +1,27 @@
+
+MX fig9.27{
+MP{}
+MH{
+HS{DataIn;a;A;WE_bar;CP_;_CP;CP;LDataOutA[3:0];LDataOutB[3:0];}}}
+MF{
+FS{ DataIn a A WE_bar CP _CP CP_ DataOutA_0 DataOutA_1 DataOutA_2 DataOutA_3 }
+FS{ DataOutB_0 DataOutB_1 DataOutB_2 DataOutB_3 }
+FS{ LDataOutA_0  LDataOutA_1 LDataOutA_2 LDataOutA_3 }
+FS{ LDataOutB_0 LDataOutB_1 LDataOutB_2 LDataOutB_3 }
+FP Latch_1{Latch 0 5 _CP DataOutA_0 DataOutA_1 DataOutA_2 DataOutA_3 
+                   4 LDataOutA_0 LDataOutA_1 LDataOutA_2 LDataOutA_3 
+FPIS{9 6} 
+FPPP{9  _CP 0 3 DataOutA_0 1 6  DataOutA_1 3 6  DataOutA_2 5 6  DataOutA_3 7 6 
+              LDataOutA_0 1 0 LDataOutA_1 3 0 LDataOutA_2 5 0 LDataOutA_3 7 0 }}
+FP Latch_2{Latch 0 5 CP_ DataOutB_0 DataOutB_1 DataOutB_2 DataOutB_3 
+                   4 LDataOutB_0 LDataOutB_1 LDataOutB_2 LDataOutB_3 
+FPIS{9 6} 
+FPPP{9  CP_ 9 3 DataOutB_0 1 6  DataOutB_1 3 6  DataOutB_2 5 6  DataOutB_3 7 6 
+              LDataOutB_0 1 0 LDataOutB_1 3 0 LDataOutB_2 5 0 LDataOutB_3 7 0 }}
+FP RAM{RAM 0 2 DataIn A 11 a WE_bar CP DataOutA_0 DataOutA_1 DataOutA_2 DataOutA_3 
+DataOutB_0 DataOutB_1 DataOutB_2 DataOutB_3 
+FPIS{40 20} 
+FPPP{13 DataIn 20 20 a 41 16 A -1 16 WE_bar 41 10 CP 41 4 
+DataOutA_0 4 0 DataOutA_1 6 0 DataOutA_2 8 0 DataOutA_3 10 0
+DataOutB_0 28 0 DataOutB_1 30 0 DataOutB_2 32 0 DataOutB_3 34 0}}
+}

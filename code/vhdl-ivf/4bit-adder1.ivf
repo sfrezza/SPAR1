@@ -1,0 +1,110 @@
+
+MX adder4.test1b4{
+MP{arg1[3:0] IN;arg2[3:0] IN;carry_in IN;result[3:0] OUT;carry_out OUT;}
+MH{
+HS{ci[3:0];co[3:0];g[3:0];p[3:0];
+t[3:0];}
+HA{g[3:0]<=((arg1[3:0] AND arg2[3:0]))}
+HA{p[3:0]<=((arg1[3:0] OR arg2[3:0]))}
+HA{ci[3:0]<=((co[2:0] CONCAT carry_in))}
+HA{co[3:0]<=((g[3:0] OR ((p[3:0] AND ci[3:0]))))}
+HA{t[3:0]<=((((arg1[3:0] AND (NOT(arg2[3:0])))) OR (((NOT(arg1[3:0])) AND arg2[3:0]))))}
+HA{result[3:0]<=((((t[3:0] AND (NOT(ci[3:0])))) OR (((NOT(t[3:0])) AND ci[3:0]))))}
+HA{carry_out<=((co[3:3]))}}}
+
+MF{
+FS{arg1_0 arg1_1 arg1_2 arg1_3 arg2_0 arg2_1 arg2_2 arg2_3 carry_in carry_out result_0 result_1 result_2 result_3 }
+FS{_49_0 _49_1 _49_2 _49_3 _52_0 _52_1 _52_2 _52_3 _53_0 _53_1 _53_2 _53_3 _54_0 _54_1 _54_2 _54_3 _55_0 _55_1 _55_2 _55_3 _58_0 _58_1 _58_2 _58_3 _59_0 _59_1 _59_2 _59_3 _60_0 _60_1 _60_2 _60_3 _61_0 _61_1 _61_2 _61_3 ci_0 ci_1 ci_2 ci_3 co_0 co_1 co_2 co_3 g_0 g_1 g_2 g_3 p_0 p_1 p_2 p_3 t_0 t_1 t_2 t_3 }
+FG AND.13_0{AND 0 I 2 arg1_0 arg2_0 1 g_0 }
+FG AND.13_1{AND 0 I 2 arg1_1 
+arg2_1 1 g_1 }
+FG AND.13_2{AND 0 I 2 arg1_2 arg2_2 1 g_2 }
+FG AND.13_3{AND 0 I 2 
+arg1_3 arg2_3 1 g_3 }
+FG OR.7_0{OR 0 I 2 arg1_0 arg2_0 1 
+p_0 }
+FG OR.7_1{OR 0 I 2 arg1_1 arg2_1 1 p_1 }
+FG OR.7_2{OR 0 I 2 arg1_2 
+arg2_2 1 p_2 }
+FG OR.7_3{OR 0 I 2 arg1_3 arg2_3 1 p_3 }
+FG CONCAT.2_0{NL_GATE 0 I 1 
+carry_in 1 ci_0 }
+FG CONCAT.2_1{NL_GATE 0 I 1 co_0 1 ci_1 }
+FG CONCAT.2_2{NL_GATE 0 I 1 co_1 1 
+ci_2 }
+FG CONCAT.2_3{NL_GATE 0 I 1 co_2 1 ci_3 }
+FG AND.14_0{AND 0 I 2 p_0 ci_0 1 
+_49_0 }
+FG AND.14_1{AND 0 I 2 p_1 ci_1 1 _49_1 }
+FG AND.14_2{AND 0 I 2 p_2 
+ci_2 1 _49_2 }
+FG AND.14_3{AND 0 I 2 p_3 ci_3 1 _49_3 }
+FG OR.8_0{OR 0 I 2 
+g_0 _49_0 1 co_0 }
+FG OR.8_1{OR 0 I 2 g_1 _49_1 1 
+co_1 }
+FG OR.8_2{OR 0 I 2 g_2 _49_2 1 co_2 }
+FG OR.8_3{OR 0 I 2 g_3 
+_49_3 1 co_3 }
+FG NOT.5_0{NOT 0 I 1 arg2_0 1 _52_0 }
+FG NOT.5_1{NOT 0 I 1 arg2_1 1 
+_52_1 }
+FG NOT.5_2{NOT 0 I 1 arg2_2 1 _52_2 }
+FG NOT.5_3{NOT 0 I 1 arg2_3 1 _52_3 }
+FG AND.15_0{AND 0 I 2 
+arg1_0 _52_0 1 _53_0 }
+FG AND.15_1{AND 0 I 2 arg1_1 _52_1 1 
+_53_1 }
+FG AND.15_2{AND 0 I 2 arg1_2 _52_2 1 _53_2 }
+FG AND.15_3{AND 0 I 2 arg1_3 
+_52_3 1 _53_3 }
+FG NOT.6_0{NOT 0 I 1 arg1_0 1 _54_0 }
+FG NOT.6_1{NOT 0 I 1 arg1_1 1 
+_54_1 }
+FG NOT.6_2{NOT 0 I 1 arg1_2 1 _54_2 }
+FG NOT.6_3{NOT 0 I 1 arg1_3 1 _54_3 }
+FG AND.16_0{AND 0 I 2 
+_54_0 arg2_0 1 _55_0 }
+FG AND.16_1{AND 0 I 2 _54_1 arg2_1 1 
+_55_1 }
+FG AND.16_2{AND 0 I 2 _54_2 arg2_2 1 _55_2 }
+FG AND.16_3{AND 0 I 2 _54_3 
+arg2_3 1 _55_3 }
+FG OR.9_0{OR 0 I 2 _53_0 _55_0 1 t_0 }
+FG OR.9_1{OR 0 I 2 
+_53_1 _55_1 1 t_1 }
+FG OR.9_2{OR 0 I 2 _53_2 _55_2 1 
+t_2 }
+FG OR.9_3{OR 0 I 2 _53_3 _55_3 1 t_3 }
+FG NOT.7_0{NOT 0 I 1 ci_0 1 
+_58_0 }
+FG NOT.7_1{NOT 0 I 1 ci_1 1 _58_1 }
+FG NOT.7_2{NOT 0 I 1 ci_2 1 _58_2 }
+FG NOT.7_3{NOT 0 I 1 
+ci_3 1 _58_3 }
+FG AND.17_0{AND 0 I 2 t_0 _58_0 1 _59_0 }
+FG AND.17_1{AND 0 I 2 
+t_1 _58_1 1 _59_1 }
+FG AND.17_2{AND 0 I 2 t_2 _58_2 1 
+_59_2 }
+FG AND.17_3{AND 0 I 2 t_3 _58_3 1 _59_3 }
+FG NOT.8_0{NOT 0 I 1 t_0 1 
+_60_0 }
+FG NOT.8_1{NOT 0 I 1 t_1 1 _60_1 }
+FG NOT.8_2{NOT 0 I 1 t_2 1 _60_2 }
+FG NOT.8_3{NOT 0 I 1 
+t_3 1 _60_3 }
+FG AND.18_0{AND 0 I 2 _60_0 ci_0 1 _61_0 }
+FG AND.18_1{AND 0 I 2 
+_60_1 ci_1 1 _61_1 }
+FG AND.18_2{AND 0 I 2 _60_2 ci_2 1 
+_61_2 }
+FG AND.18_3{AND 0 I 2 _60_3 ci_3 1 _61_3 }
+FG OR.10_0{OR 0 I 2 _59_0 
+_61_0 1 result_0 }
+FG OR.10_1{OR 0 I 2 _59_1 _61_1 1 result_1 }
+FG OR.10_2{OR 0 I 2 
+_59_2 _61_2 1 result_2 }
+FG OR.10_3{OR 0 I 2 _59_3 _61_3 1 
+result_3 }
+FG NL_GATE.47{NL_GATE 0 I 1 co_3 1 carry_out }}

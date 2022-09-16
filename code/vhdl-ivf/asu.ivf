@@ -1,0 +1,40 @@
+
+MX adder.sub{
+MP{write IN;sdata_in IN;of_check IN; subtract IN; of_indicator OUT;sdata_out OUT;}}
+
+MF{
+FS{write sdata_in sdata_out subtract of_check of_indicator}
+FS{x0 x1 x2 x3 A B SUM c0 c1 c2 c3 comp0 comp1 sc0 sc1 sc2 a b sum
+lsb_i mb_i msb_i sign_i      lsb_a mb_a msb_a sign_a
+l_i m_i b_i p_i 	   l_a m_a b_a p_a
+}
+
+FP Comp_Cont{BLOCK 0 3 subtract sign_i A 2 comp0 comp1 FPIS{17 10}
+FPPP{5 comp0 18 8 comp1 18 2 subtract 0 1 sign_i 0 5 A 0 9}}
+
+FP Accumulate{BLOCK 0 1 comp0 9 b_a l_a m_a SUM lsb_a mb_a msb_a A sign_a FPIS{32 6}
+FPPP{10 lsb_a 2 0 l_a 6 0 mb_a 10 0 m_a 14 0 msb_a 18 0 b_a 22 0 sign_a 26 0 SUM 30 0 comp0 0 2 A 33 2 }}
+FG D{AND 0 I 2 A write 1 sdata_out}
+
+FG A{XOR 0 I 2 B A 1 x0}
+FG B{XOR 0 I 2 B SUM 1 x1}
+FG NOT.1{NOT 0 I 1 x0 1 x2}
+
+FP SR_FF{BLOCK 0 1 x3 1 of_indicator FPIS{7 10} FPPP{2 x3 0 7 of_indicator 8 7}}
+FG C{AND 0 I 3 of_check x1 x2 1 x3}
+
+FP FA_0{BLOCK 0 3 lsb_a c3 lsb_i 2 c0 l_a FPIS{10 8} 
+FPPP{5 lsb_a 3 9 c3 0 4 lsb_i 5 0 c0 11 4 l_a 8 9}}
+FP FA_1{BLOCK 0 3 mb_a c0 mb_i 2 c1 m_a FPIS{10 8} 
+FPPP{5 mb_a 3 9 c0 0 4 mb_i 5 0 c1 11 4 m_a 8 9}}
+FP FA_2{BLOCK 0 3 msb_a c1 msb_i 2 c2 b_a FPIS{10 8} 
+FPPP{5 msb_a 3 9 c1 0 4 msb_i 5 0 c2 11 4 b_a 8 9}}
+FP FA_3{BLOCK 0 3 sign_a c2 B 2 SUM c3 FPIS{10 8} 
+FPPP{5 sign_a 3 9 c2 0 4 B 5 0 c3 11 4 SUM 8 9}}
+
+
+FP Incident{BLOCK 0 2 comp1 sdata_in 5 msb_i lsb_i mb_i B sign_i FPIS{28 6}
+FPPP{7 lsb_i 2 7 mb_i 10 7 msb_i 18 7 B 26 7 comp1 0 1 sdata_in 0 5 sign_i 29 2}}
+
+
+}

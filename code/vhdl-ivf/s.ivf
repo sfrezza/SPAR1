@@ -1,0 +1,12 @@
+
+MX rs_ff.rs_struct{
+MP{rbar IN;sbar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HA{q<=((sbar NAND qbar))}
+HA{qbar<=((rbar NAND q))}}}
+
+MF{
+FS{q qbar rbar sbar }
+FG NAND.1{NAND 0 I 3 sbar qbar $0 1 q }
+FG NAND.2{NAND 0 I 3 $1 rbar q 1 qbar }}

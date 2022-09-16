@@ -1,0 +1,28 @@
+
+MX fig8.str{
+MP{i IN;sh IN;di IN;ck1 IN;ck2 IN;io OUT;}
+MH{
+HS{dev1;dev2;dev3;dev4;
+dev5;dev6;dev7;dev8;}
+HA{dev1<=(NOT(di))}
+HA{dev2<=(NOT(i))}
+HA{dev3<=((dev1 AND ck1))}
+HA{dev4<=((di AND ck1))}
+HA{dev5<=((dev2 AND sh))}
+HA{dev6<=((i AND sh))}
+HA{dev7<=((dev5 NOR dev3))}
+HA{dev8<=((dev6 NOR dev4))}
+HA{io<=((ck2 AND dev7 AND dev8))}}}
+
+MF{
+FS{ck1 ck2 di i io sh }
+FS{dev1 dev2 dev3 dev4 dev5 dev6 dev7 dev8 }
+FG DEV1{NOT 0 I 1 di 1 dev1 }
+FG DEV2{NOT 0 I 1 i 1 dev2 }
+FG DEV3{AND 0 I 2 dev1 ck1 1 dev3 }
+FG DEV4{AND 0 I 2 di ck1 1 dev4 }
+FG DEV5{AND 0 I 2 dev2 sh 1 dev5 }
+FG DEV6{AND 0 I 2 i sh 1 dev6 }
+FG DEV7{NOR 0 I 2 dev5 dev3 1 dev7 }
+FG DEV8{NOR 0 I 2 dev6 dev4 1 dev8 }
+FG DEV9{AND 0 I 3 ck2 dev7 dev8 1 io }}

@@ -1,0 +1,113 @@
+
+MX sn54c283.structure{
+MP{a[3:0] IN;b[3:0] IN;c0 IN;s[3:0] OUT;c4 OUT;}
+MH{
+HS{c4x1;c4x2;c4x3;c4x4;d1;d10;d2;d3;d4;d5;d6;d7;d8;d9;e1;e2;e3;e4;f1;f10;f11;f11x1;f12;f13;f14;f15;f16;f16x1;f16x2;f17;f18;f19;f2;f3;f4;f5;f6;f7;f8;f9;g1;g2;g2x1;g2x2;g3;g3x1;g3x2;g3x3;}
+HA{d1<=(NOT(c0) AFTER 30)}
+HA{d2<=((a[0:0] NOR b[0:0]) AFTER 30)}
+HA{d3<=((a[0:0] NAND b[0:0]) AFTER 30)}
+HA{d4<=((a[1:1] NOR b[1:1]) AFTER 30)}
+HA{d5<=((a[1:1] NAND b[1:1]) AFTER 30)}
+HA{d6<=((a[2:2] NOR b[2:2]) AFTER 30)}
+HA{d7<=((a[2:2] NAND b[2:2]) AFTER 30)}
+HA{d8<=((a[3:3] NOR b[3:3]) AFTER 30)}
+HA{d9<=((a[3:3] NAND b[3:3]) AFTER 30)}
+HA{e1<=(NOT(d2) AFTER 30)}
+HA{e2<=(NOT(d4) AFTER 30)}
+HA{e3<=(NOT(d8) AFTER 30)}
+HA{e4<=(NOT(d6) AFTER 30)}
+HA{f1<=(NOT(d1) AFTER 30)}
+HA{f2<=((d3 AND e1) AFTER 30)}
+HA{f3<=((d3 AND d1) AFTER 30)}
+HA{f4<=((d2) AFTER 30)}
+HA{f5<=((d5 AND e2) AFTER 30)}
+HA{f6<=((d5 AND f3) AFTER 30)}
+HA{f7<=((d2 AND d5) AFTER 30)}
+HA{f8<=((d4) AFTER 30)}
+HA{f9<=((e4 AND d7) AFTER 30)}
+HA{f10<=((d7 AND f6) AFTER 30)}
+HA{f11x1<=((d2 AND d5) AFTER 30)}
+HA{f11<=((d7 AND f11x1) AFTER 30)}
+HA{f12<=((d4 AND d7) AFTER 30)}
+HA{f13<=((d6) AFTER 30)}
+HA{f14<=((d9 AND e3) AFTER 30)}
+HA{f15<=((d9 AND f10) AFTER 30)}
+HA{f16x1<=((d9 AND d7) AFTER 30)}
+HA{f16x2<=((f16x1 AND d5) AFTER 30)}
+HA{f16<=((d2 AND f16x2) AFTER 30)}
+HA{f17<=((d4 AND f16x1) AFTER 30)}
+HA{f18<=((d6 AND d9) AFTER 30)}
+HA{f19<=((d8) AFTER 30)}
+HA{g1<=((f4 NOR f3) AFTER 30)}
+HA{g2x1<=((f8 OR f7) AFTER 30)}
+HA{g2x2<=((f6 OR g2x1) AFTER 30)}
+HA{g2<=(NOT(g2x2) AFTER 30)}
+HA{g3x1<=((f13 OR f12) AFTER 30)}
+HA{g3x2<=((g3x1 OR f11) AFTER 30)}
+HA{g3x3<=((g3x2 OR f10) AFTER 30)}
+HA{g3<=(NOT(g3x3) AFTER 30)}
+HA{s[0:0]<=((f1 XOR f2) AFTER 30)}
+HA{s[1:1]<=((g1 XOR f5) AFTER 30)}
+HA{s[2:2]<=((g2 XOR f9) AFTER 30)}
+HA{s[3:3]<=((g3 XOR f14) AFTER 30)}
+HA{c4x1<=((f19 OR f18) AFTER 30)}
+HA{c4x2<=((f17 OR f16) AFTER 30)}
+HA{c4x3<=((c4x1 OR c4x2) AFTER 30)}
+HA{c4x4<=((c4x3 OR f15) AFTER 30)}
+HA{c4<=(NOT(c4x4) AFTER 30)}}}
+
+MF{
+FS{a_0 a_1 a_2 a_3 b_0 b_1 b_2 b_3 c0 c4 s_0 s_1 s_2 s_3 }
+FS{c4x1 c4x2 c4x3 c4x4 d1 d10 d2 d3 d4 d5 d6 d7 d8 d9 e1 e2 e3 e4 f1 f10 f11 f11x1 f12 f13 f14 f15 f16 f16x1 f16x2 f17 f18 f19 f2 f3 f4 f5 f6 f7 f8 f9 g1 g2 g2x1 g2x2 g3 g3x1 g3x2 g3x3 }
+FG NOT.1{NOT 30 I 1 c0 1 d1 }
+FG NOR.1{NOR 30 I 2 a_0 b_0 1 d2 }
+FG NAND.1{NAND 30 I 2 a_0 b_0 1 d3 }
+FG NOR.2{NOR 30 I 2 a_1 b_1 1 d4 }
+FG NAND.2{NAND 30 I 2 a_1 b_1 1 d5 }
+FG NOR.3{NOR 30 I 2 a_2 b_2 1 d6 }
+FG NAND.3{NAND 30 I 2 a_2 b_2 1 d7 }
+FG NOR.4{NOR 30 I 2 a_3 b_3 1 d8 }
+FG NAND.4{NAND 30 I 2 a_3 b_3 1 d9 }
+FG NOT.2{NOT 30 I 1 d2 1 e1 }
+FG NOT.3{NOT 30 I 1 d4 1 e2 }
+FG NOT.4{NOT 30 I 1 d8 1 e3 }
+FG NOT.5{NOT 30 I 1 d6 1 e4 }
+FG NOT.6{NOT 30 I 1 d1 1 f1 }
+FG AND.1{AND 30 I 2 d3 e1 1 f2 }
+FG AND.2{AND 30 I 2 d3 d1 1 f3 }
+FG NL_GATE.33{NL_GATE 30 I 1 d2 1 f4 }
+FG AND.3{AND 30 I 2 d5 e2 1 f5 }
+FG AND.4{AND 30 I 2 d5 f3 1 f6 }
+FG AND.5{AND 30 I 2 d2 d5 1 f7 }
+FG NL_GATE.41{NL_GATE 30 I 1 d4 1 f8 }
+FG AND.6{AND 30 I 2 e4 d7 1 f9 }
+FG AND.7{AND 30 I 2 d7 f6 1 f10 }
+FG AND.8{AND 30 I 2 d2 d5 1 f11x1 }
+FG AND.9{AND 30 I 2 d7 f11x1 1 f11 }
+FG AND.10{AND 30 I 2 d4 d7 1 f12 }
+FG NL_GATE.53{NL_GATE 30 I 1 d6 1 f13 }
+FG AND.11{AND 30 I 2 d9 e3 1 f14 }
+FG AND.12{AND 30 I 2 d9 f10 1 f15 }
+FG AND.13{AND 30 I 2 d9 d7 1 f16x1 }
+FG AND.14{AND 30 I 2 f16x1 d5 1 f16x2 }
+FG AND.15{AND 30 I 2 d2 f16x2 1 f16 }
+FG AND.16{AND 30 I 2 d4 f16x1 1 f17 }
+FG AND.17{AND 30 I 2 d6 d9 1 f18 }
+FG NL_GATE.69{NL_GATE 30 I 1 d8 1 f19 }
+FG NOR.5{NOR 30 I 2 f4 f3 1 g1 }
+FG OR.1{OR 30 I 2 f8 f7 1 g2x1 }
+FG OR.2{OR 30 I 2 f6 g2x1 1 g2x2 }
+FG NOT.7{NOT 30 I 1 g2x2 1 g2 }
+FG OR.3{OR 30 I 2 f13 f12 1 g3x1 }
+FG OR.4{OR 30 I 2 g3x1 f11 1 g3x2 }
+FG OR.5{OR 30 I 2 g3x2 f10 1 g3x3 }
+FG NOT.8{NOT 30 I 1 g3x3 1 g3 }
+FG XOR.1_0{XOR 30 I 2 f1 f2 1 s_0 }
+FG XOR.2_0{XOR 30 I 2 g1 f5 1 s_1 }
+FG XOR.3_0{XOR 30 I 2 g2 f9 1 s_2 }
+FG XOR.4_0{XOR 30 I 2 g3 f14 1 s_3 }
+FG OR.6{OR 30 I 2 f19 f18 1 c4x1 }
+FG OR.7{OR 30 I 2 f17 f16 1 c4x2 }
+FG OR.8{OR 30 I 2 c4x1 c4x2 1 c4x3 }
+FG OR.9{OR 30 I 2 c4x3 f15 1 c4x4 }
+FG NOT.9{NOT 30 I 1 c4x4 1 c4 }}

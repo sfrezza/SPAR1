@@ -1,0 +1,27 @@
+
+MX sn7474.gates{
+MP{nclr IN;nset IN;clock IN;d IN;q OUT;qbar OUT;}
+MH{
+HS{w;x;y;z;}
+HA{x<=(NOT(((d AND nclr AND y))) AFTER 30)}
+HA{y<=(NOT(((clock AND x AND z))) AFTER 30)}
+HA{z<=(NOT(((clock AND nclr AND w))) AFTER 30)}
+HA{w<=(NOT(((z AND x AND nset))) AFTER 30)}
+HA{q<=(NOT(((nset AND z AND qbar))) AFTER 30)}
+HA{qbar<=(NOT(((y AND nclr AND q))) AFTER 30)}}}
+
+MF{
+FS{clock d nclr nset q qbar }
+FS{_1 _10 _13 _16 _4 _7 w x y z }
+FG AND.1{AND 0 I 3 d nclr y 1 _1 }
+FG NOT.1{NOT 30 I 1 _1 1 x }
+FG AND.2{AND 0 I 3 clock x z 1 _4 }
+FG NOT.2{NOT 30 I 1 _4 1 y }
+FG AND.3{AND 0 I 3 clock nclr w 1 _7 }
+FG NOT.3{NOT 30 I 1 _7 1 z }
+FG AND.4{AND 0 I 3 z x nset 1 _10 }
+FG NOT.4{NOT 30 I 1 _10 1 w }
+FG AND.5{AND 0 I 3 nset z qbar 1 _13 }
+FG NOT.5{NOT 30 I 1 _13 1 q }
+FG AND.6{AND 0 I 3 y nclr q 1 _16 }
+FG NOT.6{NOT 30 I 1 _16 1 qbar }}

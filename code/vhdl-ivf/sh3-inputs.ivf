@@ -1,0 +1,35 @@
+
+MX iblock.gates{
+MP{ainp IN;binp IN;cinp IN;w OUT;w1 OUT;}
+MH{
+HS{a;a1;b;b1;
+c;c1;k;l;m;
+n;}
+HA{a<=(NOT(ainp))}
+HA{b<=(NOT(binp))}
+HA{c<=(NOT(cinp))}
+HA{a1<=(NOT(a))}
+HA{b1<=(NOT(b))}
+HA{c1<=(NOT(c))}
+HA{k<=((a1 AND b1 AND c1))}
+HA{l<=((a1 AND b AND c))}
+HA{m<=((a AND b1 AND c))}
+HA{n<=((a AND b AND c1))}
+HA{w<=((k OR l OR m OR n))}
+HA{w1<=(NOT(w))}}}
+
+MF{
+FS{ainp binp cinp w w1 }
+FS{a a1 b b1 c c1 k l m n }
+FG NOT.1{NOT 0 I 1 ainp 1 a }
+FG NOT.2{NOT 0 I 1 binp 1 b }
+FG NOT.3{NOT 0 I 1 cinp 1 c }
+FG NOT.4{NOT 0 I 1 a 1 a1 }
+FG NOT.5{NOT 0 I 1 b 1 b1 }
+FG NOT.6{NOT 0 I 1 c 1 c1 }
+FG AND.2{AND 0 I 3 a1 b c 1 l }
+FG AND.3{AND 0 I 3 b1 c a 1 m }
+FG AND.4{AND 0 I 3 b c1 a 1 n }
+FG AND.1{AND 0 I 3 a1 b1 c1 1 k }
+FG OR.1{OR 0 I 4 k m n l 1 w }
+FG NOT.7{NOT 0 I 1 w 1 w1 }}

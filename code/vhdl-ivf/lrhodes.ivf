@@ -1,0 +1,157 @@
+From rhodes@blitz.cs.psu.edu Mon May 14 13:01:49 1990
+Return-Path: <rhodes@blitz.cs.psu.edu>
+Received: from blitz.cs.psu.edu by ee.pitt.edu (4.0/SMI-4.0)
+	id AA10312; Mon, 14 May 90 13:01:47 EDT
+Received: by blitz.cs.psu.edu (5.61/PSUCS-1.0)
+	id AA26671; Mon, 14 May 90 13:03:46 -0400
+Date: Mon, 14 May 90 13:03:46 -0400
+From: rhodes@blitz.cs.psu.edu (Loren K. Rhodes)
+Message-Id: <9005141703.AA26671@blitz.cs.psu.edu>
+To: frezza@ee.pitt.edu
+Subject: Re:  ivf files
+Status: R
+
+Hi Steve... Here are the ivf files.
+
+
+M_ false_path.glue{
+MP {x IN;ctrl IN;z OUT;}
+MH{
+HS{d; c; b; a; y; ctrl_bar;}
+HA{ctrl_bar <= NOT ctrl AFTER 2}
+HA{a <= NOT x  AFTER 20}
+HA{b <= NOT x  AFTER 10}
+HA{y <= (a AND ctrl) OR (b AND ctrl_bar) AFTER 10}
+HA{c <= NOT y AFTER 10}
+HA{d <= NOT y AFTER 20}
+HA{z <= (c AND ctrl) OR (d AND ctrl_bar) AFTER 10}
+}}
+
+MX rsff.arch{
+MP{set IN;clock IN;input IN;output OUT;}
+MH{
+HS{t_0;t_1;t_2;}
+HA{t_0<=(((((NOT(set))) AFTER 1)))}
+HA{t_1<=(((((NOT(clock))) AFTER 1)))}
+HA{t_2<=((((((((output AND t_1)) NOR ((input AND clock))))) AFTER 1)))}
+HA{output<=((((((t_0 NAND t_2))) AFTER 1)))}}}
+
+MF{
+FS{clock input output set }
+FS{_1 _10 _2 _3 _4 _5 _6 _7 _8 _9 t_0 t_1 t_2 }
+FG NOT.1{NOT 0 I 1 set 1 _1 }
+FG NL_GATE.1{NL_GATE 30 I 1 _1 1 _2 }
+FG NL_GATE.2{NL_GATE 0 I 1 _2 1 t_0 }
+FG NOT.2{NOT 0 I 1 clock 1 _3 }
+FG NL_GATE.3{NL_GATE 30 I 1 _3 1 _4 }
+FG NL_GATE.4{NL_GATE 0 I 1 _4 1 t_1 }
+FG AND.1{AND 0 I 2 output t_1 1 _5 }
+FG AND.2{AND 0 I 2 input clock 1 _6 }
+FG NOR.1{NOR 0 I 2 _5 _6 1 _7 }
+FG NL_GATE.5{NL_GATE 30 I 1 _7 1 _8 }
+FG NL_GATE.6{NL_GATE 0 I 1 _8 1 t_2 }
+FG NAND.1{NAND 0 I 2 t_0 t_2 1 _9 }
+FG NL_GATE.7{NL_GATE 30 I 1 _9 1 _10 }
+FG NL_GATE.8{NL_GATE 0 I 1 _10 1 output }}
+
+
+
+MX xorex.logic{
+MP{x IN;z OUT;}
+MH{
+HS{a;b;}
+HA{a<=(((((NOT(x))) AFTER 30)))}
+HA{b<=(((((NOT(x))) AFTER 30)))}
+HA{z<=((((((a XOR b))) AFTER 30)))}}}
+
+MF{
+FS{x z }
+FS{_1 _2 _3 _4 _5 _6 a b }
+FG NOT.1{NOT 0 I 1 x 1 _1 }
+FG NL_GATE.1{NL_GATE 30 I 1 _1 1 _2 }
+FG NL_GATE.2{NL_GATE 0 I 1 _2 1 a }
+FG NOT.2{NOT 0 I 1 x 1 _3 }
+FG NL_GATE.3{NL_GATE 30 I 1 _3 1 _4 }
+FG NL_GATE.4{NL_GATE 0 I 1 _4 1 b }
+FG XOR.1{XOR 0 I 2 a b 1 _5 }
+FG NL_GATE.5{NL_GATE 30 I 1 _5 1 _6 }
+FG NL_GATE.6{NL_GATE 0 I 1 _6 1 z }}
+
+
+--Loren
+
+From rhodes@blitz.cs.psu.edu Mon May 14 13:07:16 1990
+Return-Path: <rhodes@blitz.cs.psu.edu>
+Received: from blitz.cs.psu.edu by ee.pitt.edu (4.0/SMI-4.0)
+	id AA10324; Mon, 14 May 90 13:07:15 EDT
+Received: by blitz.cs.psu.edu (5.61/PSUCS-1.0)
+	id AA26680; Mon, 14 May 90 13:09:20 -0400
+Date: Mon, 14 May 90 13:09:20 -0400
+From: rhodes@blitz.cs.psu.edu (Loren K. Rhodes)
+Message-Id: <9005141709.AA26680@blitz.cs.psu.edu>
+To: frezza@ee.pitt.edu
+Subject: Re:  ivf files
+Status: R
+
+Steve, here are the vhdl versions
+
+entity false_path is 
+	port (x, ctrl: in bit; z: out bit);
+end false_path;
+
+architecture glue of false_path is 
+	signal d, c, b, a, y, ctrl_bar: bit;
+begin
+	ctrl_bar <= (not ctrl) after 0.2ns;
+	a <= (not x) after 2ns;
+	b <= (not x) after 1ns;
+	y <= ((a and ctrl) or (b and ctrl_bar)) after 1ns;
+	c <= (not y) after 2ns;
+	d <= (not y) after 1ns;
+	z <= ((c and ctrl) or (d and ctrl_bar)) after 1ns;
+end glue;
+
+entity rsff is
+	port(set, clock: in bit; input: in bit;
+		  output: out bit);
+end rsff;
+
+architecture arch of rsff is
+begin
+	output <= "1" when set
+		else input when clock
+		else output;
+end arch;
+
+
+entity rsff is 
+	port (set, clock, input: in bit;
+		   output: out bit);
+end rsff;
+
+architecture arch of rsff is 
+	signal t_0, t_1, t_2: bit;
+begin
+	t_0 <= (not set) after 0.1ns;
+	t_1 <= (not clock) after 0.1ns;
+	t_2 <= ((output and t_1) nor
+		(input and clock)) after 0.1ns;
+	output <= (t_0 nand t_2) after 0.1ns;
+end arch;
+
+entity xorex is
+    port(x: in bit; z: out bit);
+end xorex;
+architecture logic of xorex is
+    signal a,b: bit;
+begin
+    a <= not x after 3ns;
+    b <= not x after 3ns;
+    z <= a xor b after 3 ns;
+end logic;
+
+
+
+
+--Loren
+

@@ -1,0 +1,36 @@
+
+MX synch.str{
+MP{r IN;s1 IN;s2 IN;c IN;m IN;y OUT;ynot OUT;}
+MH{
+HS{g1;g2;g3;g4;
+g5;g6;g8;g9;}
+HA{ynot<=((c NAND g6))}
+HA{g1<=((g2 NAND r))}
+HA{g2<=((g1 AND s1 AND s2))}
+HA{g3<=(NOT(c))}
+HA{g4<=((g2 AND g3 AND g9))}
+HA{g5<=((g9 AND g2 AND g6))}
+HA{g6<=((g4 AND g5 AND ynot))}
+HA{g8<=((ynot NAND g9))}
+HA{g9<=((g8 AND g2 AND m))}
+HA{y<=(NOT(ynot))}}}
+
+MF{
+FS{c m r s1 s2 y ynot }
+FS{g1 g2 g3 g4 g5 g6 g8 g9 }
+FG NAND.1{NAND 0 I 2 c g6 1 ynot }
+FG NAND.2{NAND 0 I 2 g2 
+r 1 g1 }
+FG AND.5{AND 0 I 3 g1 s1 s2 1 
+g2 }
+FG NOT.3{NOT 0 I 1 c 1 g3 }
+FG AND.6{AND 0 I 3 g2 g3 
+g9 1 g4 }
+FG AND.7{AND 0 I 3 g9 g2 g6 1 
+g5 }
+FG AND.8{AND 0 I 3 g4 g5 ynot 1 g6 }
+FG NAND.3{NAND 0 I 2 
+ynot g9 1 g8 }
+FG AND.9{AND 0 I 3 g8 g2 
+m 1 g9 }
+FG NOT.4{NOT 0 I 1 ynot 1 y }}

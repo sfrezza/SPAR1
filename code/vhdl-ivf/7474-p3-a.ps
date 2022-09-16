@@ -1,0 +1,411 @@
+%!							    	
+%  head.ps									
+%    prologue file for ploting of schematics editor drawings			
+%										
+%  routines:									
+%    init    -- sets up the graphics state for the proper scaling		
+%										
+%  some constants that can be changed:						
+/swidth        .1 def			% width of lines			
+/fwidth	      1.6 def			% scale factor for labels		
+/hwidth        12 def			% type size of header			
+/hmargin        6 def			% header margin				
+/init {		 	 	%  (optional_header) xlo ylo xhi yhi -> -	
+	/yhi exch def /xhi exch def						
+	/ylo exch def /xlo exch def						
+	/lwunit 72 def			% LaserWriter units per inch		
+	/marginx 0.27 lwunit mul def    % x-margin				
+	/marginy 0.25 lwunit mul def    % y-margin				
+	/pagex 8.5 lwunit mul		% usable x-space on page		
+             2 marginx mul sub def						
+	/pagey 11.0 lwunit mul 		% usable y-space on page		
+	     2 marginy mul sub def						
+%										
+	count 1 ge {			% header left on stack?			
+	     /Helvetica-Bold findfont   % set header font			
+		 hwidth scalefont setfont					
+	     marginx marginy pagey add hwidth sub				
+		 moveto			% position to place text		
+	     show			% print header string			
+	     /pagey pagey hwidth hmargin add sub				
+		 def			% adjust page size for header		
+	} if									
+%										
+	count 1 ge {			% 2nd header left on stack?		
+	     marginx marginy pagey add hwidth sub				
+		 moveto			% position to place text		
+	     show			% print header string			
+	     /pagey pagey hwidth hmargin add sub				
+		 def			% adjust page size for header		
+	} if									
+%										
+%										
+	/Courier findfont               % set the drawing font			
+	    fwidth scalefont setfont				       		
+%								    		
+	xhi xlo sub yhi ylo sub div     % push delta x / delta y		
+	pagex pagey div			% push pagex / pagey			
+	gt {									
+	   90 rotate			% rotate page and set origin		
+	   marginy pagex marginx add neg translate				
+	   pagey xhi xlo sub div	% push x and y scales			
+	   pagex yhi ylo sub div						
+        }{							      		
+	   marginx marginy translate	% set origin				
+	   pagex xhi xlo sub div	% push x and y scales			
+	   pagey yhi ylo sub div						
+	} ifelse								
+%										
+	2 copy 				% dup the scales			
+	gt 									
+	   {dup scale pop}		% xscale > yscale: use yscale		
+	   {pop dup scale}              % yscale > xscale: use xscale		
+	ifelse									
+%								 		
+	xlo neg ylo neg translate		% move origin to proper place	
+	swidth setlinewidth		% set line width for strokes		
+} def										
+
+(N2A frezza Fri May  8 16:09:42 1992
+ ../../vhdl/7474.ivf with rip-up)
+
+(with flags-> rule #3 s:4 c:24 part:8 dir:0)
+-14 -4 79 52 init
+
+%% postscript code for modules associated with net <z> %%
+
+%% NAND Gate centered at 17.000000 42.000000... 
+newpath 17.250000 42.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 17.250000 44.500000 moveto 13.500000 44.500000 lineto 13.500000 39.500000 lineto 17.250000 39.500000 lineto stroke
+ newpath  20.500000 42.000000 0.750000 0 360 arc closepath stroke
+newpath 21.250000 42.000000 moveto 22 42.000000 lineto stroke 
+13.800000 43.100000 moveto (NAND.4) show
+22.000000 43.000000 moveto (w) show
+newpath 12 44 moveto 13.500000 44 lineto closepath  stroke
+ newpath 12 42 moveto 13.500000 42 lineto closepath  stroke
+ newpath 12 40 moveto 13.500000 40 lineto closepath  stroke
+ 
+%% NAND Gate centered at 17.000000 29.000000... 
+newpath 17.250000 29.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 17.250000 31.500000 moveto 13.500000 31.500000 lineto 13.500000 26.500000 lineto 17.250000 26.500000 lineto stroke
+ newpath  20.500000 29.000000 0.750000 0 360 arc closepath stroke
+newpath 21.250000 29.000000 moveto 22 29.000000 lineto stroke 
+13.800000 30.100000 moveto (NAND.3) show
+22.000000 30.000000 moveto (z) show
+newpath 12 31 moveto 13.500000 31 lineto closepath  stroke
+ newpath 12 29 moveto 13.500000 29 lineto closepath  stroke
+ newpath 12 27 moveto 13.500000 27 lineto closepath  stroke
+ 
+%% NAND Gate centered at 37.000000 29.000000... 
+newpath 37.250000 29.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 37.250000 31.500000 moveto 33.500000 31.500000 lineto 33.500000 26.500000 lineto 37.250000 26.500000 lineto stroke
+ newpath  40.500000 29.000000 0.750000 0 360 arc closepath stroke
+newpath 41.250000 29.000000 moveto 42 29.000000 lineto stroke 
+33.800000 30.100000 moveto (NAND.5) show
+42.000000 30.000000 moveto (q) show
+newpath 32 31 moveto 33.500000 31 lineto closepath  stroke
+ newpath 32 29 moveto 33.500000 29 lineto closepath  stroke
+ newpath 32 27 moveto 33.500000 27 lineto closepath  stroke
+ 
+%% NAND Gate centered at 13.000000 17.000000... 
+newpath 13.250000 17.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 13.250000 19.500000 moveto 9.500000 19.500000 lineto 9.500000 14.500000 lineto 13.250000 14.500000 lineto stroke
+ newpath  16.500000 17.000000 0.750000 0 360 arc closepath stroke
+newpath 17.250000 17.000000 moveto 18 17.000000 lineto stroke 
+9.800000 18.100000 moveto (NAND.2) show
+18.000000 18.000000 moveto (y) show
+newpath 8 19 moveto 9.500000 19 lineto closepath  stroke
+ newpath 8 17 moveto 9.500000 17 lineto closepath  stroke
+ newpath 8 15 moveto 9.500000 15 lineto closepath  stroke
+ 
+%% postscript code for net <z> %%
+newpath 3.000000 33.000000 0.350000 0 360 arc closepath fill
+newpath 23.000000 29.000000 0.350000 0 360 arc closepath fill
+newpath 3 15 moveto 8 15 lineto 
+closepath stroke [] 0 setdash
+newpath 8 15 moveto 3 15 lineto 
+3 15 moveto 3 44 lineto 
+3 44 moveto 3 33 lineto 
+closepath stroke [] 0 setdash
+newpath 23 29 moveto 22 29 lineto 
+22 29 moveto 32 29 lineto 
+closepath stroke [] 0 setdash
+newpath 32 29 moveto 23 29 lineto 
+23 29 moveto 22 29 lineto 
+closepath stroke [] 0 setdash
+newpath 22 29 moveto 32 29 lineto 
+32 29 moveto 23 29 lineto 
+23 29 moveto 23 33 lineto 
+closepath stroke [] 0 setdash
+newpath 3 33 moveto 23 33 lineto 
+23 33 moveto 23 29 lineto 
+closepath stroke [] 0 setdash
+newpath 23 33 moveto 3 33 lineto 
+3 33 moveto 3 44 lineto 
+3 44 moveto 3 15 lineto 
+closepath stroke [] 0 setdash
+newpath 12 44 moveto 3 44 lineto 
+3 44 moveto 3 15 lineto 
+3 15 moveto 3 33 lineto 
+closepath stroke [] 0 setdash
+newpath 3 44 moveto 12 44 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <y> %%
+
+%% NAND Gate centered at 33.000000 15.000000... 
+newpath 33.250000 15.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 33.250000 17.500000 moveto 29.500000 17.500000 lineto 29.500000 12.500000 lineto 33.250000 12.500000 lineto stroke
+ newpath  36.500000 15.000000 0.750000 0 360 arc closepath stroke
+newpath 37.250000 15.000000 moveto 38 15.000000 lineto stroke 
+29.800000 16.100000 moveto (NAND.6) show
+38.000000 16.000000 moveto (qbar) show
+newpath 28 17 moveto 29.500000 17 lineto closepath  stroke
+ newpath 28 15 moveto 29.500000 15 lineto closepath  stroke
+ newpath 28 13 moveto 29.500000 13 lineto closepath  stroke
+ 
+%% NAND Gate centered at 13.000000 4.000000... 
+newpath 13.250000 4.000000 2.500000 -90.081000 90.081000 arc stroke
+newpath 13.250000 6.500000 moveto 9.500000 6.500000 lineto 9.500000 1.500000 lineto 13.250000 1.500000 lineto stroke
+ newpath  16.500000 4.000000 0.750000 0 360 arc closepath stroke
+newpath 17.250000 4.000000 moveto 18 4.000000 lineto stroke 
+9.800000 5.100000 moveto (NAND.1) show
+18.000000 5.000000 moveto (x) show
+newpath 8 6 moveto 9.500000 6 lineto closepath  stroke
+ newpath 8 4 moveto 9.500000 4 lineto closepath  stroke
+ newpath 8 2 moveto 9.500000 2 lineto closepath  stroke
+ 
+%% postscript code for net <y> %%
+newpath 18.000000 17.000000 0.350000 0 360 arc closepath fill
+newpath 7 2 moveto 8 2 lineto 
+closepath stroke [] 0 setdash
+newpath 8 2 moveto 7 2 lineto 
+7 2 moveto 7 10 lineto 
+closepath stroke [] 0 setdash
+newpath 18 10 moveto 7 10 lineto 
+7 10 moveto 7 2 lineto 
+closepath stroke [] 0 setdash
+newpath 7 10 moveto 18 10 lineto 
+18 10 moveto 18 17 lineto 
+closepath stroke [] 0 setdash
+newpath 28 17 moveto 18 17 lineto 
+18 17 moveto 18 17 lineto 
+18 17 moveto 18 10 lineto 
+closepath stroke [] 0 setdash
+newpath 28 17 moveto 18 17 lineto 
+18 17 moveto 18 17 lineto 
+closepath stroke [] 0 setdash
+newpath 18 17 moveto 18 17 lineto 
+18 17 moveto 28 17 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <x> %%
+
+%% postscript code for net <x> %%
+newpath 6.000000 21.000000 0.350000 0 360 arc closepath fill
+newpath 20 4 moveto 18 4 lineto 
+closepath stroke [] 0 setdash
+newpath 18 4 moveto 20 4 lineto 
+20 4 moveto 20 21 lineto 
+closepath stroke [] 0 setdash
+newpath 6 21 moveto 20 21 lineto 
+20 21 moveto 20 4 lineto 
+closepath stroke [] 0 setdash
+newpath 20 21 moveto 6 21 lineto 
+6 21 moveto 6 42 lineto 
+6 42 moveto 6 19 lineto 
+closepath stroke [] 0 setdash
+newpath 6 19 moveto 8 19 lineto 
+closepath stroke [] 0 setdash
+newpath 8 19 moveto 6 19 lineto 
+6 19 moveto 6 42 lineto 
+6 42 moveto 6 21 lineto 
+closepath stroke [] 0 setdash
+newpath 12 42 moveto 6 42 lineto 
+6 42 moveto 6 19 lineto 
+6 19 moveto 6 21 lineto 
+closepath stroke [] 0 setdash
+newpath 6 42 moveto 12 42 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <w> %%
+
+%% postscript code for net <w> %%
+newpath 22 42 moveto 22 42 lineto 
+closepath stroke [] 0 setdash
+newpath 22 42 moveto 22 42 lineto 
+22 42 moveto 22 38 lineto 
+closepath stroke [] 0 setdash
+newpath 10 38 moveto 22 38 lineto 
+22 38 moveto 22 42 lineto 
+closepath stroke [] 0 setdash
+newpath 22 38 moveto 10 38 lineto 
+10 38 moveto 10 27 lineto 
+closepath stroke [] 0 setdash
+newpath 12 27 moveto 10 27 lineto 
+10 27 moveto 10 38 lineto 
+closepath stroke [] 0 setdash
+newpath 10 27 moveto 12 27 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <qbar> %%
+newpath 54 15 moveto 3 0 rlineto -2 1 rlineto  stroke
+57 15 moveto -2 -1 rlineto  stroke
+56.100000 16.100000 moveto (qbar) show
+newpath 54 15 moveto 1 0 rlineto closepath  stroke
+ 
+%% postscript code for net <qbar> %%
+newpath 46.000000 15.000000 0.350000 0 360 arc closepath fill
+newpath 46 15 moveto 38 15 lineto 
+38 15 moveto 54 15 lineto 
+closepath stroke [] 0 setdash
+newpath 54 15 moveto 46 15 lineto 
+46 15 moveto 38 15 lineto 
+closepath stroke [] 0 setdash
+newpath 38 15 moveto 54 15 lineto 
+54 15 moveto 46 15 lineto 
+46 15 moveto 46 19 lineto 
+closepath stroke [] 0 setdash
+newpath 25 19 moveto 46 19 lineto 
+46 19 moveto 46 15 lineto 
+closepath stroke [] 0 setdash
+newpath 46 19 moveto 25 19 lineto 
+25 19 moveto 25 31 lineto 
+closepath stroke [] 0 setdash
+newpath 32 31 moveto 25 31 lineto 
+25 31 moveto 25 19 lineto 
+closepath stroke [] 0 setdash
+newpath 25 31 moveto 32 31 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <q> %%
+newpath 54 29 moveto 3 0 rlineto -2 1 rlineto  stroke
+57 29 moveto -2 -1 rlineto  stroke
+57.600000 30.100000 moveto (q) show
+newpath 54 29 moveto 1 0 rlineto closepath  stroke
+ 
+%% postscript code for net <q> %%
+newpath 48.000000 29.000000 0.350000 0 360 arc closepath fill
+newpath 54 29 moveto 48 29 lineto 
+48 29 moveto 42 29 lineto 
+closepath stroke [] 0 setdash
+newpath 48 29 moveto 42 29 lineto 
+42 29 moveto 54 29 lineto 
+closepath stroke [] 0 setdash
+newpath 54 29 moveto 42 29 lineto 
+42 29 moveto 48 29 lineto 
+48 29 moveto 48 24 lineto 
+closepath stroke [] 0 setdash
+newpath 27 24 moveto 48 24 lineto 
+48 24 moveto 48 29 lineto 
+closepath stroke [] 0 setdash
+newpath 48 24 moveto 27 24 lineto 
+27 24 moveto 27 13 lineto 
+closepath stroke [] 0 setdash
+newpath 28 13 moveto 27 13 lineto 
+27 13 moveto 27 24 lineto 
+closepath stroke [] 0 setdash
+newpath 27 13 moveto 28 13 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <nset> %%
+newpath -3 40 moveto -3 0 rlineto -4 1 rlineto  stroke
+-6 40 moveto -4 -1 rlineto  stroke
+-12.200000 42.100000 moveto (nset) show
+
+%% postscript code for net <nset> %%
+newpath 2.000000 40.000000 0.350000 0 360 arc closepath fill
+newpath 24 27 moveto 32 27 lineto 
+closepath stroke [] 0 setdash
+newpath 32 27 moveto 24 27 lineto 
+24 27 moveto 24 35 lineto 
+closepath stroke [] 0 setdash
+newpath 2 35 moveto 24 35 lineto 
+24 35 moveto 24 27 lineto 
+closepath stroke [] 0 setdash
+newpath 24 35 moveto 2 35 lineto 
+2 35 moveto 2 40 lineto 
+closepath stroke [] 0 setdash
+newpath -3 40 moveto 12 40 lineto 
+12 40 moveto 2 40 lineto 
+2 40 moveto 2 35 lineto 
+closepath stroke [] 0 setdash
+newpath -3 40 moveto 2 40 lineto 
+2 40 moveto 12 40 lineto 
+closepath stroke [] 0 setdash
+newpath 2 40 moveto 12 40 lineto 
+12 40 moveto -3 40 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <nclr> %%
+newpath -3 29 moveto -3 0 rlineto -4 1 rlineto  stroke
+-6 29 moveto -4 -1 rlineto  stroke
+-12.200000 31.100000 moveto (nclr) show
+
+%% postscript code for net <nclr> %%
+newpath 4.000000 29.000000 0.350000 0 360 arc closepath fill
+newpath 4.000000 24.000000 0.350000 0 360 arc closepath fill
+newpath 12 29 moveto 4 29 lineto 
+4 29 moveto -3 29 lineto 
+closepath stroke [] 0 setdash
+newpath 4 4 moveto 8 4 lineto 
+closepath stroke [] 0 setdash
+newpath 8 4 moveto 4 4 lineto 
+4 4 moveto 4 29 lineto 
+4 29 moveto 4 24 lineto 
+closepath stroke [] 0 setdash
+newpath 22 15 moveto 28 15 lineto 
+closepath stroke [] 0 setdash
+newpath 28 15 moveto 22 15 lineto 
+22 15 moveto 22 24 lineto 
+closepath stroke [] 0 setdash
+newpath 4 24 moveto 22 24 lineto 
+22 24 moveto 22 15 lineto 
+closepath stroke [] 0 setdash
+newpath 22 24 moveto 4 24 lineto 
+4 24 moveto 4 4 lineto 
+4 4 moveto 4 29 lineto 
+closepath stroke [] 0 setdash
+newpath 12 29 moveto -3 29 lineto 
+-3 29 moveto 4 29 lineto 
+4 29 moveto 4 4 lineto 
+4 4 moveto 4 24 lineto 
+closepath stroke [] 0 setdash
+newpath -3 29 moveto 4 29 lineto 
+4 29 moveto 12 29 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <d> %%
+newpath -3 6 moveto -3 0 rlineto -4 1 rlineto  stroke
+-6 6 moveto -4 -1 rlineto  stroke
+-10.700000 8.100000 moveto (d) show
+
+%% postscript code for net <d> %%
+newpath -3 6 moveto 8 6 lineto 
+closepath stroke [] 0 setdash
+newpath 8 6 moveto -3 6 lineto 
+closepath stroke [] 0 setdash
+
+%% postscript code for modules associated with net <clock> %%
+newpath -3 17 moveto -3 0 rlineto -4 1 rlineto  stroke
+-6 17 moveto -4 -1 rlineto  stroke
+-12.700000 19.100000 moveto (clock) show
+
+%% postscript code for net <clock> %%
+newpath 7.000000 17.000000 0.350000 0 360 arc closepath fill
+newpath 7 31 moveto 12 31 lineto 
+closepath stroke [] 0 setdash
+newpath 12 31 moveto 7 31 lineto 
+7 31 moveto 7 17 lineto 
+closepath stroke [] 0 setdash
+newpath -3 17 moveto 8 17 lineto 
+8 17 moveto 7 17 lineto 
+7 17 moveto 7 31 lineto 
+closepath stroke [] 0 setdash
+newpath -3 17 moveto 7 17 lineto 
+7 17 moveto 8 17 lineto 
+closepath stroke [] 0 setdash
+newpath 7 17 moveto 8 17 lineto 
+8 17 moveto -3 17 lineto 
+closepath stroke [] 0 setdash
+showpage

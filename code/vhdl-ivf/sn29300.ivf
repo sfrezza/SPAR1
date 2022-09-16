@@ -1,0 +1,74 @@
+
+M_ d_latch.dl_beh{
+MP{clock IN;din IN;clockbar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HP _2{
+PN{clock;din;clockbar;}
+PD{state;}
+PI{
+IC{((((clock EQ "1"[0:0])) AND ((din EQ "0"[0:0]))))}
+PV{state:=(("0"[0:0]))}
+IC{((clock EQ "1"[0:0]))}
+PV{state:=(("1"[0:0]))}}
+PS{q<=((state))}
+PS{qbar<=(NOT(state))}}}}
+
+MX sn29300.mixed{
+MP{pin[3:0] IN;q[4:0] OUT;clock IN;sl IN;clear IN;j IN;kbar IN;}
+MH{
+HS{acon;b[3:0];bcon;c[3:0];
+ccon;clearbar;clockbar;d[3:0];dcon;
+e[3:0];f;jbar;k;slbar;}
+HA{slbar<=(NOT(sl) AFTER 30)}
+HA{clockbar<=(NOT(clock) AFTER 30)}
+HA{clearbar<=(NOT(clear) AFTER 30)}
+HA{k<=(NOT(kbar) AFTER 30)}
+HA{jbar<=(NOT(j) AFTER 30)}
+HA{f<=((((j AND (NOT(q[0:0])))) OR ((q[0:0] AND kbar))) AFTER 60)}
+HA{acon<=(((((pin[0:0]) AFTER 30))WHEN ((slbar)) ELSE ((f))))}
+HA{bcon<=(((((pin[1:1]) AFTER 30))WHEN ((slbar)) ELSE ((q[0:0]))))}
+HA{ccon<=(((((pin[2:2]) AFTER 30))WHEN ((slbar)) ELSE ((q[1:1]))))}
+HA{dcon<=(((((pin[3:3]) AFTER 30))WHEN ((slbar)) ELSE ((q[2:2]))))}
+HA{q[3:0]<=((((("0000"[3:0]) AFTER 60))WHEN (NOT(clear)) ELSE ((d[3:0]) AFTER 30)))}
+HA{q[4:4]<=((((("1"[0:0]) AFTER 60))WHEN (NOT(clear)) ELSE ((e[3:3]))))}
+HC l7{d_latch.dl_beh clockbar;b[3:3];clock;d[3:3];e[3:3];}
+HC l6{d_latch.dl_beh clockbar;b[2:2];clock;d[2:2];e[2:2];}
+HC l5{d_latch.dl_beh clockbar;b[1:1];clock;d[1:1];e[1:1];}
+HC l4{d_latch.dl_beh clockbar;b[0:0];clock;d[0:0];e[0:0];}
+HC l3{d_latch.dl_beh clock;dcon;clockbar;b[3:3];c[3:3];}
+HC l2{d_latch.dl_beh clock;ccon;clockbar;b[2:2];c[2:2];}
+HC l1{d_latch.dl_beh clock;bcon;clockbar;b[1:1];c[1:1];}
+HC l0{d_latch.dl_beh clock;acon;clockbar;b[0:0];c[0:0];}}}
+
+MF{
+FS{clear clock j kbar pin_0 pin_1 pin_2 pin_3 q_0 q_1 q_2 q_3 q_4 sl }
+FS{TRUE FALSE _88 _89 _90 acon b_0 b_1 b_2 b_3 bcon c_0 c_1 c_2 c_3 ccon clearbar clockbar d_0 d_1 d_2 d_3 dcon e_0 e_1 e_2 e_3 f jbar k slbar }
+FG NOT.13{NOT 30 I 1 sl 1 slbar }
+FG NOT.14{NOT 30 I 1 clock 1 clockbar }
+FG NOT.15{NOT 30 I 1 clear 1 clearbar }
+FG NOT.16{NOT 30 I 1 kbar 1 k }
+FG NOT.17{NOT 30 I 1 j 1 jbar }
+FG NOT.18{NOT 0 I 1 q_0 1 _88 }
+FG AND.5{AND 0 I 2 j _88 1 _89 }
+FG AND.6{AND 0 I 2 q_0 kbar 1 _90 }
+FG OR.2{OR 60 I 2 _89 _90 1 f }
+FG COND.9{COND 0 I 3 pin_0 slbar f 1 acon }
+FG COND.10{COND 0 I 3 pin_1 slbar q_0 1 bcon }
+FG COND.11{COND 0 I 3 pin_2 slbar q_1 1 ccon }
+FG COND.12{COND 0 I 3 pin_3 slbar q_2 1 dcon }
+FG COND.13_0{COND 0 I 3 FALSE clearbar d_0 1 q_0 }
+FG COND.13_1{COND 0 I 3 FALSE clearbar d_1 1 q_1 }
+FG COND.13_2{COND 0 I 3 FALSE clearbar d_2 1 q_2 }
+FG COND.13_3{COND 0 I 3 FALSE clearbar d_3 1 q_3 }
+FG COND.14{COND 0 I 3 TRUE  clearbar e_3 1 q_4 }
+
+FP l7/_2{fun_d_latch_dl_beh__2 3 clockbar b_3 clock 5 clockbar clock b_3 d_3 e_3 2 d_3 e_3}
+FP l6/_2{fun_d_latch_dl_beh__2 3 clockbar b_2 clock 5 clockbar clock b_2 d_2 e_2 2 d_2 e_2 }
+FP l5/_2{fun_d_latch_dl_beh__2 3 clockbar b_1 clock 5 clockbar clock b_1 d_1 e_1 2 d_1 e_1 }
+FP l4/_2{fun_d_latch_dl_beh__2 3 clockbar b_0 clock 5 clockbar clock b_0 d_0 e_0 2 d_0 e_0 }
+
+FP l3/_2{fun_d_latch_dl_beh__2 3 clock dcon clockbar 5 clock clockbar dcon b_3 c_3 2 b_3 c_3 }
+FP l2/_2{fun_d_latch_dl_beh__2 3 clock ccon clockbar 5 clock clockbar ccon b_2 c_2 2 b_2 c_2 }
+FP l1/_2{fun_d_latch_dl_beh__2 3 clock bcon clockbar 5 clock clockbar bcon b_1 c_1 2 b_1 c_1 }
+FP l0/_2{fun_d_latch_dl_beh__2 3 clock acon clockbar 5 clock clockbar acon b_0 c_0 2 b_0 c_0 }}

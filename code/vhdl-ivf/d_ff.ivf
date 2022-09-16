@@ -1,0 +1,34 @@
+
+MX d_ff.d_struct{
+MP{d IN;c IN;q1 OUT;qbar1 OUT;}
+MH{
+HS{cbar;dbar;q0;qbar0;rbar0;rbar1;sbar0;sbar1;}
+HA{dbar<=(NOT(d))}
+HA{rbar0<=((dbar NAND c))}
+HA{sbar0<=((d NAND c))}
+HA{cbar<=(NOT(c))}
+HA{rbar1<=((qbar0 NAND cbar))}
+HA{sbar1<=((q0 NAND cbar))}
+HC rs_1{rs_ff.rs_struct rbar1;sbar1;q1;qbar1;}
+HC rs_0{rs_ff.rs_struct rbar0;sbar0;q0;qbar0;}}}
+
+M_ rs_ff.rs_struct{
+MP{rbar IN;sbar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HA{q<=((sbar NAND qbar))}
+HA{qbar<=((rbar NAND q))}}}
+
+MF{
+FS{c d q1 qbar1 }
+FS{cbar dbar q0 qbar0 rbar0 rbar1 sbar0 sbar1 }
+FG NOT.1{NOT 0 I 1 d 1 dbar }
+FG NAND.3{NAND 0 I 2 dbar c 1 rbar0 }
+FG NAND.4{NAND 0 I 2 d c 1 sbar0 }
+FG NOT.2{NOT 0 I 1 c 1 cbar }
+FG NAND.5{NAND 0 I 2 qbar0 cbar 1 rbar1 }
+FG NAND.6{NAND 0 I 2 q0 cbar 1 sbar1 }
+FG rs_1/NAND.1{NAND 0 I 2 sbar1 qbar1 1 q1 }
+FG rs_1/NAND.2{NAND 0 I 2 rbar1 q1 1 qbar1 }
+FG rs_0/NAND.1{NAND 0 I 2 sbar0 qbar0 1 q0 }
+FG rs_0/NAND.2{NAND 0 I 2 rbar0 q0 1 qbar0 }}

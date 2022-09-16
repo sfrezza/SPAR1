@@ -1,0 +1,232 @@
+
+MX i8212.beh{
+MP{di[7:0] IN;do[7:0] OUT;nds1 IN;ds2 IN;md IN;stb IN;nclr IN;nint OUT;}
+MH{
+HS{q[7:0];q1[7:0];q2[7:0];s0;
+s1;s2;s3;srq;}
+HA{s0<=(((NOT(nds1)) AND ds2) AFTER 300)}
+HA{s1<=((((s0 AND md)) OR ((stb AND (NOT(md))))) AFTER 600)}
+HA{s2<=((s0 NOR (NOT(nclr))) AFTER 300)}
+HA{s3<=((s0 OR md) AFTER 300)}
+HA{nint<=(((NOT(srq)) NOR s0) AFTER 300)}
+HA{q[7:0]<=(((((q1[7:0]) AFTER 110))WHEN ((s1 AND nclr)) ELSE (((((q2[7:0])))WHEN (NOT(nclr)) ELSE ((q[7:0]))))))}
+HP servrq{
+PN{s2;stb;}
+PD{stb_old;}
+PI{
+IC{((s2 EQ "0"[0:0]))}
+PS{srq<=(("1"[0:0]) AFTER 100)}
+IC{((((s2 EQ "1"[0:0])) AND ((stb NE stb_old)) AND ((stb EQ "0"[0:0]))))}
+PS{srq<=(("0"[0:0]) AFTER 100)}
+IE{}
+PS{srq<=((srq))}}
+PV{stb_old:=((stb))}}
+HB b{
+HS{}
+HA{q1[7:0]<=(((((di[7:0]) AFTER 100))WHEN ((s1 AND nclr)) ELSE ((q1[7:0]))))}
+HA{q2[7:0]<=((((("00000000"[7:0]) AFTER 100))WHEN (NOT(nclr)) ELSE ((q2[7:0]))))}
+HA{do[7:0]<=(((((q[7:0]) AFTER 200))WHEN ((s3)) ELSE (("00000000"[7:0]))))}}}}
+
+MF{
+FS{di_0 di_1 di_2 di_3 di_4 di_5 di_6 di_7 do_0 do_1 do_2 do_3 do_4 do_5 do_6 do_7 ds2 md nclr nds1 nint stb }
+FS{_34 _37 _38 _39 _42 _58 _61_0 _61_1 _61_2 _61_3 _61_4 _61_5 _61_6 _61_7 _63 _64_0 _64_1 _64_2 _64_3 _64_4 _64_5 _64_6 _64_7 _66 _67_0 _67_1 _67_2 _67_3 _67_4 _67_5 _67_6 _67_7 _68_0 _68_1 _68_2 _68_3 _68_4 _68_5 _68_6 _68_7 q_0 q_1 q_2 q_3 q_4 q_5 q_6 q_7 q1_0 q1_1 q1_2 q1_3 q1_4 q1_5 q1_6 q1_7 q2_0 q2_1 q2_2 q2_3 q2_4 q2_5 q2_6 q2_7 s0 s1 s2 s3 srq }
+FS{servrq/stb_old }
+FG NOT.5{NOT 0 I 1 nds1 1 _34 }
+FG AND.2{AND 300 I 2 _34 ds2 1 
+s0 }
+FG AND.3{AND 0 I 2 s0 md 1 _37 }
+FG NOT.6{NOT 0 I 1 md 1 
+_38 }
+FG AND.4{AND 0 I 2 stb _38 1 _39 }
+FG OR.1{OR 600 I 2 _37 
+_39 1 s1 }
+FG NOT.7{NOT 0 I 1 nclr 1 _42 }
+FG NOR.3{NOR 300 I 2 s0 
+_42 1 s2 }
+FG OR.2{OR 300 I 2 s0 md 1 s3 }
+FG NOT.8{NOT 0 I 1 
+srq 1 _58 }
+FG NOR.4{NOR 300 I 2 _58 s0 1 nint }
+FG NL_GATE.44_0{NL_GATE 110 I 1 
+q1_0 1 _61_0 }
+FG NL_GATE.44_1{NL_GATE 110 I 1 q1_1 1 _61_1 }
+FG NL_GATE.44_2{NL_GATE 110 I 1 q1_2 1 
+_61_2 }
+FG NL_GATE.44_3{NL_GATE 110 I 1 q1_3 1 _61_3 }
+FG NL_GATE.44_4{NL_GATE 110 I 1 q1_4 1 _61_4 }
+FG NL_GATE.44_5{NL_GATE 110 I 1 
+q1_5 1 _61_5 }
+FG NL_GATE.44_6{NL_GATE 110 I 1 q1_6 1 _61_6 }
+FG NL_GATE.44_7{NL_GATE 110 I 1 q1_7 1 
+_61_7 }
+FG AND.6{AND 0 I 2 s1 nclr 1 _63 }
+FG NL_GATE.46_0{NL_GATE 0 I 1 q2_0 1 
+_64_0 }
+FG NL_GATE.46_1{NL_GATE 0 I 1 q2_1 1 _64_1 }
+FG NL_GATE.46_2{NL_GATE 0 I 1 q2_2 1 _64_2 }
+FG NL_GATE.46_3{NL_GATE 0 I 1 
+q2_3 1 _64_3 }
+FG NL_GATE.46_4{NL_GATE 0 I 1 q2_4 1 _64_4 }
+FG NL_GATE.46_5{NL_GATE 0 I 1 q2_5 1 
+_64_5 }
+FG NL_GATE.46_6{NL_GATE 0 I 1 q2_6 1 _64_6 }
+FG NL_GATE.46_7{NL_GATE 0 I 1 q2_7 1 _64_7 }
+FG NOT.9{NOT 0 I 1 
+nclr 1 _66 }
+FG NL_GATE.48_0{NL_GATE 0 I 1 q_0 1 _67_0 }
+FG NL_GATE.48_1{NL_GATE 0 I 1 q_1 1 
+_67_1 }
+FG NL_GATE.48_2{NL_GATE 0 I 1 q_2 1 _67_2 }
+FG NL_GATE.48_3{NL_GATE 0 I 1 q_3 1 _67_3 }
+FG NL_GATE.48_4{NL_GATE 0 I 1 
+q_4 1 _67_4 }
+FG NL_GATE.48_5{NL_GATE 0 I 1 q_5 1 _67_5 }
+FG NL_GATE.48_6{NL_GATE 0 I 1 q_6 1 
+_67_6 }
+FG NL_GATE.48_7{NL_GATE 0 I 1 q_7 1 _67_7 }
+FG COND.4_0{COND 0 I 3 _64_0 _66 
+_67_0 1 _68_0 }
+FG COND.4_1{COND 0 I 3 _64_1 _66 _67_1 1 
+_68_1 }
+FG COND.4_2{COND 0 I 3 _64_2 _66 _67_2 1 _68_2 }
+FG COND.4_3{COND 0 I 3 
+_64_3 _66 _67_3 1 _68_3 }
+FG COND.4_4{COND 0 I 3 _64_4 
+_66 _67_4 1 _68_4 }
+FG COND.4_5{COND 0 I 3 _64_5 _66 
+_67_5 1 _68_5 }
+FG COND.4_6{COND 0 I 3 _64_6 _66 _67_6 1 
+_68_6 }
+FG COND.4_7{COND 0 I 3 _64_7 _66 _67_7 1 _68_7 }
+FG COND.5_0{COND 0 I 3 
+_61_0 _63 _68_0 1 q_0 }
+FG COND.5_1{COND 0 I 3 _61_1 
+_63 _68_1 1 q_1 }
+FG COND.5_2{COND 0 I 3 _61_2 _63 
+_68_2 1 q_2 }
+FG COND.5_3{COND 0 I 3 _61_3 _63 _68_3 1 
+q_3 }
+FG COND.5_4{COND 0 I 3 _61_4 _63 _68_4 1 q_4 }
+FG COND.5_5{COND 0 I 3 
+_61_5 _63 _68_5 1 q_5 }
+FG COND.5_6{COND 0 I 3 _61_6 
+_63 _68_6 1 q_6 }
+FG COND.5_7{COND 0 I 3 _61_7 _63 
+_68_7 1 q_7 }
+FP servrq{fun_i8212_beh_servrq 2 s2 stb 3 s2 srq stb 1 servrq/stb_old }
+FS{b/_20_0 b/_20_1 b/_20_2 b/_20_3 b/_20_4 b/_20_5 b/_20_6 b/_20_7 b/_22 b/_23_0 b/_23_1 b/_23_2 b/_23_3 b/_23_4 b/_23_5 b/_23_6 b/_23_7 b/_25_0 b/_25_1 b/_25_2 b/_25_3 b/_25_4 b/_25_5 b/_25_6 b/_25_7 b/_27 b/_28_0 b/_28_1 b/_28_2 b/_28_3 b/_28_4 b/_28_5 b/_28_6 b/_28_7 b/_30_0 b/_30_1 b/_30_2 b/_30_3 b/_30_4 b/_30_5 b/_30_6 b/_30_7 b/_31 b/_32_0 b/_32_1 b/_32_2 b/_32_3 b/_32_4 b/_32_5 b/_32_6 b/_32_7 }
+FG b/NL_GATE.13_0{NL_GATE 100 I 1 di_0 1 b/_20_0 }
+FG b/NL_GATE.13_1{NL_GATE 100 I 1 di_1 1 
+b/_20_1 }
+FG b/NL_GATE.13_2{NL_GATE 100 I 1 di_2 1 b/_20_2 }
+FG b/NL_GATE.13_3{NL_GATE 100 I 1 di_3 1 b/_20_3 }
+FG b/NL_GATE.13_4{NL_GATE 100 I 1 
+di_4 1 b/_20_4 }
+FG b/NL_GATE.13_5{NL_GATE 100 I 1 di_5 1 b/_20_5 }
+FG b/NL_GATE.13_6{NL_GATE 100 I 1 di_6 1 
+b/_20_6 }
+FG b/NL_GATE.13_7{NL_GATE 100 I 1 di_7 1 b/_20_7 }
+FG b/AND.1{AND 0 I 2 s1 nclr 1 
+b/_22 }
+FG b/NL_GATE.15_0{NL_GATE 0 I 1 q1_0 1 b/_23_0 }
+FG b/NL_GATE.15_1{NL_GATE 0 I 1 q1_1 1 b/_23_1 }
+FG b/NL_GATE.15_2{NL_GATE 0 I 1 
+q1_2 1 b/_23_2 }
+FG b/NL_GATE.15_3{NL_GATE 0 I 1 q1_3 1 b/_23_3 }
+FG b/NL_GATE.15_4{NL_GATE 0 I 1 q1_4 1 
+b/_23_4 }
+FG b/NL_GATE.15_5{NL_GATE 0 I 1 q1_5 1 b/_23_5 }
+FG b/NL_GATE.15_6{NL_GATE 0 I 1 q1_6 1 b/_23_6 }
+FG b/NL_GATE.15_7{NL_GATE 0 I 1 
+q1_7 1 b/_23_7 }
+FG b/COND.1_0{COND 0 I 3 b/_20_0 b/_22 b/_23_0 1 
+q1_0 }
+FG b/COND.1_1{COND 0 I 3 b/_20_1 b/_22 b/_23_1 1 q1_1 }
+FG b/COND.1_2{COND 0 I 3 
+b/_20_2 b/_22 b/_23_2 1 q1_2 }
+FG b/COND.1_3{COND 0 I 3 b/_20_3 
+b/_22 b/_23_3 1 q1_3 }
+FG b/COND.1_4{COND 0 I 3 b/_20_4 b/_22 
+b/_23_4 1 q1_4 }
+FG b/COND.1_5{COND 0 I 3 b/_20_5 b/_22 b/_23_5 1 
+q1_5 }
+FG b/COND.1_6{COND 0 I 3 b/_20_6 b/_22 b/_23_6 1 q1_6 }
+FG b/COND.1_7{COND 0 I 3 
+b/_20_7 b/_22 b/_23_7 1 q1_7 }
+FG b/NL_GATE.17_0{NL_GATE 100 I 1 $0 1 
+b/_25_0 }
+FG b/NL_GATE.17_1{NL_GATE 100 I 1 $0 1 b/_25_1 }
+FG b/NL_GATE.17_2{NL_GATE 100 I 1 $0 1 b/_25_2 }
+FG b/NL_GATE.17_3{NL_GATE 100 I 1 
+$0 1 b/_25_3 }
+FG b/NL_GATE.17_4{NL_GATE 100 I 1 $0 1 b/_25_4 }
+FG b/NL_GATE.17_5{NL_GATE 100 I 1 $0 1 
+b/_25_5 }
+FG b/NL_GATE.17_6{NL_GATE 100 I 1 $0 1 b/_25_6 }
+FG b/NL_GATE.17_7{NL_GATE 100 I 1 $0 1 b/_25_7 }
+FG b/NOT.4{NOT 0 I 1 
+nclr 1 b/_27 }
+FG b/NL_GATE.19_0{NL_GATE 0 I 1 q2_0 1 b/_28_0 }
+FG b/NL_GATE.19_1{NL_GATE 0 I 1 q2_1 1 
+b/_28_1 }
+FG b/NL_GATE.19_2{NL_GATE 0 I 1 q2_2 1 b/_28_2 }
+FG b/NL_GATE.19_3{NL_GATE 0 I 1 q2_3 1 b/_28_3 }
+FG b/NL_GATE.19_4{NL_GATE 0 I 1 
+q2_4 1 b/_28_4 }
+FG b/NL_GATE.19_5{NL_GATE 0 I 1 q2_5 1 b/_28_5 }
+FG b/NL_GATE.19_6{NL_GATE 0 I 1 q2_6 1 
+b/_28_6 }
+FG b/NL_GATE.19_7{NL_GATE 0 I 1 q2_7 1 b/_28_7 }
+FG b/COND.2_0{COND 0 I 3 b/_25_0 b/_27 
+b/_28_0 1 q2_0 }
+FG b/COND.2_1{COND 0 I 3 b/_25_1 b/_27 b/_28_1 1 
+q2_1 }
+FG b/COND.2_2{COND 0 I 3 b/_25_2 b/_27 b/_28_2 1 q2_2 }
+FG b/COND.2_3{COND 0 I 3 
+b/_25_3 b/_27 b/_28_3 1 q2_3 }
+FG b/COND.2_4{COND 0 I 3 b/_25_4 
+b/_27 b/_28_4 1 q2_4 }
+FG b/COND.2_5{COND 0 I 3 b/_25_5 b/_27 
+b/_28_5 1 q2_5 }
+FG b/COND.2_6{COND 0 I 3 b/_25_6 b/_27 b/_28_6 1 
+q2_6 }
+FG b/COND.2_7{COND 0 I 3 b/_25_7 b/_27 b/_28_7 1 q2_7 }
+FG b/NL_GATE.21_0{NL_GATE 200 I 1 
+q_0 1 b/_30_0 }
+FG b/NL_GATE.21_1{NL_GATE 200 I 1 q_1 1 b/_30_1 }
+FG b/NL_GATE.21_2{NL_GATE 200 I 1 q_2 1 
+b/_30_2 }
+FG b/NL_GATE.21_3{NL_GATE 200 I 1 q_3 1 b/_30_3 }
+FG b/NL_GATE.21_4{NL_GATE 200 I 1 q_4 1 b/_30_4 }
+FG b/NL_GATE.21_5{NL_GATE 200 I 1 
+q_5 1 b/_30_5 }
+FG b/NL_GATE.21_6{NL_GATE 200 I 1 q_6 1 b/_30_6 }
+FG b/NL_GATE.21_7{NL_GATE 200 I 1 q_7 1 
+b/_30_7 }
+FG b/NL_GATE.22{NL_GATE 0 I 1 s3 1 b/_31 }
+FG b/NL_GATE.23_0{NL_GATE 0 I 1 $0 1 b/_32_0 }
+FG b/NL_GATE.23_1{NL_GATE 0 I 1 
+$0 1 b/_32_1 }
+FG b/NL_GATE.23_2{NL_GATE 0 I 1 $0 1 b/_32_2 }
+FG b/NL_GATE.23_3{NL_GATE 0 I 1 $0 1 
+b/_32_3 }
+FG b/NL_GATE.23_4{NL_GATE 0 I 1 $0 1 b/_32_4 }
+FG b/NL_GATE.23_5{NL_GATE 0 I 1 $0 1 b/_32_5 }
+FG b/NL_GATE.23_6{NL_GATE 0 I 1 
+$0 1 b/_32_6 }
+FG b/NL_GATE.23_7{NL_GATE 0 I 1 $0 1 b/_32_7 }
+FG b/COND.3_0{COND 0 I 3 b/_30_0 
+b/_31 b/_32_0 1 do_0 }
+FG b/COND.3_1{COND 0 I 3 b/_30_1 b/_31 
+b/_32_1 1 do_1 }
+FG b/COND.3_2{COND 0 I 3 b/_30_2 b/_31 b/_32_2 1 
+do_2 }
+FG b/COND.3_3{COND 0 I 3 b/_30_3 b/_31 b/_32_3 1 do_3 }
+FG b/COND.3_4{COND 0 I 3 
+b/_30_4 b/_31 b/_32_4 1 do_4 }
+FG b/COND.3_5{COND 0 I 3 b/_30_5 
+b/_31 b/_32_5 1 do_5 }
+FG b/COND.3_6{COND 0 I 3 b/_30_6 b/_31 
+b/_32_6 1 do_6 }
+FG b/COND.3_7{COND 0 I 3 b/_30_7 b/_31 b/_32_7 1 
+do_7 }}

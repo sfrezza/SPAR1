@@ -1,0 +1,14 @@
+
+MX g_3.g3_struct{
+MP{rbar IN;sbar IN;tbar IN;q OUT;qbar OUT;}
+MH{
+HS{}
+HA{q<=((((sbar OR tbar)) NAND qbar))}
+HA{qbar<=((rbar NAND q))}}}
+
+MF{
+FS{q qbar rbar sbar tbar }
+FS{_1 }
+FG OR.1{OR 0 I 2 sbar tbar 1 _1 }
+FG NAND.1{NAND 0 I 2 _1 qbar 1 q }
+FG NAND.2{NAND 0 I 2 rbar q 1 qbar }}

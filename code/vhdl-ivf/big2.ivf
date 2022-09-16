@@ -1,0 +1,51 @@
+
+MX fngen.try1{
+MP{g2a IN;g2b IN;enable IN;disable IN;clear IN;load IN;count IN;clock IN;a IN;b IN;c IN;d IN;y OUT;w OUT;}}
+
+MF{
+FS{a b c d clear clock count d disable enable g2a g2b load w y }
+FS{_13_0 _18_0 _32_0 _37_0 aa bb cc dd
+d1_0 d1_1 d1_2 d1_3 d1_4 d1_5 d1_6 d1_7 d1_8 d1_9 d1_10 d1_11 d1_12 d1_13 d1_14 d1_15 
+g gw gy ndisable nenable 
+oct_0 oct_1 oct_2 oct_3 oct_4 oct_5 oct_6 oct_7 
+q_0 q_1 q_2 q_3 rco t_1 t_2 t_3 t_4 t_5}
+
+FP B{fun_als138 0 6 disable g2a g2b aa bb cc 8 oct_0 oct_1 oct_2 oct_3 oct_4 oct_5 oct_6 oct_7 
+FPIS{10 24}
+FPPP{14 disable 0 22 g2a 0 18 g2b 0 14 aa 0 10 bb 0 6 cc 0 2
+oct_0 10 22 oct_1 10 19 oct_2 10 16 oct_3 10 13 oct_4 10 10 oct_5 10 7 oct_6 10 4 oct_7 10 1}}
+
+
+FP 7474_a{BLOCK 0 4 nenable clear clock q_0 2 d1_3 aa FPIS{7 10}}
+FP 7474_b{BLOCK 0 4 nenable clear clock q_1 2 d1_4 bb FPIS{7 10}}
+FP 7474_c{BLOCK 0 4 nenable clear clock q_2 2 d1_5 cc FPIS{7 10}}
+FP 7474_d{BLOCK 0 4 nenable clear clock q_3 2 d1_6 dd FPIS{7 10}}
+
+FG NAND.2{NAND 0 I 2 t_2 d1_0 1 d1_1 }
+FG NAND.3{NAND 0 I 2 oct_3 oct_4 1 t_2 }
+FG AND.1{AND 0 I 3 oct_5 oct_2 oct_0 1 d1_0 }
+FG AND.3{AND 0 I 3 oct_5 oct_6 rco 1 d1_9 }
+
+FP A{fun_as163 0 10 clear load load count disable clock a b c d 5 rco q_0 q_1 q_2 q_3 
+FPIS{10 36}
+FPPP{15 clear 0 32 load 0 29 load 0 26 count 0 23 disable 0 20 clock 0 17 a 0 12 b 0 9 c 0 6  d 0 3
+rco 10 26 q_0 10 15 q_1 10 11 q_2 10 7 q_3 10 3}}
+
+
+FG AND.4{AND 0 I 4 aa bb t_3 t_4 1 d1_11 }
+FG NAND.5{NAND 0 I 3 q_1 bb t_1 1 d1_12 } 
+FG NAND.6{NAND 0 I 3 q_0 cc q_3 1 t_1 }
+FG OR.4{OR 0 I 4 aa q_1 t_3 dd 1 d1_13 }
+FG NOR.5{NOR 0 I 4 q_0 bb t_3 dd 1 d1_14 }
+
+FP C{fun_as850 0 21 clock aa bb cc dd 
+d1_0 d1_1 d1_5 d1_3 d1_4 d1_5 d1_6 d1_11 d1_11 d1_9 cc d1_11 d1_12 d1_13 d1_14 rco  
+5 y w  ndisable enable nenable
+FPIS{14 63}
+FPPP{26 y 14 40 w 14 32 rco 0 61 ndisable 10 63 enable 7 63 nenable 4 63 clock 7 0 aa 0 58 bb 0 55 cc 0 52 dd 0 49
+d1_0 0 46 d1_1 0 43 d1_5 0 40 d1_3 0 37 d1_4 0 34 d1_5 0 31 d1_6 0 28 d1_11 0 25 d1_11 0 22 d1_9 0 19 cc 0 16 d1_11 0 13 d1_12 0 10 d1_13 0 7 d1_14 0 4}}
+
+FG NOT.1{NOT 0 I 1 disable 1 ndisable }
+FG NOT.2{NOT 0 I 1 enable 1 nenable }
+
+}

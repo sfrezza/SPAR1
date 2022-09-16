@@ -1,0 +1,72 @@
+%!
+%  head.ps
+%    prologue file for ploting of schematics editor drawings
+%
+%
+%  routines:
+%    init    -- sets up the graphics state for the proper scaling
+%
+%  some constants that can be changed:
+/swidth        .1 def			% width of lines
+/fwidth	      1.6 def			% scale factor for labels
+/hwidth        12 def			% type size of header
+/hmargin        6 def			% header margin
+
+/init {		 	 	%  (optional_header) xlo ylo xhi yhi -> -
+	/yhi exch def /xhi exch def
+	/ylo exch def /xlo exch def
+	
+	/lwunit 72 def			% LaserWriter units per inch
+	/marginx 0.27 lwunit mul def    % x-margin
+	/marginy 0.25 lwunit mul def    % y-margin
+	/pagex 8.5 lwunit mul		% usable x-space on page
+             2 marginx mul sub def
+	/pagey 11.0 lwunit mul 		% usable y-space on page
+	     2 marginy mul sub def
+
+	count 1 ge {			% header left on stack?
+	     /Helvetica-Bold findfont   % set header font
+		 hwidth scalefont setfont
+	     marginx marginy pagey add hwidth sub
+		 moveto			% position to place text
+	     show			% print header string
+	     /pagey pagey hwidth hmargin add sub	
+		 def			% adjust page size for header
+	} if
+
+	count 1 ge {			% 2nd header left on stack?
+	     marginx marginy pagey add hwidth sub
+		 moveto			% position to place text
+	     show			% print header string
+	     /pagey pagey hwidth hmargin add sub
+		 def			% adjust page size for header
+	} if
+
+
+	/Courier findfont               % set the drawing font
+	    fwidth scalefont setfont
+
+	xhi xlo sub yhi ylo sub div     % push delta x / delta y
+	pagex pagey div			% push pagex / pagey
+	gt {
+	   90 rotate			% rotate page and set origin
+	   marginy pagex marginx add neg translate
+	   pagey xhi xlo sub div	% push x and y scales
+	   pagex yhi ylo sub div
+        }{
+	   marginx marginy translate	% set origin
+	   pagex xhi xlo sub div	% push x and y scales
+	   pagey yhi ylo sub div
+	} ifelse
+
+	2 copy 				% dup the scales
+	gt 
+	   {dup scale pop}		% xscale > yscale: use yscale
+	   {pop dup scale}              % yscale > xscale: use xscale
+	ifelse
+
+	xlo neg ylo neg translate		% move origin to proper place
+	swidth setlinewidth		% set line width for strokes
+} def
+
+
